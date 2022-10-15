@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +26,11 @@ public class Diet {
     
     @OneToMany(mappedBy="diet")
     @JsonManagedReference
-    private List<Food> foodList;
+    private List<FoodItem> foodList;
+
+	@ManyToOne
+    @JoinColumn(name="userName")
+    private Customer customer;
     
     public Diet() {
     }
@@ -34,6 +40,30 @@ public class Diet {
         this.dietId = dietId;
         consumeTime = consumeTime;
         this.dayOfWeek = dayOfWeek;
+    }
+    
+//    public Report getReport() {
+//		return report;
+//	}
+//
+//	public void setReport(Report report) {
+//		this.report = report;
+//	}
+
+	public Customer getCustomer() {
+    	return customer;
+    }
+    
+    public void setCustomer(Customer customer) {
+    	this.customer = customer;
+    }
+    
+    public List<FoodItem> getFoodList() {
+    	return foodList;
+    }
+    
+    public void setFoodList(List<FoodItem> foodList) {
+    	this.foodList = foodList;
     }
 
     public int getDietId() {
@@ -49,7 +79,7 @@ public class Diet {
     }
 
     public void setConsumeTime(ConsumeTime consumeTime) {
-        consumeTime = consumeTime;
+        this.consumeTime = consumeTime;
     }
 
     public DayOfWeek getDayOfWeek() {
@@ -59,14 +89,8 @@ public class Diet {
     public void setDayOfWeek(DayOfWeek dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
-
-    public List<Food> getFoodList() {
-        return foodList;
-    }
-
-    public void setFoodList(List<Food> foodList) {
-        this.foodList = foodList;
-    }
     
+
+	
     
 }

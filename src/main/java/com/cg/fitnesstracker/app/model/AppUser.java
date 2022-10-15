@@ -5,27 +5,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "userlogin")
-public class AppUser {
+@Table(name = "login")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class AppUser{
     @Id
     @GeneratedValue//(strategy = GenerationType.IDENTITY)
     private int userId;
-    @Column(length=20)
-    private String username;
-    @Column(length=40)
+    @Column(length=40,unique=true)
     private String userEmail;
     @JsonIgnore
     private String password;
     private UserType userType; //Enum
-    private boolean isActive;
-  
-    public boolean isActive() {
-		return isActive;
-	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
 
 	public UserType getUserType() {
 		return userType;
@@ -42,15 +32,6 @@ public class AppUser {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-
-
-	public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getPassword() {
         return password;

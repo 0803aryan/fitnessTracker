@@ -12,8 +12,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
-@Table(name="FOOD")
-public class Food {
+@Table(name="FOOD_ITEM")
+public class FoodItem {
     @Id
     @GeneratedValue
     private int foodId;
@@ -28,7 +28,7 @@ public class Food {
     private Diet diet;
 
 
-	public Food() {}
+	public FoodItem() {}
     
    /* public Food(String foodName, float foodQuantity, int calories) {
         super();

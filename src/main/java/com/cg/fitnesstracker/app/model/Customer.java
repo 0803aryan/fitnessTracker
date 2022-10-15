@@ -1,34 +1,62 @@
 package com.cg.fitnesstracker.app.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.cg.fitnesstracker.app.model.enums.BodyType;
 import com.cg.fitnesstracker.app.model.enums.Gender;
 
 @Entity
-public class UserDetails {
-	@Id
-	@GeneratedValue
-	private int userDatailId;
+@Table(name="userdetails")
+public class Customer extends AppUser{
+	@Column(length=40,unique=true)
+	private String userName;
 	private Gender gender; //Enum
 	private BodyType bodyType; //Enum
 	private float weight;
 	private int height;
 	private int age;
+	private boolean active=true;
 	
-	@OneToOne
-	@JoinColumn(name ="userId")
-	private AppUser user;
+	@OneToMany(mappedBy="customer")
+	private List<Activity> activities;
 	
-	public AppUser getUser() {
-		return user;
+	@OneToMany(mappedBy="customer")
+	private List<Diet> diet;
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setUser(AppUser user) {
-		this.user = user;
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public boolean getActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	public List<Activity> getActivities() {
+		return activities;
+	}
+	public void setActivities(List<Activity> activities) {
+		this.activities = activities;
+	}
+	public List<Diet> getDiet() {
+		return diet;
+	}
+	public void setDiet(List<Diet> diet) {
+		this.diet = diet;
 	}
 	public Gender getGender() {
 		return gender;
