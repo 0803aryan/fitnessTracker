@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cg.fitnesstracker.app.csvoperations.CSVHelper;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
-import com.cg.fitnesstracker.app.service.CSVServiceImpl;
+import com.cg.fitnesstracker.app.service.implementation.CSVServiceImpl;
 
 
 

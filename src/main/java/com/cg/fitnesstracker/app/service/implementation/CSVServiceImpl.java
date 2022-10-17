@@ -1,4 +1,4 @@
-package com.cg.fitnesstracker.app.service;
+package com.cg.fitnesstracker.app.service.implementation;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cg.fitnesstracker.app.csvoperations.CSVHelper;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.repository.FoodItemRepository;
+import com.cg.fitnesstracker.app.service.CSVService;
 
 @Component
 public class CSVServiceImpl implements CSVService{

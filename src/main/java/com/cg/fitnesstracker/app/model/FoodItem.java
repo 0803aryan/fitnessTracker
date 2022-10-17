@@ -30,12 +30,11 @@ public class FoodItem {
 
 	public FoodItem() {}
     
-	public FoodItem(String foodName, String foodQuantity, int caloriesInFood,Diet diet) {
+	public FoodItem(String foodName, String foodQuantity, int caloriesInFood) {
         super();
         this.foodName = foodName;
         this.foodQuantity = foodQuantity;
         this.caloriesInFood = caloriesInFood;
-        this.diet =diet;
     }
     
     public int getFoodId() {
