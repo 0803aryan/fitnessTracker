@@ -12,7 +12,6 @@ import com.cg.fitnesstracker.app.model.enums.WorkoutType;
 @Entity
 public class Workout extends Activity {
 	
-	@Id
     private WorkoutType workoutType;
     private int noOfReps;
     private DayOfWeek dayOfWeek;

@@ -7,6 +7,6 @@ import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.enums.CardioType;
 
 @Repository
-public interface WorkoutRepository extends CrudRepository<Cardio, CardioType>{
+public interface WorkoutRepository extends CrudRepository<Cardio, Integer>{
 
 }

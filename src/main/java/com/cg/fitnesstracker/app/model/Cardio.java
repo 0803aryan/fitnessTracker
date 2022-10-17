@@ -11,7 +11,6 @@ import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
 @Entity
 public class Cardio extends Activity{
 
-	@Id
     private CardioType cardioType;
     private int distance;
     private int timeInMinutes;
