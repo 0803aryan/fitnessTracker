@@ -34,8 +34,9 @@ public class Diet {
 		this.date = date;
 	}
 
-	@OneToMany(mappedBy="diet")
+//	@OneToMany //(mappedBy="diet")
     @JsonManagedReference
+//	@JoinColumn(name="foodId")
     private List<FoodItem> foodList;
 
 	@ManyToOne
@@ -55,14 +56,6 @@ public class Diet {
 		this.foodList = foodList;
 		this.customer = customer;
 	}
-
-//    public Report getReport() {
-//		return report;
-//	}
-//
-//	public void setReport(Report report) {
-//		this.report = report;
-//	}
 
 	public Customer getCustomer() {
     	return customer;
