@@ -28,6 +28,22 @@ public class Customer extends AppUser{
 	private int age;
 	private boolean active=true;
 	
+	public Customer() {
+		super();
+	}
+	public Customer(String userName, Gender gender, BodyType bodyType, float weight, int height, int age,
+			boolean active, List<Activity> activities, List<Diet> diet) {
+		super();
+		this.userName = userName;
+		this.gender = gender;
+		this.bodyType = bodyType;
+		this.weight = weight;
+		this.height = height;
+		this.age = age;
+		this.active = active;
+		this.activities = activities;
+		this.diet = diet;
+	}
 	@OneToMany(mappedBy="customer")
 	private List<Activity> activities;
 	

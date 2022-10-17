@@ -8,6 +8,11 @@ public class Admin extends AppUser {
 	@Column(length=40,unique=true)
 	private String adminName;
 
+	public Admin(String adminName) {
+		super();
+		this.adminName = adminName;
+	}
+
 	public String getAdminName() {
 		return adminName;
 	}

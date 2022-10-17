@@ -21,6 +21,17 @@ public class Cardio extends Activity{
     
     public Cardio() {}
 
+	public Cardio(CardioType cardioType, int distance, int timeInMinutes, DayOfWeek dayOfWeek, boolean succesFlag,
+			LocalDate date) {
+		super();
+		this.cardioType = cardioType;
+		this.distance = distance;
+		this.timeInMinutes = timeInMinutes;
+		this.dayOfWeek = dayOfWeek;
+		this.succesFlag = succesFlag;
+		this.date = date;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}

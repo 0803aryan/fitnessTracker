@@ -19,6 +19,17 @@ public class Workout extends Activity {
     private LocalDate date;
     private boolean successFlag;
 
+    public Workout() {}
+    
+	public Workout(WorkoutType workoutType, int noOfReps, DayOfWeek dayOfWeek, LocalDate date, boolean successFlag) {
+		super();
+		this.workoutType = workoutType;
+		this.noOfReps = noOfReps;
+		this.dayOfWeek = dayOfWeek;
+		this.date = date;
+		this.successFlag = successFlag;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}
@@ -43,15 +54,6 @@ public DayOfWeek getDayOfWeek() {
 		this.dayOfWeek = dayOfWeek;
 	}
 
-public Workout() {}
-
-//   public int getWorkoutId() {
-//        return workoutId;
-//    }
-
-//   public void setWorkoutId(int workoutId) {
-//        this.workoutId = workoutId;
-//    }
 
    public WorkoutType getWorkoutType() {
         return workoutType;

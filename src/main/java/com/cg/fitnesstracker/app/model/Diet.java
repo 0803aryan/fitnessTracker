@@ -1,5 +1,6 @@
 package com.cg.fitnesstracker.app.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,8 +24,17 @@ public class Diet {
     private int dietId;
     private ConsumeTime consumeTime;
     private DayOfWeek dayOfWeek;
+    private LocalDate date;
     
-    @OneToMany(mappedBy="diet")
+    public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	@OneToMany(mappedBy="diet")
     @JsonManagedReference
     private List<FoodItem> foodList;
 
@@ -35,13 +45,17 @@ public class Diet {
     public Diet() {
     }
 
-    public Diet(int dietId, ConsumeTime consumeTime, DayOfWeek dayOfWeek) {
-        super();
-        this.dietId = dietId;
-        consumeTime = consumeTime;
-        this.dayOfWeek = dayOfWeek;
-    }
     
+    public Diet(ConsumeTime consumeTime, DayOfWeek dayOfWeek, LocalDate date, List<FoodItem> foodList,
+			Customer customer) {
+		super();
+		this.consumeTime = consumeTime;
+		this.dayOfWeek = dayOfWeek;
+		this.date = date;
+		this.foodList = foodList;
+		this.customer = customer;
+	}
+
 //    public Report getReport() {
 //		return report;
 //	}
