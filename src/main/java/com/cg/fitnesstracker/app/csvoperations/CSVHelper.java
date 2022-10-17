@@ -25,6 +25,7 @@ public class CSVHelper {
    public static boolean hasCSVFormat(MultipartFile file) {
         if (TYPE.equals(file.getContentType())
                 || file.getContentType().equals("application/vnd.ms-excel")) {
+        	
             return true;
         }
 
@@ -36,7 +37,7 @@ public class CSVHelper {
                 @SuppressWarnings("deprecation")
                 CSVParser csvParser = new CSVParser(fileReader,
                         CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
-
+        
            List<FoodItem> foodList = new ArrayList<>();
 
            Iterable<CSVRecord> csvRecords = csvParser.getRecords();

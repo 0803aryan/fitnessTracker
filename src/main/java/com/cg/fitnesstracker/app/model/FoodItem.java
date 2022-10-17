@@ -17,7 +17,6 @@ public class FoodItem {
     @Id
     @GeneratedValue
     private int foodId;
-    @Column(length=40)
     private String foodName;
     private String foodQuantity;
     private int caloriesInFood;
