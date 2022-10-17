@@ -19,7 +19,7 @@ public class FoodItem {
     private int foodId;
     @Column(length=40)
     private String foodName;
-    private float foodQuantity;
+    private String foodQuantity;
     private int caloriesInFood;
     
     @ManyToOne
@@ -30,12 +30,12 @@ public class FoodItem {
 
 	public FoodItem() {}
     
-   /* public Food(String foodName, float foodQuantity, int calories) {
+	public FoodItem(String foodName, String foodQuantity, int caloriesInFood) {
         super();
         this.foodName = foodName;
         this.foodQuantity = foodQuantity;
-        this.calories = calories;
-    }*/
+        this.caloriesInFood = caloriesInFood;
+    }
     
     public int getFoodId() {
     	return foodId;
@@ -53,11 +53,11 @@ public class FoodItem {
         this.foodName = foodName;
     }
 
-    public float getFoodQuantity() {
+    public String getFoodQuantity() {
         return foodQuantity;
     }
 
-    public void setFoodQuant(float foodQuantity) {
+    public void setFoodQuant(String foodQuantity) {
         this.foodQuantity = foodQuantity;
     }
 

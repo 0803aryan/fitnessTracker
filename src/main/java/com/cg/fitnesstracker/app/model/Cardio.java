@@ -10,8 +10,7 @@ import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
 
 @Entity
 public class Cardio extends Activity{
-//    @Id
-//    private int cardioId;
+
     private CardioType cardioType;
     private int distance;
     private int timeInMinutes;
@@ -20,6 +19,17 @@ public class Cardio extends Activity{
     private LocalDate date;
     
     public Cardio() {}
+
+	public Cardio(CardioType cardioType, int distance, int timeInMinutes, DayOfWeek dayOfWeek, boolean succesFlag,
+			LocalDate date) {
+		super();
+		this.cardioType = cardioType;
+		this.distance = distance;
+		this.timeInMinutes = timeInMinutes;
+		this.dayOfWeek = dayOfWeek;
+		this.succesFlag = succesFlag;
+		this.date = date;
+	}
 
 	public LocalDate getDate() {
 		return date;

@@ -17,6 +17,17 @@ public class AppUser{
     private String password;
     private UserType userType; //Enum
 
+	public AppUser() {
+		super();
+	}
+
+	public AppUser(String userEmail, String password, UserType userType) {
+		super();
+		this.userEmail = userEmail;
+		this.password = password;
+		this.userType = userType;
+	}
+
 	public UserType getUserType() {
 		return userType;
 	}

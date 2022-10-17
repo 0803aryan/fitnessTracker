@@ -28,13 +28,16 @@ public class Activity {
 
 	public Activity() {}
     
-    public Activity(int activityId, String activityName) {
-    	super();
-    	this.activityId = activityId;
-    	this.activityName = activityName;
-    }
-    
-    public double getCaloriesBurned() {
+    public Activity(String activityName, double caloriesBurned, Customer customer) {
+		super();
+		this.activityName = activityName;
+		this.caloriesBurned = caloriesBurned;
+		this.customer = customer;
+	}
+
+
+
+	public double getCaloriesBurned() {
 		return caloriesBurned;
 	}
 
