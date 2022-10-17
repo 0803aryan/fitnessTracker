@@ -18,5 +18,5 @@ public interface CustomerService {
 
 	public Customer updateCustomerHeightService(String userName, float height);
 
-	public Customer updateCustomerActivityStatusService(String userName, boolean active);
+	//public Customer updateCustomerActivityStatusService(String userName, boolean active);
 }

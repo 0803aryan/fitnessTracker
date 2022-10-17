@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService{
 		if(cust!=null) {
 			List<Activity> activities = cust.getActivities();
 			activities.add(activity);
-			activities = customerRepository.saveAll(activities); 
+			activityRepository.saveAll(activities); 
 			return activities;
 		}
 		throw new RuntimeException("Can't update");
@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService{
 		if(cust!=null) {
 			List<Diet> diets = cust.getDiet();
 			diets.add(diet);
-			diets = customerRepository.saveAll(diets); 
+			dietRepository.saveAll(diets); 
 			return diets;
 		}
 		throw new RuntimeException("Can't update");
@@ -78,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new RuntimeException("Can't update");
 	}
-
+/*
 	@Override
 	public Customer updateCustomerActivityStatusService(String userName, boolean updatedActivityStatus) {
 		int c =customerRepository.updateActivityStatus(userName, updatedActivityStatus);
@@ -88,5 +88,5 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new RuntimeException("Can't Update");
 	}
-
+*/
 }

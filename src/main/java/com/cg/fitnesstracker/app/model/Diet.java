@@ -34,9 +34,9 @@ public class Diet {
 		this.date = date;
 	}
 
-//	@OneToMany //(mappedBy="diet")
+	@OneToMany //(mappedBy="diet")
     @JsonManagedReference
-//	@JoinColumn(name="foodId")
+    @JoinColumn(name="foodId")
     private List<FoodItem> foodList;
 
 	@ManyToOne
