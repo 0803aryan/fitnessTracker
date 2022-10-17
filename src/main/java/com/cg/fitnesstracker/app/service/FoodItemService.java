@@ -8,10 +8,6 @@ public interface FoodItemService {
 
     public FoodItem getFoodItemByIdService(int foodId);
 
-    public FoodItem addFootItemService(FoodItem item);
-
-   	public Float setFoodItemQuantityService(Float quantity);
-
    	public int getCaloriesService(int foodId);
    
 }

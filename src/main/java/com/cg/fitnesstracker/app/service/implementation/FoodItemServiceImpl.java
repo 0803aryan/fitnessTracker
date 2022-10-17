@@ -1,42 +1,39 @@
 package com.cg.fitnesstracker.app.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cg.fitnesstracker.app.model.FoodItem;
+import com.cg.fitnesstracker.app.repository.FoodItemRepository;
 import com.cg.fitnesstracker.app.service.FoodItemService;
 @Component
 public class FoodItemServiceImpl implements FoodItemService{
+	@Autowired
+	FoodItemRepository foodItemRepository;
 
 	@Override
 	public List<FoodItem> getAllFoodItemService() {
-		// TODO Auto-generated method stub
-		return null;
+		List<FoodItem> foodItems = new ArrayList();
+		Iterable<FoodItem> items = foodItemRepository.findAll();
+		items.forEach(c->foodItems.add(c));
+		return foodItems;
 	}
 
 	@Override
 	public FoodItem getFoodItemByIdService(int foodId) {
-		// TODO Auto-generated method stub
-		return null;
+		FoodItem item = foodItemRepository.findById(foodId).get();
+		return item;
 	}
-
-	@Override
-	public FoodItem addFootItemService(FoodItem item) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Float setFoodItemQuantityService(Float quantity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public int getCaloriesService(int foodId) {
-		// TODO Auto-generated method stub
+		FoodItem item = foodItemRepository.findById(foodId).get();
+		if (item!=null) {
+		return item.getCaloriesInFood();
+		}
 		return 0;
 	}
-
 }

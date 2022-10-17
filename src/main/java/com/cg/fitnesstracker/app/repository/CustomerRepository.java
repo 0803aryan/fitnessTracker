@@ -7,5 +7,5 @@ import com.cg.fitnesstracker.app.model.Customer;
 
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Integer> {
-
+	Customer findByUserName(String userName);
 }

@@ -7,5 +7,4 @@ import com.cg.fitnesstracker.app.model.FoodItem;
 
 @Repository
 public interface FoodItemRepository extends CrudRepository<FoodItem, Integer>{
-
 }
