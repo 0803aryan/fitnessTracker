@@ -1,20 +1,45 @@
 package com.cg.fitnesstracker.app.service.implementation;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.service.AppUserService;
+import com.cg.fitnesstracker.app.repository.*;
 
 public class AppUserServiceImpl implements AppUserService{
+	@Autowired
+	private AppUserRepository appUserRepository;
 
 	@Override
-	public Customer updateCustomerEmailService(Customer customer, Boolean active) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer updateCustomerEmailService(String userName,String email) {
+		int c=0;
+		try {
+			c = appUserRepository.updateEmail(userName, email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(c>0) {
+			Customer cust = appUserRepository.findByUserName(userName);
+			return cust;
+		}
+		throw new RuntimeException("Can't update");
 	}
 
 	@Override
-	public Customer updateCustomerPasswordService(Customer customer, Boolean active) {
-		// TODO Auto-generated method stub
-		return null;
+	public Customer updateCustomerPasswordService(String userName, String password) {
+		int c=0;
+		try {
+			c = appUserRepository.updatePassword(userName, password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(c>0) {
+			Customer cust = appUserRepository.findByUserName(userName);
+			return cust;
+		}
+		throw new RuntimeException("Can't update");
 	}
 
 }
