@@ -22,8 +22,6 @@ public class DietServiceImpl implements DietService{
 	CustomerRepository customerRepository;
 	@Autowired
 	FoodItemService foodItemService;
-	@Autowired
-	Diet diet;
 
 	@Override
 	public List<Diet> getAllDietService(String userName) {
