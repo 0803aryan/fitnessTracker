@@ -24,7 +24,7 @@ public class DietController {
 		@Autowired
 		DietService dietService;
 		
-		@GetMapping("{userName}/diets/")
+		@GetMapping("/{userName}/diets/")
 	    public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String userName){
 			try {
 				List<Diet> dietList = dietService.getAllDietService(userName);
@@ -37,7 +37,7 @@ public class DietController {
 				}
 		}
 		
-		@PostMapping("{userName}/diets/")
+		@PostMapping("/{userName}/diets/")
 	    public ResponseEntity<Diet> addDiet(@PathVariable String userName, @RequestBody Diet diet){
 			try {
 				Diet addDiet = dietService.addDietByUserIdService(userName, diet);
@@ -50,7 +50,7 @@ public class DietController {
 				}
 		}
 		
-		@PostMapping("{userName}/diets/{dietId}/food-items/{foodId}")
+		@PostMapping("/{userName}/diets/{dietId}/food-items/{foodId}")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			try {
 				FoodItem addFood = dietService.addFoodItemToDietService(dietId, foodId);
@@ -63,7 +63,7 @@ public class DietController {
 				}
 		}
 		
-		@DeleteMapping("{userName}/diets/{dietId}/food-items/{foodId}")
+		@DeleteMapping("/{userName}/diets/{dietId}/food-items/{foodId}")
 	    public ResponseEntity<FoodItem> deleteFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			try {
 				FoodItem removeFood = dietService.removeFoodItemFromDietService(dietId, foodId);
@@ -76,7 +76,7 @@ public class DietController {
 				}
 		}
 		
-		@DeleteMapping("{userName}/diets/{dietId}/")
+		@DeleteMapping("/{userName}/diets/{dietId}/")
 	    public ResponseEntity<Diet> deleteDiet(@PathVariable String userName, @PathVariable int dietId){
 			try {
 				Diet removeDiet = dietService.deleteDietService(userName, dietId);
@@ -88,7 +88,7 @@ public class DietController {
 					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 				}
 		}
-		@GetMapping("{userName}/diet/{dietId}/get-calories/")
+		@GetMapping("/{userName}/diet/{dietId}/get-calories/")
 	    public ResponseEntity<Integer> getCalories(@PathVariable String userName,int dietId){
 			try {
 				int calories = dietService.getTotalCaloriesService(userName, dietId);
