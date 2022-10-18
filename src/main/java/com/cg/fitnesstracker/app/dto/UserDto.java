@@ -1,4 +1,4 @@
-package com.cg.fitnesstracker.app.model;
+package com.cg.fitnesstracker.app.dto;
 
 
 public class UserDto {

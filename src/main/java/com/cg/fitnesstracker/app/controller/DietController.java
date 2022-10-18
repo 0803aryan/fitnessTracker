@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.fitnesstracker.app.model.Diet;
@@ -17,13 +18,13 @@ import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.service.DietService;
 
 @RestController
-@RequestMapping("/Diet")
+@RequestMapping("/diet")
 public class DietController {
 
 		@Autowired
 		DietService dietService;
 		
-		@GetMapping("{userName}/get-all-diets/")
+		@GetMapping("{userName}/diets/")
 	    public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String userName){
 			try {
 				List<Diet> dietList = dietService.getAllDietService(userName);
@@ -36,8 +37,8 @@ public class DietController {
 				}
 		}
 		
-		@PostMapping("{userName}/diet/")
-	    public ResponseEntity<Diet> addDiet(@PathVariable String userName, @RequestParam Diet diet){
+		@PostMapping("{userName}/diets/")
+	    public ResponseEntity<Diet> addDiet(@PathVariable String userName, @RequestBody Diet diet){
 			try {
 				Diet addDiet = dietService.addDietByUserIdService(userName, diet);
 				if (addDiet==null) {
@@ -49,7 +50,7 @@ public class DietController {
 				}
 		}
 		
-		@PostMapping("{userName}/diet/{dietId}/add-food-item/{foodId}")
+		@PostMapping("{userName}/diets/{dietId}/food-items/{foodId}")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			try {
 				FoodItem addFood = dietService.addFoodItemToDietService(dietId, foodId);
@@ -62,7 +63,7 @@ public class DietController {
 				}
 		}
 		
-		@DeleteMapping("{userName}/diet/{dietId}/remove-food-item/{foodId}")
+		@DeleteMapping("{userName}/diets/{dietId}/food-items/{foodId}")
 	    public ResponseEntity<FoodItem> deleteFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			try {
 				FoodItem removeFood = dietService.removeFoodItemFromDietService(dietId, foodId);
@@ -75,7 +76,7 @@ public class DietController {
 				}
 		}
 		
-		@DeleteMapping("{userName}/diet/{dietId}/")
+		@DeleteMapping("{userName}/diets/{dietId}/")
 	    public ResponseEntity<Diet> deleteDiet(@PathVariable String userName, @PathVariable int dietId){
 			try {
 				Diet removeDiet = dietService.deleteDietService(userName, dietId);

@@ -11,8 +11,10 @@ import com.cg.fitnesstracker.app.repository.*;
 public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
+	/*
 	@Transactional
 	@Override
+	
 	public Customer updateCustomerEmailService(String userName,String email) {
 		int c=0;
 		try {
@@ -43,5 +45,5 @@ public class AppUserServiceImpl implements AppUserService{
 		}
 		throw new RuntimeException("Can't update");
 	}
-
+	*/
 }
