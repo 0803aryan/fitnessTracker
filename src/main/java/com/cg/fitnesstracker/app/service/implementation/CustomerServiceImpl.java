@@ -79,7 +79,9 @@ public class CustomerServiceImpl implements CustomerService{
 		throw new RuntimeException("Can't update");
 	}
 
-	/*@Override
+  /*
+	@Override
+
 	public Customer updateCustomerActivityStatusService(String userName, boolean updatedActivityStatus) {
 		int c =customerRepository.updateActivityStatus(userName, updatedActivityStatus);
 		if(c>0) {
@@ -89,4 +91,5 @@ public class CustomerServiceImpl implements CustomerService{
 		throw new RuntimeException("Can't Update");
 	}
 	*/
+
 }

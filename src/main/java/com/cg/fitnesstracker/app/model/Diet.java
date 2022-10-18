@@ -49,8 +49,10 @@ public class Diet {
 		this.date = date;
 	}
 
+
 	@OneToMany(mappedBy="diet")
-    @JsonManagedReference
+  @JsonManagedReference
+
     private List<FoodItem> foodList;
 
 	@ManyToOne
