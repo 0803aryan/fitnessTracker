@@ -25,12 +25,6 @@ public class AppUserController {
 	public ResponseEntity<AppUser> addAppUser(@RequestBody AppUser appUser){
 		return new ResponseEntity<AppUser>(appUserService.addAppUserService(appUser),HttpStatus.OK);
 	}
-	
-	@PutMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
-	public ResponseEntity<AppUser> updateEmail(@RequestBody UpdateEmailDto updateEmailDto){
-		AppUser appUser = appUserService.updateCustomerEmailService(updateEmailDto.getNewEmail(),updateEmailDto.getUserId());
-		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
-	}
 
 	@PutMapping(value = "/password/{userId}",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	public ResponseEntity<AppUser> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto){

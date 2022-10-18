@@ -13,40 +13,40 @@ public class AppUser{
     @SequenceGenerator(sequenceName = "appUser_seq", allocationSize = 101, name = "APPUSER_SEQ")
     private int userId;
     @Column(length=40,unique=true)
-    private String userEmail;
+	private String userName;
     @JsonIgnore
     private String password;
-    @Enumerated(EnumType.STRING)
-    private UserType userType; //Enum
+//    @Enumerated(EnumType.STRING)
+    private String role; //Enum
 
 	public AppUser() {
 		super();
 	}
 
-	public AppUser(String userEmail, String password, UserType userType) {
+	public AppUser(String userName, String password, String role) {
 		super();
-		this.userEmail = userEmail;
+		this.userName = userName;
 		this.password = password;
-		this.userType = userType;
+		this.role = role;
 	}
 
-	public UserType getUserType() {
-		return userType;
+	public String getRole() {
+		return role;
 	}
 
-    public void setUserType(UserType userType) {
-    	this.userType = userType;
+    public void setRole(String role) {
+    	this.role = role;
     }
     
-	public String getUserEmail() {
-		return userEmail;
+    public String getUserName() {
+		return userName;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-    public String getPassword() {
+	public String getPassword() {
         return password;
     }
 

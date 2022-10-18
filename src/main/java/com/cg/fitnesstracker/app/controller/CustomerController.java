@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.fitnesstracker.app.dto.UpdateCustomerHeight;
 import com.cg.fitnesstracker.app.dto.UpdateCustomerWeight;
+import com.cg.fitnesstracker.app.dto.UpdateEmailDto;
 import com.cg.fitnesstracker.app.model.Activity;
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.service.CustomerService;
@@ -42,17 +44,23 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(customerService.addCustomerDetailService(customer),HttpStatus.OK);
 	}
 	
-	@GetMapping("/updateWeight")
+	@GetMapping("/Weight")
 	@PutMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	public ResponseEntity<Customer> updateCustomerWeight(@RequestBody UpdateCustomerWeight ucw){
 		Customer c =customerService.updateCustomerWeightService(ucw.getUserName(), ucw.getUpdatedWeight());
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
 	
-	@GetMapping("/updateHeight")
+	@GetMapping("/Height")
 	@PutMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	public ResponseEntity<Customer> updateCustomerHeight(@RequestBody UpdateCustomerHeight uch){
 		Customer c = customerService.updateCustomerHeightService(uch.getUserName(), uch.getUpdatedHeight());
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
+	}
+	
+	@PutMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
+	public ResponseEntity<AppUser> updateEmail(@RequestBody UpdateEmailDto updateEmailDto){
+		AppUser appUser = customerService.updateCustomerEmailService(updateEmailDto.getNewEmail(),updateEmailDto.getUserId());
+		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
 	}
 }

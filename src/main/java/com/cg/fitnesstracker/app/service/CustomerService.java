@@ -3,6 +3,7 @@ package com.cg.fitnesstracker.app.service;
 import java.util.List;
 
 import com.cg.fitnesstracker.app.model.Activity;
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.model.Diet;
 
@@ -17,6 +18,8 @@ public interface CustomerService {
 	public Customer updateCustomerWeightService(String userName, float weight);
 
 	public Customer updateCustomerHeightService(String userName, float height);
+	
+	public AppUser updateCustomerEmailService(String email,int userId);
 
 	//public Customer updateCustomerActivityStatusService(String userName, boolean active);
 

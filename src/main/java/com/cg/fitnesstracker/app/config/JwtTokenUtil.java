@@ -1,4 +1,4 @@
-package com.capgemini.config;
+package com.cg.fitnesstracker.app.config;
 
 import java.io.Serializable;
 import java.util.Date;

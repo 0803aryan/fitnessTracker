@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.cg.fitnesstracker.app.model.Activity;
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.repository.ActivityRepository;
@@ -26,31 +27,17 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private DietRepository dietRepository;
-/*
+	
+	@Transactional
 	@Override
-	public List<Activity> addActivity(String userName, Activity activity) {
-		Customer cust =customerRepository.findByUserName(userName);
-		if(cust!=null) {
-			List<Activity> activities = cust.getActivities();
-			activities.add(activity);
-			activityRepository.saveAll(activities); 
-			return activities;
-		}
-		throw new RuntimeException("Can't update");
-	}
+	public AppUser updateCustomerEmailService(String email,int userId) {
 
-	@Override
-	public List<Diet> addDiet(String userName, Diet diet) {
-		Customer cust =customerRepository.findByUserName(userName);
-		if(cust!=null) {
-			List<Diet> diets = cust.getDiet();
-			diets.add(diet);
-			dietRepository.saveAll(diets); 
-			return diets;
-		}
+		int c = customerRepository.updateCustomerEmail(email,userId);
+		if(c>0)
+			return customerRepository.findById(userId).get();
 		throw new RuntimeException("Can't update");
 	}
-*/
+	
 	@Override
 	public Customer addCustomerDetailService(Customer customer) {
 		Customer cust = customerRepository.save(customer);

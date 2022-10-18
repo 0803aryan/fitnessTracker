@@ -10,7 +10,6 @@ import com.cg.fitnesstracker.app.model.Diet;
 public interface AppUserService {
 
 	public AppUser addAppUserService(AppUser appUser);
-	public AppUser updateCustomerEmailService(String email,int userId);
 	public AppUser updateCustomerPasswordService(String password,int userId);
 
 }

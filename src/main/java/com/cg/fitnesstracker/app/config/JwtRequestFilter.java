@@ -1,4 +1,4 @@
-package com.capgemini.config;
+package com.cg.fitnesstracker.app.config;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.capgemini.secure.service.JwtUserDetailsService;
+import com.cg.fitnesstracker.app.service.JwtUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

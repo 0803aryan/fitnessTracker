@@ -3,6 +3,7 @@ package com.cg.fitnesstracker.app.service;
 import java.util.List;
 
 import com.cg.fitnesstracker.app.model.Admin;
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 
 public interface AdminService {
@@ -15,4 +16,6 @@ public interface AdminService {
 	public Customer readCustomerDetailByIdService(int userId);
 	
 	public Customer deleteCustomerByIdService(int userId);
+	
+	public AppUser updateAdminEmailService(String email,int userId);
 }

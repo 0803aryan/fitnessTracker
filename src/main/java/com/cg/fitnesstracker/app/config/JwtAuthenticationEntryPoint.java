@@ -1,4 +1,4 @@
-package com.capgemini.config;
+package com.cg.fitnesstracker.app.config;
 
 import java.io.IOException;
 import java.io.Serializable;
