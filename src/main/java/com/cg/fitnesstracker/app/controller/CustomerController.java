@@ -26,7 +26,7 @@ public class CustomerController {
 	
 	@Autowired
 	private CustomerService customerService;
-	
+	/*
 	@PostMapping(value ="/activity/{userName}",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	public ResponseEntity<List<Activity>> addActivity(@PathVariable String userName, Activity activity){
 		return new ResponseEntity<List<Activity>>(customerService.addActivity(userName, activity),HttpStatus.OK);
@@ -36,7 +36,7 @@ public class CustomerController {
 	public ResponseEntity<List<Diet>> addDiet(@PathVariable String userName, Diet diet){
 		return new ResponseEntity<List<Diet>>(customerService.addDiet(userName, diet),HttpStatus.OK);
 	}
-	
+	*/
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	public ResponseEntity<Customer> addCustomerDetails(@RequestBody Customer customer){
 		return new ResponseEntity<Customer>(customerService.addCustomerDetailService(customer),HttpStatus.OK);
