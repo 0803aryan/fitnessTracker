@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.fitnesstracker.app.dto.UpdateEmailDto;
+import com.cg.fitnesstracker.app.dto.UpdatePasswordDto;
 import com.cg.fitnesstracker.app.model.Admin;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.service.AppUserService;
@@ -26,7 +27,7 @@ public class AppUserController {
 	}
 
 	@PostMapping(value = "/password",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
-	public ResponseEntity<AppUser> updatePassword(int userId, String password){
-		return new ResponseEntity<AppUser>(appUserService.updateCustomerPasswordService(password,userId),HttpStatus.OK);
+	public ResponseEntity<AppUser> updatePassword(@RequestBody UpdatePasswordDto u){
+		return new ResponseEntity<AppUser>(appUserService.updateCustomerPasswordService(u.getpassword(),Integer.parseInt(u.getUserId())),HttpStatus.OK);
 	}
 }
