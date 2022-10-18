@@ -1,8 +1,11 @@
 package com.cg.fitnesstracker.app.service.implementation;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.service.AppUserService;
 import com.cg.fitnesstracker.app.repository.*;
@@ -10,37 +13,49 @@ import com.cg.fitnesstracker.app.repository.*;
 public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
+<<<<<<< Updated upstream
 	@Transactional
 	@Override
 	public Customer updateCustomerEmailService(String userName,String email) {
+=======
+	
+	@Transactional
+	@Override
+	
+	public AppUser updateCustomerEmailService(String email,int userId) {
+>>>>>>> Stashed changes
 		int c=0;
 		try {
-			c = appUserRepository.updateEmail(userName, email);
+			c = appUserRepository.updateEmail(email,userId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(c>0) {
-			Customer cust = appUserRepository.findByUserName(userName);
-			return cust;
+			AppUser a = appUserRepository.findById(userId).get();
+			return a;
 		}
 		throw new RuntimeException("Can't update");
 	}
 	@Transactional
 	@Override
-	public Customer updateCustomerPasswordService(String userName, String password) {
+	public AppUser updateCustomerPasswordService(String password, int userId) {
 		int c=0;
 		try {
-			c = appUserRepository.updatePassword(userName, password);
+			c = appUserRepository.updatePassword(password,userId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(c>0) {
-			Customer cust = appUserRepository.findByUserName(userName);
-			return cust;
+			AppUser a = appUserRepository.findById(userId).get();
+			return a;
 		}
 		throw new RuntimeException("Can't update");
 	}
+<<<<<<< Updated upstream
 
+=======
+	
+>>>>>>> Stashed changes
 }
