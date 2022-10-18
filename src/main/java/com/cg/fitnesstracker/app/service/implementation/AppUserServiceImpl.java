@@ -1,4 +1,5 @@
 package com.cg.fitnesstracker.app.service.implementation;
+import com.cg.fitnesstracker.app.service.AppUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
