@@ -26,22 +26,22 @@ public class Workout extends Activity {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
     
-    @NotNull
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(style = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    //@NotNull
+    //@Temporal(TemporalType.DATE)
+    //@DateTimeFormat(style = "dd-MM-yyyy")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
     private boolean successFlag;
 
     public Workout() {}
     
-	public Workout(WorkoutType workoutType, int noOfReps, DayOfWeek dayOfWeek, LocalDate date, boolean successFlag) {
+	public Workout(WorkoutType workoutType, int noOfReps, DayOfWeek dayOfWeek, boolean successFlag) {
 		super();
 		this.workoutType = workoutType;
 		this.noOfReps = noOfReps;
 		this.dayOfWeek = dayOfWeek;
-		this.date = date;
 		this.successFlag = successFlag;
+		this.date=LocalDate.now();
 	}
 
 	public LocalDate getDate() {
@@ -52,7 +52,7 @@ public class Workout extends Activity {
 		this.date = LocalDate.now();
 	}
 
-   public boolean isSuccessFlag() {
+    public boolean isSuccessFlag() {
 		return successFlag;
 	}
 
@@ -60,7 +60,7 @@ public class Workout extends Activity {
 		this.successFlag = successFlag;
 	}
 
-public DayOfWeek getDayOfWeek() {
+	public DayOfWeek getDayOfWeek() {
 		return dayOfWeek;
 	}
 

@@ -1,6 +1,7 @@
 package com.cg.fitnesstracker.app.model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,23 +27,22 @@ public class Cardio extends Activity{
     private DayOfWeek dayOfWeek;
     private boolean succesFlag;
     
-    @NotNull
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(style = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    //@NotNull
+    //@Temporal(TemporalType.DATE)
+    //@DateTimeFormat(style = "dd-MM-yyyy")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
     
     public Cardio() {}
 
-	public Cardio(CardioType cardioType, int distance, int timeInMinutes, DayOfWeek dayOfWeek, boolean succesFlag,
-			LocalDate date) {
+	public Cardio(CardioType cardioType, int distance, int timeInMinutes, DayOfWeek dayOfWeek, boolean succesFlag) {
 		super();
 		this.cardioType = cardioType;
 		this.distance = distance;
 		this.timeInMinutes = timeInMinutes;
 		this.dayOfWeek = dayOfWeek;
 		this.succesFlag = succesFlag;
-		this.date = date;
+		this.date=LocalDate.now();
 	}
 
 	public LocalDate getDate() {

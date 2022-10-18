@@ -13,7 +13,7 @@ import com.cg.fitnesstracker.app.model.Customer;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 	Customer findByUserName(String userName);
-
+/*
 	@Modifying
 	@Query("update login c set c.user_email = :user_email where c.userName = :name")
 	
@@ -23,4 +23,5 @@ public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 	@Query("update login c set c.password = :password where c.userName = :name")
 	
 	int updatePassword(@Param("name") String userName, @Param("password") String password);
+*/	
 }

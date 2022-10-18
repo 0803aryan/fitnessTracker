@@ -17,6 +17,7 @@ import javax.persistence.Table;
 
 import com.cg.fitnesstracker.app.model.enums.BodyType;
 import com.cg.fitnesstracker.app.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="userdetails")
@@ -50,7 +51,7 @@ public class Customer extends AppUser{
 	}
 	@OneToMany(mappedBy="customer")
 	private List<Activity> activities;
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy="customer")
 	private List<Diet> diet;
 	

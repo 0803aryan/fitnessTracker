@@ -25,7 +25,7 @@ import com.cg.fitnesstracker.app.service.WorkoutService;
 @Controller
 @RequestMapping("/fitness/activity")
 public class ActivityController {
-
+/*
 	@Autowired
 	ActivityService activityService;
 	@Autowired
@@ -46,7 +46,7 @@ public class ActivityController {
 	/*@PostMapping(value="/add")
 	public ResponseEntity<Activity> addActivity(@RequestBody final Activity activity) {
 		final Activity a=this.activityService.addCardioActivityService(null, null)
-	}*/
+	
 
 	@PostMapping(value="/add_cardio")
 	public ResponseEntity<Cardio> addCardio(@RequestBody final Cardio cardio) {
@@ -89,7 +89,7 @@ public class ActivityController {
 		return null;
 	}
 
-
+*/
 
 
 

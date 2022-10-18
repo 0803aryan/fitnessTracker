@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cg.fitnesstracker.app.model.enums.ConsumeTime;
 import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,42 +36,33 @@ public class Diet {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
     
-    @NotNull
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(style = "dd-MM-yyyy")
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    //@NotNull
+    //@Temporal(TemporalType.DATE)
+    //@DateTimeFormat(style = "dd-MM-yyyy")
+    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
-    
-    public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-
-
 	@OneToMany(mappedBy="diet")
-  @JsonManagedReference
-
+    @JsonManagedReference
     private List<FoodItem> foodList;
 
 	@ManyToOne
-    @JoinColumn(name="userName")
-    private Customer customer;
-    
+	@JoinColumn(name="userId")
+	@JsonBackReference
+	private Customer customer;
+	{
+		this.date=LocalDate.now();
+	}
     public Diet() {
     }
 
     
-    public Diet(ConsumeTime consumeTime, DayOfWeek dayOfWeek, LocalDate date, List<FoodItem> foodList,
-			Customer customer) {
+    public Diet(ConsumeTime consumeTime, DayOfWeek dayOfWeek) {
 		super();
 		this.consumeTime = consumeTime;
 		this.dayOfWeek = dayOfWeek;
-		this.date = date;
-		this.foodList = foodList;
-		this.customer = customer;
+		//this.foodList = foodList;
+		//this.customer = customer;
+		
 	}
 
 	public Customer getCustomer() {
@@ -113,6 +105,14 @@ public class Diet {
         this.dayOfWeek = dayOfWeek;
     }
     
+    
+    public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate() {
+		this.date = LocalDate.now();
+	}
 
 	
     
