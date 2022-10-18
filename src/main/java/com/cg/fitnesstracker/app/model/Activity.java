@@ -7,10 +7,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 
-import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 //@MappedSuperclass
@@ -24,7 +21,7 @@ public class Activity {
     private double caloriesBurned;
     
 	@ManyToOne
-    @JoinColumn(name="userName")
+    @JoinColumn(name="userId")
 	@JsonBackReference
     private Customer customer;
 

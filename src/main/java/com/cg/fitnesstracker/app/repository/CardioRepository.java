@@ -1,13 +1,14 @@
 package com.cg.fitnesstracker.app.repository;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.enums.CardioType;
 
+
+@Repository
 public interface CardioRepository extends CrudRepository<Cardio, Integer>{
 
-	List<Cardio> findByCardioType(CardioType cardioType);
+	Cardio findByCardioType(CardioType cardioType);
 }
