@@ -32,6 +32,10 @@ public class Workout extends Activity {
     //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
     private boolean successFlag;
+    
+    {
+    	this.dayOfWeek = dayOfWeek;
+    }
 
     public Workout() {}
     
@@ -41,7 +45,6 @@ public class Workout extends Activity {
 		this.noOfReps = noOfReps;
 		this.dayOfWeek = dayOfWeek;
 		this.successFlag = successFlag;
-		this.date=LocalDate.now();
 	}
 
 	public LocalDate getDate() {

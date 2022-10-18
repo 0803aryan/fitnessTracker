@@ -11,6 +11,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 //@MappedSuperclass
 @Entity
@@ -24,6 +25,7 @@ public class Activity {
     
 	@ManyToOne
     @JoinColumn(name="userName")
+	@JsonBackReference
     private Customer customer;
 
 	public Activity() {}

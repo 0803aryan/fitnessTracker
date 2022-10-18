@@ -32,6 +32,9 @@ public class Cardio extends Activity{
     //@DateTimeFormat(style = "dd-MM-yyyy")
     //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
+    {
+    	this.dayOfWeek = dayOfWeek;
+    }
     
     public Cardio() {}
 
@@ -40,7 +43,7 @@ public class Cardio extends Activity{
 		this.cardioType = cardioType;
 		this.distance = distance;
 		this.timeInMinutes = timeInMinutes;
-		this.dayOfWeek = dayOfWeek;
+		
 		this.succesFlag = succesFlag;
 		this.date=LocalDate.now();
 	}
