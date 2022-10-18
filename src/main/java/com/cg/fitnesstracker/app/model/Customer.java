@@ -50,6 +50,7 @@ public class Customer extends AppUser{
 		this.diet = diet;
 	}
 	@OneToMany(mappedBy="customer")
+	@JsonManagedReference
 	private List<Activity> activities;
 	@JsonManagedReference
 	@OneToMany(mappedBy="customer")
