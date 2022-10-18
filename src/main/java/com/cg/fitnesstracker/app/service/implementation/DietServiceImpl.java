@@ -2,6 +2,8 @@ package com.cg.fitnesstracker.app.service.implementation;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -58,28 +60,26 @@ public class DietServiceImpl implements DietService{
 	}
 
 	@Override
+	@Transactional
 	public FoodItem removeFoodItemFromDietService(int dietId, int foodId) {
 		Diet diet = dietRepository.findById(dietId).get();
 		FoodItem food = foodItemRepository.findById(foodId).get();
 		if (diet!=null && food!=null) {
 			food.setDiet(diet);
-			List<FoodItem> foodList = diet.getFoodList();
-			foodList.remove(food);
-			foodItemRepository.saveAll(foodList);
+			dietRepository.deleteFoodFromDiet(dietId, foodId);
 		}
 		
 		return food;
 	}
 
 	@Override
+	@Transactional
 	public Diet deleteDietService(String userName, int dietId) {
 		Customer cust = customerRepository.findByUserName(userName);
 		Diet diet = dietRepository.findById(dietId).get();
 		if (cust!=null && diet!=null) {
 			diet.setCustomer(cust);
-			List<Diet> dietList = cust.getDiet();
-			dietList.remove(diet);
-			dietRepository.saveAll(dietList);
+			dietRepository.deleteDietById(dietId);
 		}
 		return diet;
 	}
