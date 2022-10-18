@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -21,7 +23,9 @@ import com.cg.fitnesstracker.app.model.enums.Gender;
 public class Customer extends AppUser{
 	@Column(length=40,unique=true)
 	private String userName;
+	@Enumerated(EnumType.STRING)
 	private Gender gender; //Enum
+	@Enumerated(EnumType.STRING)
 	private BodyType bodyType; //Enum
 	private float weight;
 	private int height;

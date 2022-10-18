@@ -8,10 +8,11 @@ public interface CardioService {
 	
 	public Cardio addCardio(Cardio c);
 	
-	public Cardio removeCardio(int activityId);
+	public Cardio removeCardio(int cardioId);
 	
 	public Cardio getCardioByType(CardioType cardioType);
 	
+	public Cardio updateExistingCardio(int CardioId, Cardio c);
 }
 
 

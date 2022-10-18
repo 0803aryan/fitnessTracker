@@ -23,7 +23,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 	@Modifying
 	int updateHeight(@Param("name") String userName, @Param("height") float height);
 	
-	@Query("update Customer c set c.active = :activityStatus where c.userName = :userName")
+	/*@Query("update Customer c set c.active = :activityStatus where c.userName = :userName")
 	@Modifying
 	int updateActivityStatus(@Param("name") String userName, @Param("activityStatus") boolean active);
+	*/
 }

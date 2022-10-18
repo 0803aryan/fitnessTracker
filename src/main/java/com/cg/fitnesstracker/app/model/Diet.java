@@ -5,15 +5,23 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cg.fitnesstracker.app.model.enums.ConsumeTime;
 import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -22,8 +30,15 @@ public class Diet {
     @Id
     @GeneratedValue
     private int dietId;
+    @Enumerated(EnumType.STRING)
     private ConsumeTime consumeTime;
+    @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
+    
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(style = "dd-MM-yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
     
     public LocalDate getDate() {
@@ -34,9 +49,8 @@ public class Diet {
 		this.date = date;
 	}
 
-//	@OneToMany //(mappedBy="diet")
+	@OneToMany(mappedBy="diet")
     @JsonManagedReference
-//	@JoinColumn(name="foodId")
     private List<FoodItem> foodList;
 
 	@ManyToOne
