@@ -18,12 +18,6 @@ public class AppUserServiceImpl implements AppUserService{
 	@Transactional
 	@Override
 	
-	public Customer updateCustomerEmailService(String userName,String email) {
-
-	
-	@Transactional
-	@Override
-	
 	public AppUser updateCustomerEmailService(String email,int userId) {
 
 		int c=0;
