@@ -9,12 +9,14 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class AppUser{
     @Id
-    @GeneratedValue//(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APPUSER_SEQ")
+    @SequenceGenerator(sequenceName = "appUser_seq", allocationSize = 101, name = "APPUSER_SEQ")
     private int userId;
     @Column(length=40,unique=true)
     private String userEmail;
     @JsonIgnore
     private String password;
+    @Enumerated(EnumType.STRING)
     private UserType userType; //Enum
 
 	public AppUser() {

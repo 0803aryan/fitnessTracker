@@ -23,8 +23,9 @@ public class AdminServiceImpl implements AdminService{
 
 	@Override
 	public Admin addAdminDetailService(int userId, Admin admin) {
-		Admin ad =adminRepository.findById(userId).get();
-		return ad;
+		adminRepository.findById(userId).get();
+		Admin ad = adminRepository.save(admin);
+		return admin;
 	}
 
 	@Override

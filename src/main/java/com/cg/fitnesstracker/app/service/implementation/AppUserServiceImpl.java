@@ -1,4 +1,5 @@
 package com.cg.fitnesstracker.app.service.implementation;
+import com.cg.fitnesstracker.app.service.AppUserService;
 
 import java.util.Optional;
 
@@ -13,17 +14,18 @@ import com.cg.fitnesstracker.app.repository.*;
 public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
-<<<<<<< Updated upstream
+
 	@Transactional
 	@Override
+	
 	public Customer updateCustomerEmailService(String userName,String email) {
-=======
+
 	
 	@Transactional
 	@Override
 	
 	public AppUser updateCustomerEmailService(String email,int userId) {
->>>>>>> Stashed changes
+
 		int c=0;
 		try {
 			c = appUserRepository.updateEmail(email,userId);
@@ -53,9 +55,5 @@ public class AppUserServiceImpl implements AppUserService{
 		}
 		throw new RuntimeException("Can't update");
 	}
-<<<<<<< Updated upstream
 
-=======
-	
->>>>>>> Stashed changes
 }

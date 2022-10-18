@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -15,13 +17,16 @@ import javax.persistence.Table;
 
 import com.cg.fitnesstracker.app.model.enums.BodyType;
 import com.cg.fitnesstracker.app.model.enums.Gender;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="userdetails")
 public class Customer extends AppUser{
 	@Column(length=40,unique=true)
 	private String userName;
+	@Enumerated(EnumType.STRING)
 	private Gender gender; //Enum
+	@Enumerated(EnumType.STRING)
 	private BodyType bodyType; //Enum
 	private float weight;
 	private int height;
@@ -45,8 +50,9 @@ public class Customer extends AppUser{
 		this.diet = diet;
 	}
 	@OneToMany(mappedBy="customer")
+	@JsonManagedReference
 	private List<Activity> activities;
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy="customer")
 	private List<Diet> diet;
 	

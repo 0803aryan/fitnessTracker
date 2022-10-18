@@ -12,30 +12,17 @@ import com.cg.fitnesstracker.app.model.Customer;
 
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
-<<<<<<< Updated upstream
-	Customer findByUserName(String userName);
 
-	@Modifying
-	@Query("update login c set c.user_email = :user_email where c.userName = :name")
-	
-	int updateEmail(@Param("user_email") String user_email, @Param("name") String userName);
-=======
-	//Customer findByUserName(String userName);
 
 	
 	@Query("update AppUser c set c.userEmail = :userEmail where c.userId = :userId")
 	@Modifying
 	int updateEmail( @Param("userEmail") String user_email,@Param("userId") int userId);
->>>>>>> Stashed changes
+
 
 	@Query("update AppUser c set c.password = :password where c.userId = :userId")
 	@Modifying
-<<<<<<< Updated upstream
-	@Query("update login c set c.password = :password where c.userName = :name")
-	
-	int updatePassword( @Param("password") String password,@Param("name") String userName);
-=======
+
 	int updatePassword(@Param("password") String password,@Param("userId") int userId);
 
->>>>>>> Stashed changes
 }
