@@ -4,13 +4,14 @@ import com.cg.fitnesstracker.app.service.AppUserService;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.service.AppUserService;
 import com.cg.fitnesstracker.app.repository.*;
-
+@Component
 public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
