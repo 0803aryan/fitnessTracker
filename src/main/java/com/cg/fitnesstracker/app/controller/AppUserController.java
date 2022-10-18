@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.fitnesstracker.app.dto.UpdateEmailDto;
 import com.cg.fitnesstracker.app.model.Admin;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.service.AppUserService;
@@ -19,8 +20,9 @@ public class AppUserController {
 	private AppUserService appUserService;
 	
 	@PostMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
-	public ResponseEntity<AppUser> updateEmail(int userId, String email){
-		return new ResponseEntity<AppUser>(appUserService.updateCustomerEmailService(email,userId),HttpStatus.OK);
+	public ResponseEntity<AppUser> updateEmail(@RequestBody UpdateEmailDto u){
+		System.out.println(u.getEmail()+u.getUserId());
+		return new ResponseEntity<AppUser>(appUserService.updateCustomerEmailService(u.getEmail(),Integer.parseInt(u.getUserId())),HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/password",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})

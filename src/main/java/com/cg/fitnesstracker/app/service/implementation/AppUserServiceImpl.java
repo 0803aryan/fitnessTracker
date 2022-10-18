@@ -16,11 +16,7 @@ public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
 
-	@Transactional
-	@Override
 	
-	public Customer updateCustomerEmailService(String userName,String email) {
-
 	
 	@Transactional
 	@Override
