@@ -17,10 +17,10 @@ public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 	@Modifying
 	@Query("update login c set c.user_email = :user_email where c.userName = :name")
 	
-	int updateEmail(@Param("name") String userName, @Param("user_email") String user_email);
+	int updateEmail(@Param("user_email") String user_email, @Param("name") String userName);
 
 	@Modifying
 	@Query("update login c set c.password = :password where c.userName = :name")
 	
-	int updatePassword(@Param("name") String userName, @Param("password") String password);
+	int updatePassword( @Param("password") String password,@Param("name") String userName);
 }
