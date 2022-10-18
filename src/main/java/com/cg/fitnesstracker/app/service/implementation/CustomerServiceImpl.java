@@ -26,7 +26,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private DietRepository dietRepository;
-
+/*
 	@Override
 	public List<Activity> addActivity(String userName, Activity activity) {
 		Customer cust =customerRepository.findByUserName(userName);
@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new RuntimeException("Can't update");
 	}
-
+*/
 	@Override
 	public Customer addCustomerDetailService(Customer customer) {
 		Customer cust = customerRepository.save(customer);
@@ -78,8 +78,10 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new RuntimeException("Can't update");
 	}
-/*
+
+  /*
 	@Override
+
 	public Customer updateCustomerActivityStatusService(String userName, boolean updatedActivityStatus) {
 		int c =customerRepository.updateActivityStatus(userName, updatedActivityStatus);
 		if(c>0) {
@@ -88,5 +90,6 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new RuntimeException("Can't Update");
 	}
-*/
+	*/
+
 }

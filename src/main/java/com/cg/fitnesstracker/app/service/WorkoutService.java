@@ -6,9 +6,9 @@ import com.cg.fitnesstracker.app.model.Workout;
 import com.cg.fitnesstracker.app.model.enums.WorkoutType;
 
 public interface WorkoutService {
-    public Workout addUserWorkout(Workout c);
+    public Workout addUserWorkout(Workout w);
     
-    public Workout removeUserWorkout(int activityId);
+    public Workout removeUserWorkout(int workoutId);
     
     public List<Workout> getWorkoutByType(WorkoutType workoutType);
     

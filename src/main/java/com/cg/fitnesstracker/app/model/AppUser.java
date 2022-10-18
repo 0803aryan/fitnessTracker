@@ -15,6 +15,7 @@ public class AppUser{
     private String userEmail;
     @JsonIgnore
     private String password;
+    @Enumerated(EnumType.STRING)
     private UserType userType; //Enum
 
 	public AppUser() {
