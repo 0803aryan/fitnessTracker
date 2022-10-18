@@ -1,21 +1,13 @@
 package com.cg.fitnesstracker.app.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
 import com.cg.fitnesstracker.app.model.enums.WorkoutType;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Workout extends Activity {
@@ -26,17 +18,16 @@ public class Workout extends Activity {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
     
-    //@NotNull
-    //@Temporal(TemporalType.DATE)
-    //@DateTimeFormat(style = "dd-MM-yyyy")
-    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+//    @NotNull
+//    @Temporal(TemporalType.DATE)
+//    @DateTimeFormat(style = "dd-MM-yyyy")
+//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
     private boolean successFlag;
-    
     {
-    	this.dayOfWeek = dayOfWeek;
+		this.date = LocalDate.now();
     }
-
+    
     public Workout() {}
     
 	public Workout(WorkoutType workoutType, int noOfReps, DayOfWeek dayOfWeek, boolean successFlag) {
@@ -55,7 +46,7 @@ public class Workout extends Activity {
 		this.date = LocalDate.now();
 	}
 
-    public boolean isSuccessFlag() {
+   public boolean isSuccessFlag() {
 		return successFlag;
 	}
 
@@ -63,7 +54,7 @@ public class Workout extends Activity {
 		this.successFlag = successFlag;
 	}
 
-	public DayOfWeek getDayOfWeek() {
+public DayOfWeek getDayOfWeek() {
 		return dayOfWeek;
 	}
 

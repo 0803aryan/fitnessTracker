@@ -6,13 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.cg.fitnesstracker.app.model.enums.BodyType;
@@ -52,8 +46,9 @@ public class Customer extends AppUser{
 	@OneToMany(mappedBy="customer")
 	@JsonManagedReference
 	private List<Activity> activities;
-	@JsonManagedReference
+	
 	@OneToMany(mappedBy="customer")
+	@JsonManagedReference
 	private List<Diet> diet;
 	
 	public String getUserName() {

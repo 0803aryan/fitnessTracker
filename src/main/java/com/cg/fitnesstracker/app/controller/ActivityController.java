@@ -27,71 +27,64 @@ import com.cg.fitnesstracker.app.service.WorkoutService;
 @RequestMapping("/fitness/activity")
 public class ActivityController {
 
-    @Autowired
-    ActivityService activityService;
-    @Autowired
-    CardioService cardioService;
-    @Autowired
-    WorkoutService workoutService;
+	@Autowired
+	ActivityService activityService;
+	@Autowired
+	CardioService cardioService;
+	@Autowired
+	WorkoutService workoutService;
 
-    public void setActivityService (ActivityService activityService) {
-        this.activityService=activityService;
-    }
-    public void setCardioService (CardioService cardioService) {
-        this.cardioService=cardioService;
-    }
-    public void setWorkoutService (WorkoutService workoutService) {
-        this.workoutService=workoutService;
-    }
+	public void setActivityService (ActivityService activityService) {
+		this.activityService=activityService;
+	}
+	public void setCardioService (CardioService cardioService) {
+		this.cardioService=cardioService;
+	}
+	public void setWorkoutService (WorkoutService workoutService) {
+		this.workoutService=workoutService;
+	}
 
-    /*@PostMapping(value="/add")
-    public ResponseEntity<Activity> addActivity(@RequestBody final Activity activity) {
-        final Activity a=this.activityService.addCardioActivityService(null, null)
-    }*/
+	/*@PostMapping(value="/add")
+	public ResponseEntity<Activity> addActivity(@RequestBody final Activity activity) {
+		final Activity a=this.activityService.addCardioActivityService(null, null)
+	}*/
 
-    @PostMapping(value="/cardio/{userName}", consumes={"application/json"}, produces= {"application/json"})
-    public ResponseEntity<Cardio> addCardio(@PathVariable("userName") String userName, @RequestBody Cardio cardio) {
-        final Activity c=this.activityService.addCardioActivityService(userName, cardio);
+	@PostMapping(value="/cardio/{userName}", consumes={"application/json"}, produces= {"application/json"})
+	public ResponseEntity<Cardio> addCardio(@PathVariable("userName") String userName, @RequestBody Cardio cardio) {
+		final Activity c=this.activityService.addCardioActivityService(userName, cardio);
 
-        return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
-    }
+		return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
+	}
 
-    @PostMapping(value="/workout")
-    public ResponseEntity<Workout> addWorkout(@RequestBody final Workout workout) {
-        final Workout c=this.workoutService.addUserWorkout(workout);
+	@PostMapping(value="/workout/{userName}")
+	public ResponseEntity<Workout> addWorkout(@PathVariable("userName") String userName, @RequestBody Workout workout) {
+		final Activity c=this.activityService.addWorkoutActivityService(userName, workout);
 
-        return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
-    }
+		return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
+	}
 
-    @DeleteMapping(value= {"/cardio/{userName}/{activityId}"}, consumes={"application/json"}, produces= {"application/json"})
-    public ResponseEntity<Activity> deleteCardio(@PathVariable("userName") String userName, @PathVariable("activityId") int activityId, @RequestBody Activity a) {
-        a = activityService.deleteCardioActivityService(userName, activityId);
-        
-        return new ResponseEntity<Activity>(a, HttpStatus.OK);
-    }
-    
-    @DeleteMapping(value= {"/workout/{wCode}"})
-    public ResponseEntity<Workout> deleteWorkout(@PathVariable("wCode") final int activityId) {
-        Workout w=workoutService.removeUserWorkout(activityId);
-        return new ResponseEntity<Workout>(w, HttpStatus.OK);
-    }
+	@DeleteMapping(value= {"/delete/{userName}/{activityId}"}, consumes={"application/json"}, produces= {"application/json"})
+	public ResponseEntity<Activity> deleteUserActivity(@PathVariable("userName") String userName, @PathVariable("activityId") int activityId, @RequestBody Activity a) {
+		a = activityService.deleteActivity(userName, activityId);
 
-    @GetMapping(value="/cardio_type")
-    public ResponseEntity<List<Cardio>> getCardioByType(@RequestParam("cardiotype") CardioType cardioType) {
-        @SuppressWarnings("unchecked")
-        List<Cardio> cardioList=(List<Cardio>) cardioService.getCardioByType(cardioType);
-        
-        return new ResponseEntity<List<Cardio>>(cardioList, HttpStatus.OK);
-    }
+		return new ResponseEntity<Activity>(a, HttpStatus.OK);
+	}
 
-    @GetMapping(value="/workout_type")
-    public ResponseEntity<List<Workout>> getWorkoutByType(@RequestParam("workouttype") WorkoutType workoutType) {
-        @SuppressWarnings("unchecked")
-        List<Workout> workoutList=(List<Workout>) workoutService.getWorkoutByType(workoutType);
-        
-        return new ResponseEntity<List<Workout>>(workoutList, HttpStatus.OK);
-    }
+	@GetMapping(value="/cardio_type")
+	public ResponseEntity<List<Cardio>> getCardioByType(@RequestParam("cardiotype") CardioType cardioType) {
+		@SuppressWarnings("unchecked")
+		List<Cardio> cardioList=(List<Cardio>) cardioService.getCardioByType(cardioType);
 
+		return new ResponseEntity<List<Cardio>>(cardioList, HttpStatus.OK);
+	}
+
+	@GetMapping(value="/workout_type")
+	public ResponseEntity<List<Workout>> getWorkoutByType(@RequestParam("workouttype") WorkoutType workoutType) {
+		@SuppressWarnings("unchecked")
+		List<Workout> workoutList=(List<Workout>) workoutService.getWorkoutByType(workoutType);
+
+		return new ResponseEntity<List<Workout>>(workoutList, HttpStatus.OK);
+	}
 
 
 
