@@ -9,11 +9,11 @@ public interface ActivityService {
 	
 	public Workout addWorkoutActivityService(String userName, Workout workoutActivity);
 
-	public Cardio deleteCardioActivityService(String userName, Cardio cardioActivity);
+	public Cardio deleteCardioActivityService(String userName, int cardioId);
 	
-	public Workout deleteWorkoutActivityService(String userName, Workout workoutActivity);
+	public Workout deleteWorkoutActivityService(String userName, int workoutId);
 	
-	public Cardio updateCardioActivityService(String userName, Cardio cardioActivity);
+	public Cardio updateCardioActivityService(int userId, Cardio cardioActivity);
 	
-	public Workout updateWorkoutActivityService(String userName, Workout workoutActivity);
+	public Workout updateWorkoutActivityService(int userId, Workout workoutActivity);
 }
