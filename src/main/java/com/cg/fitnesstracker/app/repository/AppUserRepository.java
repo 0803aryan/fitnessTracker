@@ -17,7 +17,7 @@ public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 	
 	@Query("update AppUser c set c.userEmail = :userEmail where c.userId = :userId")
 	@Modifying
-	int updateEmail( @Param("userEmail") String user_email,@Param("userId") int userId);
+	int updateEmail(@Param("userEmail") String userEmail,@Param("userId") int userId);
 
 
 	@Query("update AppUser c set c.password = :password where c.userId = :userId")
