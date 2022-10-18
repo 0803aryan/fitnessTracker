@@ -89,7 +89,7 @@ public class DietController {
 				}
 		}
 		@GetMapping("/{userName}/diet/{dietId}/get-calories/")
-	    public ResponseEntity<Integer> getCalories(@PathVariable String userName,int dietId){
+	    public ResponseEntity<Integer> getCalories(@PathVariable String userName,@PathVariable int dietId){
 			try {
 				int calories = dietService.getTotalCaloriesService(userName, dietId);
 				if (calories==0) {
