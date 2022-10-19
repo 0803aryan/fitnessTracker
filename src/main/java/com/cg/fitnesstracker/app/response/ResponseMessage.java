@@ -4,40 +4,27 @@ package com.cg.fitnesstracker.app.response;
 
 public class ResponseMessage {
     private String message;
-    private String fileDownloadUri;
-
-
-
-
-    public ResponseMessage(String message, String fileDownloadUri) {
+    private int status;
+    
+    public ResponseMessage(String message,int status) {
         this.message = message;
-        this.fileDownloadUri = fileDownloadUri;
+        this.status = status;
     }
-
-
 
    public String getMessage() {
         return message;
     }
 
-
-
    public void setMessage(String message) {
         this.message = message;
     }
 
-
-
-   public String getFileDownloadUri() {
-        return fileDownloadUri;
-    }
-
-
-
-   public void setFileDownloadUri(String fileDownloadUri) {
-        this.fileDownloadUri = fileDownloadUri;
-    }
-
-
-
+   public int getStatus() {
+	   return status;
+   }
+   
+   public void setStatus(int status) {
+	   this.status = status;
+   }
+   
 }

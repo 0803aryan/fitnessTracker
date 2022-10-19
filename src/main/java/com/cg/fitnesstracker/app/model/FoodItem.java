@@ -1,6 +1,6 @@
 package com.cg.fitnesstracker.app.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,12 +20,6 @@ public class FoodItem {
     private String foodName;
     private String foodQuantity;
     private int caloriesInFood;
-    
-    @ManyToOne
-    @JoinColumn(name="dietId")
-    @JsonBackReference
-    private Diet diet;
-
 
 	public FoodItem() {}
     
@@ -68,12 +62,5 @@ public class FoodItem {
         this.caloriesInFood = caloriesInFood;
     }
 
-    public Diet getDiet() {
-        return diet;
-    }
-
-    public void setDiet(Diet diet) {
-        this.diet = diet;
-    }
    
 }
