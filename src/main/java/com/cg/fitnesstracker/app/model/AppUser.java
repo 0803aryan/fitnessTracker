@@ -10,10 +10,14 @@ import javax.persistence.*;
 public class AppUser{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APPUSER_SEQ")
-    @SequenceGenerator(sequenceName = "appUser_seq", allocationSize = 101, name = "APPUSER_SEQ")
+    @SequenceGenerator(sequenceName = "appUser_seq", allocationSize = 1, name = "APPUSER_SEQ")
     private int userId;
-    @Column(length=40,unique=true)
-	private String userName;
+    public int getUserId() {
+		return userId;
+	}
+
+	@Column(length=40,unique=true)
+	private String username;
     @JsonIgnore
     private String password;
 //    @Enumerated(EnumType.STRING)
@@ -23,9 +27,9 @@ public class AppUser{
 		super();
 	}
 
-	public AppUser(String userName, String password, String role) {
+	public AppUser(String username, String password, String role) {
 		super();
-		this.userName = userName;
+		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
@@ -38,12 +42,12 @@ public class AppUser{
     	this.role = role;
     }
     
-    public String getUserName() {
-		return userName;
+    public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

@@ -20,10 +20,11 @@ public class AppUserServiceImpl implements AppUserService{
 	
 	@Transactional
 	@Override
-	public AppUser updateCustomerPasswordService(String password, int userId) {
-		int c=appUserRepository.updatePassword(password,userId);
+	public AppUser updateCustomerPasswordService(String password, String username) {
+		AppUser appUser = appUserRepository.findByUsername(username);
+		int c=appUserRepository.updatePassword(password,appUser.getUserId());
 		if(c>0) 
-			return appUserRepository.findById(userId).get();
+			return appUserRepository.findById(appUser.getUserId()).get();
 		throw new RuntimeException("Can't update");
 	}
 }

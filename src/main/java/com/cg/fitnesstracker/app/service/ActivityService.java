@@ -4,9 +4,9 @@ import com.cg.fitnesstracker.app.model.Activity;
 
 public interface ActivityService {
 	
-	public Activity addCardioActivityService(String userName, Activity cardioActivity);
+	public Activity addCardioActivityService(String username, Activity cardioActivity);
 	
-	public Activity addWorkoutActivityService(String userName, Activity workoutActivity);
+	public Activity addWorkoutActivityService(String username, Activity workoutActivity);
 
 	public Activity deleteActivity(String userName, int activityId);
 	

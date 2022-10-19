@@ -1,17 +1,14 @@
 package com.cg.fitnesstracker.app.service.implementation;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
-import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.repository.ActivityRepository;
+import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.repository.DietRepository;
 import com.cg.fitnesstracker.app.service.CustomerService;
@@ -28,28 +25,38 @@ public class CustomerServiceImpl implements CustomerService{
 	@Autowired
 	private DietRepository dietRepository;
 	
+	@Autowired
+	private AppUserRepository appUserRepository;
+	
 	@Transactional
 	@Override
-	public AppUser updateCustomerEmailService(String email,int userId) {
-
-		int c = customerRepository.updateCustomerEmail(email,userId);
+	public AppUser updateCustomerEmailService(String email,String username) {
+		AppUser appUser = appUserRepository.findByUsername(username);
+		int c = customerRepository.updateCustomerEmail(email,appUser.getUserId());
 		if(c>0)
-			return customerRepository.findById(userId).get();
+			return customerRepository.findById(appUser.getUserId()).get();
 		throw new RuntimeException("Can't update");
 	}
 	
 	@Override
-	public Customer addCustomerDetailService(Customer customer) {
-		Customer cust = customerRepository.save(customer);
-		return cust;
+	public Customer addCustomerDetailService(String username, Customer customer) {
+		AppUser appUser = appUserRepository.findByUsername(username);
+		System.out.println(appUser.getUsername());
+		System.out.println(customer.getUserEmail());
+		System.out.println(appUser.getUserId());
+		int c =customerRepository.addCustomerDetails(customer.getActive(),customer.getAge(),customer.getBodyType(),customer.getGender(),customer.getHeight(),customer.getUserEmail(),customer.getWeight(),appUser.getUserId());
+		System.out.println(c);
+		if(c>0)
+			return customerRepository.findById(appUser.getUserId()).get();
+		throw new RuntimeException("Can't update");
 	}
 
 	@Override
 	@Transactional
-	public Customer updateCustomerWeightService(String userName, float updatedWeight) {
-		int c = customerRepository.updateWeight(userName, updatedWeight);
+	public Customer updateCustomerWeightService(String username, float updatedWeight) {
+		int c = customerRepository.updateWeight(username, updatedWeight);
 		if(c>0) {
-			Customer cust = customerRepository.findByUserName(userName);
+			Customer cust = customerRepository.findByUsername(username);
 			return cust;
 		}
 		throw new RuntimeException("Can't update");
@@ -57,10 +64,10 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	@Transactional
-	public Customer updateCustomerHeightService(String userName, float updatedHeight) {
-		int c = customerRepository.updateHeight(userName, updatedHeight);
+	public Customer updateCustomerHeightService(String username, float updatedHeight) {
+		int c = customerRepository.updateHeight(username, updatedHeight);
 		if(c>0) {
-			Customer cust = customerRepository.findByUserName(userName);
+			Customer cust = customerRepository.findByUsername(username);
 			return cust;
 		}
 		throw new RuntimeException("Can't update");

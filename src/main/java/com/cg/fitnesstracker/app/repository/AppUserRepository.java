@@ -13,7 +13,7 @@ import com.cg.fitnesstracker.app.model.Customer;
 @Repository
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 	
-	AppUser findByUserName(String userName);
+	AppUser findByUsername(String username);
 
 	@Query("update AppUser c set c.password = :password where c.userId = :userId")
 	@Modifying

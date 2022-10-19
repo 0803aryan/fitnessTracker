@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +25,11 @@ public class DietController {
 		@Autowired
 		DietService dietService;
 		
-		@GetMapping("/{userName}/diets/")
-	    public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String userName){
+		@GetMapping("/{username}/alldiets/")
+		@PreAuthorize("hasAnyRole('Admin','Customer')")
+	    public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String username){
 			try {
-				List<Diet> dietList = dietService.getAllDietService(userName);
+				List<Diet> dietList = dietService.getAllDietService(username);
 				if (dietList.isEmpty()) {
 	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	            }
@@ -37,10 +39,11 @@ public class DietController {
 				}
 		}
 		
-		@PostMapping("/{userName}/diets/")
-	    public ResponseEntity<Diet> addDiet(@PathVariable String userName, @RequestBody Diet diet){
+		@PostMapping("/{username}/diets/")
+		@PreAuthorize("hasAuthority('Customer')")
+	    public ResponseEntity<Diet> addDiet(@PathVariable String username, @RequestBody Diet diet){
 			try {
-				Diet addDiet = dietService.addDietByUserIdService(userName, diet);
+				Diet addDiet = dietService.addDietByUserIdService(username, diet);
 				if (addDiet==null) {
 	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	            }
@@ -50,7 +53,8 @@ public class DietController {
 				}
 		}
 		
-		@PostMapping("/{userName}/diets/{dietId}/food-items/{foodId}")
+		@PostMapping("/{username}/diets/{dietId}/food-items/{foodId}")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			try {
 				FoodItem addFood = dietService.addFoodItemToDietService(dietId, foodId);
@@ -63,7 +67,8 @@ public class DietController {
 				}
 		}
 		
-		@DeleteMapping("/{userName}/diets/{dietId}/food-items/{foodId}")
+		@DeleteMapping("/{username}/diets/{dietId}/food-items/{foodId}")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> deleteFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			try {
 				FoodItem removeFood = dietService.removeFoodItemFromDietService(dietId, foodId);
@@ -76,10 +81,11 @@ public class DietController {
 				}
 		}
 		
-		@DeleteMapping("/{userName}/diets/{dietId}/")
-	    public ResponseEntity<Diet> deleteDiet(@PathVariable String userName, @PathVariable int dietId){
+		@DeleteMapping("/{username}/diets/{dietId}/")
+		@PreAuthorize("hasAuthority('Customer')")
+	    public ResponseEntity<Diet> deleteDiet(@PathVariable String username, @PathVariable int dietId){
 			try {
-				Diet removeDiet = dietService.deleteDietService(userName, dietId);
+				Diet removeDiet = dietService.deleteDietService(username, dietId);
 				if (removeDiet==null) {
 	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	            }
@@ -88,10 +94,11 @@ public class DietController {
 					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 				}
 		}
-		@GetMapping("/{userName}/diet/{dietId}/get-calories/")
-	    public ResponseEntity<Integer> getCalories(@PathVariable String userName,int dietId){
+		@GetMapping("/{username}/diet/{dietId}/get-calories/")
+		@PreAuthorize("hasAuthority('Customer')")
+	    public ResponseEntity<Integer> getCalories(@PathVariable String username,int dietId){
 			try {
-				int calories = dietService.getTotalCaloriesService(userName, dietId);
+				int calories = dietService.getTotalCaloriesService(username, dietId);
 				if (calories==0) {
 	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	            }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,7 @@ public class FoodItemCSVController {
     }
     
     @PostMapping(value="/food_items/upload")
+    @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file)
     {
         String message = "";
@@ -52,7 +54,8 @@ public class FoodItemCSVController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,""));
     }
 
-   @GetMapping("/food_items")
+    @GetMapping("/food_items")
+    @PreAuthorize("hasAnyRole('Customer','Admin')")
     public ResponseEntity<List<FoodItem>> getAllInfo() {
         try {
             List<FoodItem> foodItems = fileService.getAllFoodItems();

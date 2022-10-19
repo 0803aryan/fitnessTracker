@@ -1,10 +1,12 @@
 package com.cg.fitnesstracker.app.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,28 +51,30 @@ public class ActivityController {
 		final Activity a=this.activityService.addCardioActivityService(null, null)
 	}*/
 
-	@PostMapping(value="/cardio/{userName}", consumes={"application/json"}, produces= {"application/json"})
-	public ResponseEntity<Cardio> addCardio(@PathVariable("userName") String userName, @RequestBody Cardio cardio) {
-		final Activity c=this.activityService.addCardioActivityService(userName, cardio);
-
+	@PostMapping(value="/cardio/", consumes={"application/json"}, produces= {"application/json"})
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<Cardio> addCardio(Principal p,@RequestBody Cardio cardio) {
+		final Activity c=this.activityService.addCardioActivityService(p.getName(), cardio);
 		return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
-	@PostMapping(value="/workout/{userName}")
-	public ResponseEntity<Workout> addWorkout(@PathVariable("userName") String userName, @RequestBody Workout workout) {
-		final Activity c=this.activityService.addWorkoutActivityService(userName, workout);
-
+	@PostMapping(value="/workout/")
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<Workout> addWorkout(Principal p, @RequestBody Workout workout) {
+		final Activity c=this.activityService.addWorkoutActivityService(p.getName(), workout);
 		return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value= {"/delete/{userName}/{activityId}"}, consumes={"application/json"}, produces= {"application/json"})
-	public ResponseEntity<Activity> deleteUserActivity(@PathVariable("userName") String userName, @PathVariable("activityId") int activityId, @RequestBody Activity a) {
-		a = activityService.deleteActivity(userName, activityId);
+	@DeleteMapping(value= {"/delete/{activityId}"}, consumes={"application/json"}, produces= {"application/json"})
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<Activity> deleteUserActivity(Principal p, @PathVariable("activityId") int activityId, @RequestBody Activity a) {
+		a = activityService.deleteActivity(p.getName(), activityId);
 
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
 	}
 
 	@GetMapping(value="/cardio_type")
+	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<List<Cardio>> getCardioByType(@RequestParam("cardiotype") CardioType cardioType) {
 		@SuppressWarnings("unchecked")
 		List<Cardio> cardioList=(List<Cardio>) cardioService.getCardioByType(cardioType);
@@ -79,6 +83,7 @@ public class ActivityController {
 	}
 
 	@GetMapping(value="/workout_type")
+	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<List<Workout>> getWorkoutByType(@RequestParam("workouttype") WorkoutType workoutType) {
 		@SuppressWarnings("unchecked")
 		List<Workout> workoutList=(List<Workout>) workoutService.getWorkoutByType(workoutType);

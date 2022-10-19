@@ -25,15 +25,15 @@ public class DietServiceImpl implements DietService{
 	FoodItemRepository foodItemRepository;
 
 	@Override
-	public List<Diet> getAllDietService(String userName) {
-		Customer cust = customerRepository.findByUserName(userName);
+	public List<Diet> getAllDietService(String username) {
+		Customer cust = customerRepository.findByUsername(username);
 		List<Diet> dietList = cust.getDiet();
 		return dietList;
 	}
 
 	@Override
-	public Diet addDietByUserIdService(String userName, Diet diet) {
-		Customer cust = customerRepository.findByUserName(userName);
+	public Diet addDietByUserIdService(String username, Diet diet) {
+		Customer cust = customerRepository.findByUsername(username);
 		if (cust!=null) {
 			diet.setCustomer(cust);
 			List<Diet> dietList = cust.getDiet();
@@ -74,8 +74,8 @@ public class DietServiceImpl implements DietService{
 
 	@Override
 	@Transactional
-	public Diet deleteDietService(String userName, int dietId) {
-		Customer cust = customerRepository.findByUserName(userName);
+	public Diet deleteDietService(String username, int dietId) {
+		Customer cust = customerRepository.findByUsername(username);
 		Diet diet = dietRepository.findById(dietId).get();
 		if (cust!=null && diet!=null) {
 			diet.setCustomer(cust);
@@ -85,8 +85,8 @@ public class DietServiceImpl implements DietService{
 	}
 
 	@Override
-	public int getTotalCaloriesService(String userName, int dietId) {
-		Customer cust = customerRepository.findByUserName(userName);
+	public int getTotalCaloriesService(String username, int dietId) {
+		Customer cust = customerRepository.findByUsername(username);
 		//List<Diet> dietList = cust.getDiet();
 		Diet diet = dietRepository.findById(dietId).get();
 		int cal=0;

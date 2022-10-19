@@ -1,14 +1,14 @@
 package com.cg.fitnesstracker.app.dto;
 
 public class UpdatePasswordDto {
-private int userId;
+private String username;
 private String newPassword;
 
-public int getUserId() {
-	return userId;
+public String getUsername() {
+	return username;
 }
-public void setUserId(int userId) {
-	this.userId = userId;
+public void setUserId(String userId) {
+	this.username = username;
 }
 public String getNewPassword() {
 	return newPassword;

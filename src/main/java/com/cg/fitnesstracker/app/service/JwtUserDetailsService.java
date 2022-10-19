@@ -25,15 +25,15 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<SimpleGrantedAuthority> roles = null;
-		AppUser user = userDao.findByUserName(userName);
+		AppUser user = userDao.findByUsername(username);
 		if (user == null) {
-			throw new UsernameNotFoundException("User not found with userName: " + userName);
+			throw new UsernameNotFoundException("User not found with userName: " + username);
 		}
 		roles = Arrays.asList(new SimpleGrantedAuthority(user.getRole()));
 		System.out.println("Roles : "+roles);
-		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				roles);
 		//return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 			//	new ArrayList<>());
@@ -42,7 +42,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	public AppUser save(UserDto user) {
 		AppUser newUser = new AppUser();
-		newUser.setUserName(user.getUserName());
+		newUser.setUsername(user.getUserName());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setRole(user.getRole());
 		return userDao.save(newUser);
