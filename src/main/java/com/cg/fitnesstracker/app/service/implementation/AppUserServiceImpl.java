@@ -16,11 +16,10 @@ public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
 
-	
-	
+
 	@Transactional
 	@Override
-	
+
 	public AppUser updateCustomerEmailService(String email,int userId) {
 
 		int c=0;

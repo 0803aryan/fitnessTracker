@@ -5,11 +5,11 @@ import com.cg.fitnesstracker.app.model.enums.CardioType;
 
 public interface CardioService {
 	
-	public Cardio addCardio(Cardio c,String userName);
+	public Cardio addCardio(Cardio c);
 	
-	public Cardio removeCardio(int cardioId);
+	public Cardio removeCardio(int activityId);
 	
 	public Cardio getCardioByType(CardioType cardioType);
-	
-	public Cardio updateExistingCardio(int CardioId, Cardio c);
+
+//	public Cardio updateExistingCardio(CardioType cardioType, Cardio c);
 }
