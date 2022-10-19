@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.enums.UserType;
 import com.cg.fitnesstracker.app.repository.AppUserRepository;
