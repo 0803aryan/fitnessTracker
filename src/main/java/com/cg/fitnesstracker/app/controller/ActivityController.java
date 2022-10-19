@@ -99,7 +99,7 @@ public class ActivityController {
 //				List<Activity> activityList = activityService.getActivity(userName);
 				if(check.isEmpty())
 				{
-					throw new ActivityException("No such activity found", 204);
+					throw new ActivityException("No such activity found", 404);
 				}
 				a = activityService.deleteActivity(userName, activityId);		
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
