@@ -19,8 +19,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cg.fitnesstracker.app.dto.UpdateEmailDto;
-import com.cg.fitnesstracker.app.dto.UpdatePasswordDto;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.enums.UserType;
 import com.cg.fitnesstracker.app.repository.AppUserRepository;
@@ -33,9 +31,7 @@ public class AppUserServiceImplTest {
 	private AppUserRepository appUserRepository;
 	@InjectMocks
 	private AppUserServiceImpl appUserServiceImpl;
-	
-	//private UpdateEmailDto e;
-	private UpdatePasswordDto p;
+
 	
 	@BeforeEach
 	public void setup()
