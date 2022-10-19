@@ -10,18 +10,13 @@ import org.springframework.stereotype.Component;
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.repository.ActivityRepository;
-import com.cg.fitnesstracker.app.repository.CardioRepository;
 import com.cg.fitnesstracker.app.repository.CustomerRepository;
-import com.cg.fitnesstracker.app.repository.WorkoutRepository;
 import com.cg.fitnesstracker.app.service.ActivityService;
 
 @Component
 public class ActivityServiceImpl implements ActivityService {
 
-	@Autowired
-	private CardioRepository cardioRepo;
-	@Autowired
-	private WorkoutRepository workoutRepo;
+	
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
@@ -63,17 +58,32 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	@Transactional
 	public Activity deleteActivity(String userName, int activityId) {
-		Customer customer=customerRepository.findByUserName(userName);
-		
-		Activity cardioActivity=cardioRepo.findById(activityId).get();
-		if(cardioActivity!=null)
+		Activity activity=activityRepo.findById(activityId).get();
+//		Activity cardioActivity=cardioRepo.findById(activityId).get();
+		if(activity!=null)
 		{
-			List<Activity> activityList=customer.getActivities();
 			activityRepo.deleteByActivityId(activityId);
 		}
-		return cardioActivity;
+		return activity;
+	}
+	
+	@Override
+	public List<Activity> getActivity(String userName) {
+		Customer customer=customerRepository.findByUserName(userName);
+
+		List<Activity> activityList=customer.getActivities();
+		
+		return activityList;
 	}
 
+//	@Override
+//	@Transactional
+//	public List<Cardio> getCardioActivity(CardioType cardioType) {
+//		List<Cardio> cardio=activityRepo.getCardioActivity(cardioType);
+//		return cardio;
+//	}
+
+	
 //	@Override
 //	public Workout deleteWorkoutActivityService(String userName, WorkoutType workoutType) {
 //		Customer customer=customerRepository.findByUserName(userName);
