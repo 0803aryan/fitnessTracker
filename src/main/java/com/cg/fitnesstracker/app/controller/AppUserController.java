@@ -23,7 +23,7 @@ import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.service.AppUserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/fitness/user")
 public class AppUserController {
 	@Autowired
 	private AppUserService appUserService;

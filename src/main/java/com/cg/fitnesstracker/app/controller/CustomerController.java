@@ -21,7 +21,7 @@ import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/fitness/customer")
 public class CustomerController {
 	
 	@Autowired

@@ -25,7 +25,7 @@ import com.cg.fitnesstracker.app.service.AdminService;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/fitness/admin")
 public class AdminController {
 	
 	@Autowired
@@ -43,21 +43,21 @@ public class AdminController {
 		return new ResponseEntity<Admin>(adminService.addAdminDetailService(p.getName(),ad),HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/Customers", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
+	@GetMapping(value = "/customers", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<List<Customer>> readAllCustomer() {
 		List<Customer> custList = adminService.readAllCustomerDetailService();
 		return new ResponseEntity<List<Customer>>(custList,HttpStatus.OK);	
 	}
 	
-	@GetMapping(value="/Customer/{username}", produces = {"application/json","application/xml"})
+	@GetMapping(value="/customer/{username}", produces = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Customer> readCustomerDetailById(@PathVariable String username){
 		Customer cust = adminService.readCustomerDetailByIdService(username);
 		return new ResponseEntity<Customer>(cust,HttpStatus.OK);
 	}
 	
-	@DeleteMapping(value = "/Customer/{username}",  produces = {"application/json","application/xml"})
+	@DeleteMapping(value = "/customer/{username}",  produces = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Customer> deleteCustomerById(@PathVariable String username){
 		Customer cust = adminService.deleteCustomerByIdService(username);

@@ -69,7 +69,7 @@ public class ActivityServiceImpl implements ActivityService {
 	
 	@Override
 	public List<Activity> getActivity(String userName) {
-		Customer customer=customerRepository.findByUserName(userName);
+		Customer customer=customerRepository.findByUsername(userName);
 
 		List<Activity> activityList=customer.getActivities();
 		
