@@ -14,9 +14,10 @@ import com.cg.fitnesstracker.app.model.AppUser;
 @Repository
 public interface AdminRepository extends CrudRepository<Admin, Integer>{
 	
-	@Query("update Admin a set a.userEmail = :userEmail where a.userId = :userId")
+	@Query("update Admin a set a.userEmail = :newEmail where a.userId = :userId")
 	@Modifying
-	int updateAdminEmail(@Param("userEmail") String userEmail,@Param("userId") int userId);
+	@Transactional
+	int updateAdminEmail(@Param("newEmail") String newEmail,@Param("userId") int userId);
 	
 	
 	

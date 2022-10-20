@@ -17,5 +17,5 @@ public interface AdminService {
 	
 	public Customer deleteCustomerByIdService(String username);
 	
-	public AppUser updateAdminEmailService(String email,String username);
+	public Admin updateAdminEmailService(String email,String userName);
 }

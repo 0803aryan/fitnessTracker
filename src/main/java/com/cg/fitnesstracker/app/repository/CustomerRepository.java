@@ -33,5 +33,5 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 	@Query(value= "insert into Customer (active,age,body_type,gender,height,user_email,weight,user_id) values(:active,:age,:bodyType,:gender,:height,:userEmail,:weight,:userId)",nativeQuery=true)
 	@Modifying
 	@Transactional
-	int addCustomerDetails(@Param("active") boolean active,@Param("age") int age,@Param("bodyType") BodyType bodyType,@Param("gender") Gender gender,@Param("height") int height,@Param("userEmail") String userEmail,@Param("weight") float weight,@Param("userId") int userId);
+	int addCustomerDetails(@Param("active") boolean active,@Param("age") int age,@Param("bodyType") String bodyType,@Param("gender") String gender,@Param("height") int height,@Param("userEmail") String userEmail,@Param("weight") float weight,@Param("userId") int userId);
 }

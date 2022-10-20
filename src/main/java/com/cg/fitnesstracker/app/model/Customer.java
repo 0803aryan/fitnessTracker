@@ -14,7 +14,7 @@ import com.cg.fitnesstracker.app.model.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name="userdetails")
+@Table(name="customer")
 public class Customer extends AppUser{
 	@Column(length=40,unique=true)
     private String userEmail;
