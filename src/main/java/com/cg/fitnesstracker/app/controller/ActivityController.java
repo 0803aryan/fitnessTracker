@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.cg.fitnesstracker.app.exception.ActivityException;
+import com.cg.fitnesstracker.app.dto.CaloriesBurnedDto;
+import com.cg.fitnesstracker.app.exceptions.ActivityException;
+
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Workout;
@@ -83,6 +85,22 @@ public class ActivityController {
 				}
 				a = activityService.deleteActivity(p.getName(), activityId);		
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="cardio/calories/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<CaloriesBurnedDto> getCaloriesBurned(Principal p,
+			@PathVariable int activityId) {
+		
+		int calories=activityService.getCaloriesBurned(p.getName(), activityId);
+		Activity activity=activityService.getActivityById(activityId);
+		
+		CaloriesBurnedDto calDto=new CaloriesBurnedDto();
+		calDto.setCaloriesBurned(calories);
+		calDto.setActivityId(activityId);
+		calDto.setActivityName(activity.getActivityName());
+		
+		return new ResponseEntity<>(calDto, HttpStatus.OK);
 	}
 
 }

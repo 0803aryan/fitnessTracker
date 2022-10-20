@@ -16,26 +16,27 @@ public class AppUser{
 		return userId;
 	}
 
-	  public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
 	@Column(length=40,unique=true)
-	  private String username;
-    @JsonIgnore
-    private String password;
+	private String username;
 
-    private String role; 
+  @JsonIgnore
+  private String password;
+
+  private String role; 
 
 	public AppUser() {
 		super();
 	}
 
-	  public AppUser(String username, String password, String role) {
+	public AppUser(String username, String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
+	}
+  
+  public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	  public String getRole() {

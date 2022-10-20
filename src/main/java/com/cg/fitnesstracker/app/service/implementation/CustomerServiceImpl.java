@@ -1,10 +1,13 @@
 package com.cg.fitnesstracker.app.service.implementation;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cg.fitnesstracker.app.exceptions.DietException;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.repository.ActivityRepository;
@@ -30,47 +33,85 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Transactional
 	@Override
-	public AppUser updateCustomerEmailService(String email,String username) {
+	public Customer updateCustomerEmailService(String username,String email) {
 		AppUser appUser = appUserRepository.findByUsername(username);
 		int c = customerRepository.updateCustomerEmail(email,appUser.getUserId());
-		if(c>0)
-			return customerRepository.findById(appUser.getUserId()).get();
-		throw new RuntimeException("Can't update");
+		if(c>0) {
+			Customer cust = customerRepository.findById(appUser.getUserId()).get();
+			if(cust!=null) {
+				return cust;
+			}
+			throw new DietException("Unable to find Customer ",404);
+		}
+			
+		throw new DietException("Can't update",400);
 	}
 	
 	@Override
-	public Customer addCustomerDetailService(String username, Customer customer) {
+	public AppUser addCustomerDetailService(String username, Customer customer) {
 		AppUser appUser = appUserRepository.findByUsername(username);
 		System.out.println(appUser.getUsername());
 		System.out.println(customer.getUserEmail());
 		System.out.println(appUser.getUserId());
 		int c =customerRepository.addCustomerDetails(customer.getActive(),customer.getAge(),customer.getBodyType().toString(),customer.getGender().toString(),customer.getHeight(),customer.getUserEmail(),customer.getWeight(),appUser.getUserId());
 		System.out.println(c);
-		if(c>0)
-			return customerRepository.findById(appUser.getUserId()).get();
-		throw new RuntimeException("Can't update");
+		if(c>0) {
+			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
+		if(user!=null) {
+			return user;
+		}
+		throw new DietException("Unable to find Customer ",404);
+	}
+		
+	throw new DietException("Can't update",400);
 	}
 
 	@Override
-	@Transactional
+
 	public Customer updateCustomerWeightService(String username, float updatedWeight) {
-		int c = customerRepository.updateWeight(username, updatedWeight);
-		if(c>0) {
-			Customer cust = customerRepository.findByUsername(username);
-			return cust;
+		AppUser appUser =appUserRepository.findByUsername(username);
+		Optional<Customer> cust = customerRepository.findById(appUser.getUserId());
+		if(cust.isPresent()) {
+			Customer c = cust.get();
+			System.out.println(c.getUserId()+c.getWeight());
+			System.out.println(updatedWeight);
 		}
-		throw new RuntimeException("Can't update");
+		int c = customerRepository.updateWeight(appUser.getUserId(), updatedWeight);
+		System.out.println(c);
+		if(c>0) {
+			Customer cust1 = customerRepository.findById(appUser.getUserId()).get();
+			return cust1;
+		}
+		throw new DietException("Can't update",400);
 	}
 
 	@Override
 	@Transactional
-	public Customer updateCustomerHeightService(String username, float updatedHeight) {
-		int c = customerRepository.updateHeight(username, updatedHeight);
+	public Customer updateCustomerHeightService(String username, int updatedHeight) {
+		AppUser appUser =appUserRepository.findByUsername(username);
+		System.out.println(updatedHeight);
+		int c = customerRepository.updateHeight(appUser.getUserId(), updatedHeight);
 		if(c>0) {
-			Customer cust = customerRepository.findByUsername(username);
+			Customer cust = customerRepository.findById(appUser.getUserId()).get();
 			return cust;
 		}
-		throw new RuntimeException("Can't update");
+		throw new DietException("Can't update",400);
+	}
+
+	@Override
+	public Customer getCustomerService(String username) {
+		Customer cust = customerRepository.findByUsername(username);
+		if (cust!=null) {
+			return cust;
+		}
+		throw new DietException("Can't update",400);
+	}
+	
+	@Override
+	public Customer toggleCustomerStatus(String userName) {
+		Customer customer=customerRepository.findByUsername(userName);
+		
+		return null;
 	}
 
   /*

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		<!-- Instructions to the Spring Container -->
+		<bean id="foodSuggestion" class="com.cg.fitnesstracker.app.service.implementation.DietServiceImpl">
+		<!--property is used to call setMsg()-->
+		<property name="foodDietEndo" value="Meat and Fish
+Chicken
+Turkey
+Salmon
+Cod
+Dairy
+Yogurt
+Milk
+Fruit and vegetables
+Berries
+Apples
+Pears
+Asparagus
+Zucchini
+Tomatoes
+Onions
+Greens (spinach, kale, romaine)
+Nuts and seeds
+Nut and seed butter
+Almonds
+Pistachios
+Sunflower seeds
+Pumpkin seeds
+Grains and starchy vegetables
+Sweet potatoes
+Squash
+Quinoa
+Brown rice
+Beans
+Oats">
+		</property>
+		<property name ="foodDietEcto" value="Meat and Fish
+Chicken
+Turkey
+White fish (cod, mah-mahi)
+Seafood (shrimp, scallops)
+Eggs
+Lean steak or beef
+Dairy
+Fat-free or low-fat yogurt or milk (keep to 1 serving a day)
+Fruits and Vegetables
+Berries
+Mango
+Oranges
+Apples
+Pears
+Banana
+Cauliflower
+Green beans
+Broccoli
+Asparagus
+Brussels sprouts
+Squash
+Nuts and Seeds
+Almonds
+Pistachios
+Peanuts
+Sunflower seeds
+Pumpkin seeds
+Grains and Starchy Vegetables
+Whole-wheat bread
+Old-fashioned or steel-cut oats
+Brown rice
+Quinoa
+Farro
+Sweet potato">
+		</property>
+		<property name="foodDietMeso" value="Meat and Fish
+Fish (salmon, tuna)
+Chicken
+Lean steak
+Turkey
+Eggs
+Protein shake
+Dairy
+Yogurt
+Cottage cheese
+Fruits and Vegetables
+Berries
+Apples
+Pears
+Oranges
+Avocado
+Cauliflower
+Green beans
+Broccoli
+Asparagus
+Brussels sprouts
+Nuts and Seeds
+Nut or seed butter
+Almonds
+Cashews
+Pistachios
+Pumpkin seeds
+Sunflower seeds
+Grains and Starchy Vegetables
+Sweet potato
+Lentils
+Beans
+Quinoa
+Brown rice">
+		</property>
+		</bean>
+</beans>

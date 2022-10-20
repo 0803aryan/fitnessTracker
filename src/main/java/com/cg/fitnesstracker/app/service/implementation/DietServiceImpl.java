@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.cg.fitnesstracker.app.exceptions.DietException;
 import com.cg.fitnesstracker.app.exceptions.FoodItemException;
@@ -19,10 +18,30 @@ import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.repository.DietRepository;
 import com.cg.fitnesstracker.app.repository.FoodItemRepository;
 import com.cg.fitnesstracker.app.repository.MealRepository;
+import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.DietService;
 
-@Component
+//@Component
 public class DietServiceImpl implements DietService{
+	private String foodDietEndo;
+	private String foodDietEcto;
+	private String foodDietMeso;
+
+	public void setFoodDietEcto(String foodDietEcto) {
+		this.foodDietEcto = foodDietEcto;
+		System.out.println("setter1..");
+	}
+
+	public void setFoodDietEndo(String foodDietEndo) {
+		this.foodDietEndo = foodDietEndo;
+		System.out.println("setter2..");
+	}
+
+	public void setFoodDietMeso(String foodDietMeso) {
+		this.foodDietMeso = foodDietMeso;
+		System.out.println("setter3..");
+	}
+
 	@Autowired
 	private DietRepository dietRepository;
 	@Autowired
@@ -138,6 +157,26 @@ public class DietServiceImpl implements DietService{
 			}
 		}	
 		return cal;
+	}
+
+	@Override
+	public String suggestDietService(String username) {
+		
+		Customer cust = customerRepository.findByUsername(username);
+		if(cust!=null) {
+			String bodyType = cust.getBodyType().toString();
+			float weight =cust.getWeight();
+			if(bodyType.equals("ENDOMORPH")) {
+				return foodDietEndo;
+			}
+			else if(bodyType.equals("ECTOMORPH")) {
+				return foodDietEcto;
+			}
+			else if(bodyType.equals("MESOMORPH")) {
+				return foodDietMeso;
+			}
+		}
+		throw new DietException("Body Type doesn't match",404);
 	}
 
 }
