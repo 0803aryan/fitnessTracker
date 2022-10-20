@@ -18,10 +18,11 @@ public class AppUser{
 
 	@Column(length=40,unique=true)
 	private String username;
-    @JsonIgnore
-    private String password;
 
-    private String role; 
+  @JsonIgnore
+  private String password;
+
+  private String role; 
 
 	public AppUser() {
 		super();
@@ -32,6 +33,10 @@ public class AppUser{
 		this.username = username;
 		this.password = password;
 		this.role = role;
+	}
+  
+  public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	  public String getRole() {

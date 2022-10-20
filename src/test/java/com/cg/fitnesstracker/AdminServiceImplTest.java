@@ -1,8 +1,12 @@
 package com.cg.fitnesstracker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -21,8 +25,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.fitnesstracker.app.model.Admin;
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.repository.AdminRepository;
+import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.service.implementation.AdminServiceImpl;
 
@@ -31,6 +37,8 @@ import com.cg.fitnesstracker.app.service.implementation.AdminServiceImpl;
 public class AdminServiceImplTest {
 	@Mock
 	private AdminRepository adminRepo;
+	@Mock
+	private AppUserRepository appUserRepo;
 	
 	@Mock
 	private CustomerRepository customerRepo;
@@ -49,10 +57,35 @@ public class AdminServiceImplTest {
 	{
 		Admin ad=new Admin();
 		ad.setAdminName("archit");
+		ad.setUserEmail("arc@abc.com");
+		AppUser appUser=new AppUser();
+		appUser.setUsername("qwerty");
+		//appUser.set("1234");
+		when(appUserRepo.findByUsername(any())).thenReturn(appUser);
 		when(adminRepo.findById(anyInt())).thenReturn(Optional.of(ad));
-		when(adminRepo.save(any())).thenReturn(ad);
+		when(adminRepo.addAdminDetails(anyString(), anyString(), anyInt())).thenReturn(1);
+		assertEquals(ad,adminServiceImpl.addAdminDetailService("archit",ad));
+	
+	}
+	@Test
+	final void addAdminDetailServiceExceptionTest()
+	{
+		Admin ad=new Admin();
+		ad.setAdminName("archit");
+		ad.setUserEmail("arc@abc.com");
+		AppUser appUser=new AppUser();
+		appUser.setUsername("qwerty");
 		
-		assertEquals(ad,adminServiceImpl.addAdminDetailService(1, ad));
+		when(appUserRepo.findByUsername(any())).thenReturn(appUser);
+		when(adminRepo.addAdminDetails(anyString(), anyString(), anyInt())).thenReturn(0);
+		Exception exception = assertThrows(Exception.class, () -> {
+			assertEquals(ad,adminServiceImpl.addAdminDetailService("archit",ad));
+	    });
+
+	    String expectedMessage = "Can't update";
+	    String actualMessage = exception.getMessage();
+	    System.out.println(actualMessage);
+	    assertTrue(actualMessage.contains(expectedMessage));
 	}
 	
 	@Test
@@ -71,17 +104,74 @@ public class AdminServiceImplTest {
 	final void readAllCustomerDetailByIdServiceImplTest()
 	{
 		Customer c1=new Customer();
-
+		AppUser ap=new AppUser();
+		ap.setUsername("arc");
+		when(appUserRepo.findByUsername(any())).thenReturn(ap);
 		when(customerRepo.findById(anyInt())).thenReturn(Optional.of(c1));
-		assertEquals(c1, adminServiceImpl.readCustomerDetailByIdService(1));
+		assertEquals(c1, adminServiceImpl.readCustomerDetailByIdService("arc"));
+	}
+	@Test
+	final void readAllCustomerDetailByIdServiceImplExceptionTest()
+	{
+		Customer c1=new Customer();
+		AppUser ap=new AppUser();
+		ap.setUsername("arc");
+		when(appUserRepo.findByUsername(any())).thenReturn(ap);
+		when(customerRepo.findById(anyInt())).thenReturn(null);
+		Exception exception = assertThrows(Exception.class, () -> {
+			assertEquals(c1, adminServiceImpl.readCustomerDetailByIdService("arc"));
+	    });
+
+	    String actualMessage = exception.getMessage();
+	    //System.out.println(actualMessage);
+	    assertNull(actualMessage);
 	}
 	@Test
 	final void deleteCustomerByIdServiceImplTest()
 	{
-		Customer c1=new Customer();
-
-		when(customerRepo.findById(anyInt())).thenReturn(Optional.of(c1));
-		adminServiceImpl.deleteCustomerByIdService(1);
-		verify(customerRepo).deleteById(anyInt());
+		Customer c=new Customer();
+		c.setUsername("arc");
+		c.setUserId(1);
+		AppUser a=new AppUser();
+		a.setUsername("arc");
+		a.setUserId(1);
+		when(customerRepo.findById(anyInt())).thenReturn(Optional.of(c));
+		when(appUserRepo.findByUsername(anyString())).thenReturn(a);
+		adminServiceImpl.deleteCustomerByIdService("arc");
+		verify(customerRepo).deleteById(any());
 	}
+	@Test
+	final void updateAdminEmailServiceTest()
+	{
+		AppUser a=new AppUser();
+		Admin ad=new Admin();
+		a.setUserId(1);
+		when(appUserRepo.findByUsername(anyString())).thenReturn(a);
+		when(adminRepo.updateAdminEmail(anyString(), anyInt())).thenReturn(1);
+		when(adminRepo.findById(anyInt())).thenReturn(Optional.of(ad));
+		assertEquals(ad, adminServiceImpl.updateAdminEmailService("archhh", "arc"));
+	}
+	@Test
+	final void updateAdminEmailServiceExceptionTest()
+	{
+		AppUser a=new AppUser();
+		a.setUserId(1);
+		a.setUsername("arc");
+		Admin ad=new Admin();
+		ad.setAdminName("arc");
+		ad.setUserId(1);
+		a.setUserId(1);
+		when(appUserRepo.findByUsername(anyString())).thenReturn(a);
+		when(adminRepo.updateAdminEmail(anyString(), anyInt())).thenReturn(0);
+		Exception exception = assertThrows(Exception.class, () -> {
+			assertEquals(ad,adminServiceImpl.updateAdminEmailService("archit","arc"));
+	    });
+
+	    String expectedMessage = "Can't update";
+	    String actualMessage = exception.getMessage();
+	    System.out.println(actualMessage);
+	    assertTrue(actualMessage.contains(expectedMessage));
+	
+	}
+	
 }

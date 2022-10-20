@@ -2,6 +2,7 @@ package com.cg.fitnesstracker.app.service.implementation;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -68,25 +69,26 @@ public class DietServiceImpl implements DietService{
 	}
 
 	@Override
-	public Diet addDietByUserIdService(String username, Diet diet) {
-		Customer cust = customerRepository.findByUsername(username);
-		if (cust!=null) {
-			diet.setCustomer(cust);
-			List<Diet> dietList = cust.getDiet();
-			List<Diet> sameTimeDiets = dietList.stream().filter(d->(d.getDate().equals(diet.getDate()))).toList();
-			if (sameTimeDiets.size()>0) {
-				List<Diet> conflictDiet = sameTimeDiets.stream().filter(sd->(sd.getConsumeTime().equals(diet.getConsumeTime())
-						&& sd.getDayOfWeek().equals(diet.getDayOfWeek()))).toList();
-				if (conflictDiet.size()>0) {
-				throw new DietException("Diet already exists on "+diet.getDate().toString()
-						+" "+diet.getConsumeTime().toString()+" "+diet.getDayOfWeek().toString()+" with Id : "+conflictDiet.get(0).getDietId()+" Please add or delete a food item to modify the diet",400);
-				}
-			}
-			dietList.add(diet);
-			dietRepository.saveAll(dietList);
-		}
-		return diet;
-	}
+    public Diet addDietByUserIdService(String username, Diet diet) {
+        Customer cust = customerRepository.findByUsername(username);
+        if (cust!=null) {
+            diet.setCustomer(cust);
+            List<Diet> dietList = cust.getDiet();
+            List<Diet> sameTimeDiets = dietList.stream().filter(d->(d.getDate().equals(diet.getDate()))).collect(Collectors.toList());
+            if (sameTimeDiets.size()>0) {
+                List<Diet> conflictDiet = sameTimeDiets.stream().filter(sd->(sd.getConsumeTime().equals(diet.getConsumeTime())
+                        && sd.getDayOfWeek().equals(diet.getDayOfWeek()))).collect(Collectors.toList());
+                if (conflictDiet.size()>0) {
+                throw new DietException("Diet already exists on "+diet.getDate().toString()
+                        +" "+diet.getConsumeTime().toString()+" "+diet.getDayOfWeek().toString()+" with Id : "+conflictDiet.get(0).getDietId()+" Please add or delete a food item to modify the diet",400);
+                }
+            }
+            dietList.add(diet);
+            dietRepository.saveAll(dietList);
+        }
+        return diet;
+    }
+ 
 
 	@Override
 	public FoodItem addFoodItemToDietService(int dietId, int foodId) {
@@ -102,7 +104,7 @@ public class DietServiceImpl implements DietService{
 			meal.setFoodQuant(food.getFoodQuantity());
 			meal.setCaloriesInFood(food.getCaloriesInFood());
 			List<Meal> mealList = diet.getMealList();
-			List<Meal> sameMeal = mealList.stream().filter(m->m.getFoodName().equals(food.getFoodName())).toList();
+			List<Meal> sameMeal = mealList.stream().filter(m->m.getFoodName().equals(food.getFoodName())).collect(Collectors.toList());
 			if (sameMeal.size()>0) {
 				throw new DietException("Food Item already exists",400);
 			}

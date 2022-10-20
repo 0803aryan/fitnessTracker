@@ -2,6 +2,9 @@ package com.cg.fitnesstracker;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -40,34 +43,44 @@ public class AppUserServiceImplTest {
 		MockitoAnnotations.initMocks(this);
 	}
 	@Test
-	final void testUpdateEmailServiceImpl()
+	final void addAppUserServiceTest()
 	{
+		AppUser a=new AppUser();
+		when(appUserRepository.save(any())).thenReturn(a);
+		assertEquals(a, appUserServiceImpl.addAppUserService(a));
 		
-		AppUser appUser=new AppUser();
-		appUser.setUserEmail("archit@abc.com");
-		appUser.setPassword("1234");
-		appUser.setUserType(UserType.CUSTOMER);
-		when(appUserRepository.updateEmail(anyString(), anyInt())).thenReturn(1);
-		when(appUserRepository.findById(anyInt())).thenReturn(Optional.of(appUser));
-		
-		assertEquals(1, appUserRepository.updateEmail("archit@abc.com", 1));
-		AppUser a=appUserServiceImpl.updateCustomerEmailService("archit@abc.com", 1);
-		assertEquals(appUser,a );
 	}
 	@Test
-	final void testUpdatePasswordServiceImpl()
+	final void testCustomerUpdatePasswordServiceImpl()
 	{
 		
 		AppUser appUser=new AppUser();
-		appUser.setUserEmail("archit@abc.com");
+		
 		appUser.setPassword("1234");
-		appUser.setUserType(UserType.CUSTOMER);
+		
 		when(appUserRepository.updatePassword(anyString(), anyInt())).thenReturn(1);
 		when(appUserRepository.findById(anyInt())).thenReturn(Optional.of(appUser));
+		when(appUserRepository.findByUsername(anyString())).thenReturn(appUser);
+		assertEquals(appUser,appUserServiceImpl.updateCustomerPasswordService("1", "arc") );
 		
-		assertEquals(1, appUserRepository.updatePassword("1234", 1));
-		AppUser a=appUserServiceImpl.updateCustomerPasswordService("1234", 1);
-		assertEquals(appUser,a );
+	}
+	@Test
+	final void testCustomerUpdatePasswordServiceExceptionImpl()
+	{
+		AppUser appUser=new AppUser();
+		
+		appUser.setPassword("1234");
+		
+		when(appUserRepository.updatePassword(anyString(), anyInt())).thenReturn(0);
+		when(appUserRepository.findByUsername(anyString())).thenReturn(appUser);
+		Exception exception = assertThrows(Exception.class, () -> {
+			assertEquals(appUser,appUserServiceImpl.updateCustomerPasswordService("1", "arc") );
+			});
+
+	    String expectedMessage = "Can't update";
+	    String actualMessage = exception.getMessage();
+	    System.out.println(actualMessage);
+	    assertTrue(actualMessage.contains(expectedMessage));
 	}
 }
 
