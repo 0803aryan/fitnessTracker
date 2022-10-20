@@ -1,6 +1,5 @@
 package com.cg.fitnesstracker.app.service.implementation;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cg.fitnesstracker.app.exceptions.DietException;
 import com.cg.fitnesstracker.app.model.Admin;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
@@ -30,8 +30,7 @@ public class AdminServiceImpl implements AdminService{
 	private CustomerRepository customerRepository;
 
 	@Override
-	
-	public Admin addAdminDetailService(String username, Admin admin) {
+	public AppUser addAdminDetailService(String username, Admin admin) {
 		AppUser appUser = appUserRepository.findByUsername(username);
 		System.out.println(appUser.getUsername());
 		System.out.println(admin.getAdminName());
@@ -40,12 +39,13 @@ public class AdminServiceImpl implements AdminService{
 		int c = adminRepository.addAdminDetails(admin.getAdminName(), admin.getUserEmail(), appUser.getUserId());
 		System.out.println(c);
 		if(c>0) {
-			admin = adminRepository.findById(appUser.getUserId()).get();
-			if(admin!=null) {
-				return admin;
-			}
+			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
+		if(admin!=null) {
+			return user;
 		}
-		throw new RuntimeException("Can't update");
+		throw new DietException("Unable to find Admin ",404);
+		}
+		throw new DietException("Can't update",400);
 	}
 
 	@Override
@@ -76,17 +76,27 @@ public class AdminServiceImpl implements AdminService{
 		return cust;
 	}
 	
+	@Override
+	public Admin getAdminByIdService(int userId) {
+		Admin ad = adminRepository.findById(userId).get();
+		if(ad!=null) {
+			return ad;
+		}
+		throw new RuntimeException();
+	}
 	
 	@Override
-	
+	@Transactional
 	public Admin updateAdminEmailService(String newEmail,String username) {
-		AppUser appUser = appUserRepository.findByUsername(username);
+		AppUser appUser =appUserRepository.findByUsername(username);
 		System.out.println(newEmail);
+		System.out.println(appUser.getUserId());
 		int c = adminRepository.updateAdminEmail(newEmail,appUser.getUserId());
 		System.out.println(c);
 		if(c>0)
-			return adminRepository.findById(appUser.getUserId()).get();
+			return getAdminByIdService(appUser.getUserId());
 		throw new RuntimeException("Can't update");
+		
 	}
 
 }

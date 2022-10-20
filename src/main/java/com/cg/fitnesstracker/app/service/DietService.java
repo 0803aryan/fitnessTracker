@@ -21,5 +21,7 @@ public interface DietService {
    	public Diet deleteDietService(String username, int dietId);
 
    	public int getTotalCaloriesService(String username, int dietId);
+   	
+   	public String suggestDietService(String username);
     
 }

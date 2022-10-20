@@ -19,6 +19,7 @@ import com.cg.fitnesstracker.app.exceptions.DietException;
 import com.cg.fitnesstracker.app.exceptions.FoodItemException;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.model.FoodItem;
+import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.DietService;
 
 @RestController
@@ -111,5 +112,12 @@ public class DietController {
 				cal.setCalories(calories);
 				return new ResponseEntity<>(cal, HttpStatus.OK);	
 				
+		}
+		@GetMapping("/diets/suggestion")
+		@PreAuthorize("hasAnyRole('Admin','Customer')")
+		public ResponseEntity<ResponseMessage> suggestDiet(String username){
+			String suggestion = dietService.suggestDietService(username);
+			return new ResponseEntity<>(new ResponseMessage(suggestion),HttpStatus.OK);
+			
 		}
 }
