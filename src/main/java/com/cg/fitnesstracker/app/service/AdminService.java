@@ -8,7 +8,7 @@ import com.cg.fitnesstracker.app.model.Customer;
 
 public interface AdminService {
 	
-	public Admin addAdminDetailService(String username, Admin admin);
+	public AppUser addAdminDetailService(String username, Admin admin);
 	
 	//inject customerRepository to get all customers
 	public List<Customer> readAllCustomerDetailService();
@@ -17,5 +17,7 @@ public interface AdminService {
 	
 	public Customer deleteCustomerByIdService(String username);
 	
-	public Admin updateAdminEmailService(String email,String userName);
+	public Admin updateAdminEmailService(String email,String username);
+
+	public Admin getAdminByIdService(int userId);
 }
