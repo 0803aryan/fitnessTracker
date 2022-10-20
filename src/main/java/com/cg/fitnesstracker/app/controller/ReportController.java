@@ -33,7 +33,8 @@ public class ReportController {
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<ReportDto> getReport(Principal p){
 			ReportDto report = new ReportDto();
-			LocalDate date = report.getDate();
+//			LocalDate date = report.getDate();
+			LocalDate date=LocalDate.now();
 			Customer cust = customerService.getCustomerService(p.getName());
 		
 			int height = cust.getHeight();

@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cg.fitnesstracker.app.exceptions.ActivityException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Customer;
@@ -36,7 +36,7 @@ public class ActivityServiceImpl implements ActivityService {
 		Optional<Activity> activity= activityRepo.findById(activityId);
 		if(!activity.isPresent())
 		{
-			throw new ActivityException("No such activity found", 404);
+			throw new ApplicationException("No such activity found", 404);
 		}
 		return activity.get();
 	}
@@ -73,7 +73,7 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 		else
 		{
-			throw new ActivityException("Invalid Cardio", 400);
+			throw new ApplicationException("Invalid Cardio", 400);
 		}
 		System.out.println("=======================");
 		System.out.println(calories);

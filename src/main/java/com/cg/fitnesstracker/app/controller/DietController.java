@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.fitnesstracker.app.dto.CaloriesDto;
-import com.cg.fitnesstracker.app.exceptions.DietException;
-import com.cg.fitnesstracker.app.exceptions.FoodItemException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
@@ -36,7 +35,7 @@ public class DietController {
 																 	
 				List<Diet> dietList = dietService.getAllDietService(p.getName());
 				if (dietList.isEmpty()) {
-	                throw new DietException("No diet found for this user ID",404);
+	                throw new ApplicationException("No diet found for this user ID",404);
 				}
 				return new ResponseEntity<>(dietList, HttpStatus.OK);
 				
@@ -59,7 +58,7 @@ public class DietController {
 				
 				Diet addDiet = dietService.addDietByUserIdService(p.getName(), diet);
 				if (addDiet==null) {
-					throw new DietException("Unable to add diet",204);
+					throw new ApplicationException("Unable to add diet",204);
 				}
 				return new ResponseEntity<>(addDiet, HttpStatus.OK);
 				
@@ -76,7 +75,7 @@ public class DietController {
 				//	throw new DietException("No diet found for this diet Id",404);
 				//}
 			    if (addFood==null) {
-	                throw new FoodItemException("No food item found for this Id",404);
+	                throw new ApplicationException("No food item found for this Id",404);
 				}
 				return new ResponseEntity<>(addFood, HttpStatus.OK);
 				
@@ -89,7 +88,7 @@ public class DietController {
 			
 				FoodItem removeFood = dietService.removeFoodItemFromDietService(dietId, foodId);
 				if (removeFood==null) {
-	                throw new DietException("Unable to delete food Item",203);
+	                throw new ApplicationException("Unable to delete food Item",203);
 	            }
 				return new ResponseEntity<>(removeFood, HttpStatus.OK);
 				
@@ -101,8 +100,7 @@ public class DietController {
 	    public ResponseEntity<Diet> deleteDiet(Principal p, @PathVariable int dietId){
 		
 				Diet removeDiet = dietService.deleteDietService(p.getName(), dietId);
-				return new ResponseEntity<>(removeDiet, HttpStatus.OK);
-				
+				return new ResponseEntity<>(removeDiet, HttpStatus.OK);				
 		}
 		
 		//To get calories for a particular diet 

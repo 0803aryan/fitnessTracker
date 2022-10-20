@@ -1,25 +1,24 @@
 package com.cg.fitnesstracker.app.dto;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Diet;
 
 public class ReportDto {
-	private LocalDate date;
+//	private LocalDate date;
 	private String userName;
 	private List<Diet> dietsConsumed;
 	private List<Activity> activitiesDone;
 	private int caloriesConsumed;
 	private int caloriesBurned;
-	private float BMI;
+	private float bmi;
 	
 	public float getBMI() {
-		return BMI;
+		return bmi;
 	}
-	public void setBMI(float BMI) {
-		this.BMI = BMI;
+	public void setBMI(float bMI) {
+		this.bmi = bMI;
 	}
 	public ReportDto() {
 		
@@ -32,14 +31,15 @@ public class ReportDto {
 		this.activitiesDone = activitiesDone;
 		this.caloriesConsumed = caloriesConsumed;
 		this.caloriesBurned = caloriesBurned;
-		BMI = bMI;
+//		this.date=date;
+		this.bmi = bMI;
 	}
-	public LocalDate getDate() {
-		return date;
-	}
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
+//	public LocalDate getDate() {
+//		return date;
+//	}
+//	public void setDate(LocalDate date) {
+//		this.date = date;
+//	}
 	public String getUserName() {
 		return userName;
 	}
