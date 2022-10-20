@@ -2,8 +2,10 @@ package com.cg.fitnesstracker.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@XmlRootElement
 public class Admin extends AppUser {
 	@Column(length=40,unique=true)
 	private String adminName;

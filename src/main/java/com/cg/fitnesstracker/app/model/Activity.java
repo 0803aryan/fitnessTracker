@@ -11,12 +11,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
 @Inheritance (strategy = InheritanceType.JOINED)
+@XmlRootElement
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACTIVITY_SEQ")

@@ -3,10 +3,12 @@ import com.cg.fitnesstracker.app.model.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "login")
 @Inheritance(strategy = InheritanceType.JOINED)
+@XmlRootElement
 public class AppUser{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APPUSER_SEQ")
