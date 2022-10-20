@@ -86,6 +86,7 @@ public class DietController {
 				return new ResponseEntity<>(removeDiet, HttpStatus.OK);
 				
 		}
+
 		@GetMapping("/{userName}/diets/{dietId}/calories")
 	    public ResponseEntity<CaloriesDto> getCalories(@PathVariable String userName,@PathVariable int dietId){
 

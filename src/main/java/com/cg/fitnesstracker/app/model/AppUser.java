@@ -30,6 +30,16 @@ public class AppUser{
 		this.userType = userType;
 	}
 
+	
+
+	public AppUser(int userId, String userEmail, String password, UserType userType) {
+		super();
+		this.userId = userId;
+		this.userEmail = userEmail;
+		this.password = password;
+		this.userType = userType;
+	}
+
 	public UserType getUserType() {
 		return userType;
 	}

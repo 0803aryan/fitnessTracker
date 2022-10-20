@@ -1,8 +1,7 @@
 package com.cg.fitnesstracker.app.response;
 
-
-
 public class ResponseMessage {
+
     private String message;
     private int status;
     
