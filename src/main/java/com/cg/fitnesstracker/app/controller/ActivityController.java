@@ -29,31 +29,22 @@ import com.cg.fitnesstracker.app.service.ActivityService;
 public class ActivityController {
 
 	@Autowired
-	ActivityService activityService;
+	private ActivityService activityService;
 	@Autowired
-	ActivityRepository activityRepo;
+	private ActivityRepository activityRepo;
 	@Autowired
-	CustomerRepository customerRepo;
+	private CustomerRepository customerRepo;
 
-	public void setActivityService(ActivityService activityService) {
-		this.activityService = activityService;
-	}
-	public void setActivityRepo(ActivityRepository activityRepo) {
-		this.activityRepo = activityRepo;
-	}
-	public void setCustomerRepo(CustomerRepository customerRepo) {
-		this.customerRepo = customerRepo;
-	}
+	@GetMapping()
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<List<Activity>> getUserActivity(Principal p) {
 
-	@GetMapping("{userName}/activity")
-	public ResponseEntity<List<Activity>> getUserActivity(@PathVariable String userName) {
-
-		if(this.customerRepo.findByUserName(userName)==null)
+		if(this.customerRepo.findByUsername(p.getName())==null)
 		{
 			//change exception to UserException
 			throw new ActivityException("User Does Not Exist", 400);
 		}
-		List<Activity> activityList = this.activityService.getActivity(userName);
+		List<Activity> activityList = this.activityService.getActivity(p.getName());
 		if(activityList.isEmpty())
 		{
 			throw new ActivityException("User Has No Activities", 404);
@@ -64,14 +55,14 @@ public class ActivityController {
 
 
 
-	@PostMapping(value="/cardio/", consumes={"application/json"}, produces= {"application/json"})
+	@PostMapping(value="/cardio", consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Cardio> addCardio(Principal p,@RequestBody Cardio cardio) {
 		final Activity c=this.activityService.addCardioActivityService(p.getName(), cardio);
 		return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
-	@PostMapping(value="/workout/")
+	@PostMapping(value="/workout")
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Workout> addWorkout(Principal p, @RequestBody Workout workout) {
 		final Activity c=this.activityService.addWorkoutActivityService(p.getName(), workout);
@@ -79,9 +70,9 @@ public class ActivityController {
 	}
 
 
-	@DeleteMapping(value = { "/delete/{userName}/{activityId}" }, consumes = { "application/json" }, produces = {
-	"application/json" })
-	public ResponseEntity<Activity> deleteUserActivity(@PathVariable("userName") String userName,
+	@DeleteMapping(value ="/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<Activity> deleteUserActivity(Principal p,
 			@PathVariable("activityId") int activityId, @RequestBody Activity a) {
 		Optional<Activity> check;
 		check=this.activityRepo.findById(activityId);
@@ -90,7 +81,7 @@ public class ActivityController {
 				{
 					throw new ActivityException("No such activity found", 404);
 				}
-				a = activityService.deleteActivity(userName, activityId);		
+				a = activityService.deleteActivity(p.getName(), activityId);		
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
 	}
 

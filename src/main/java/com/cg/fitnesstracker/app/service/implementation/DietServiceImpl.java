@@ -23,15 +23,13 @@ import com.cg.fitnesstracker.app.service.DietService;
 @Component
 public class DietServiceImpl implements DietService{
 	@Autowired
-	DietRepository dietRepository;
+	private DietRepository dietRepository;
 	@Autowired
-	CustomerRepository customerRepository;
+	private CustomerRepository customerRepository;
 	@Autowired
-	FoodItemRepository foodItemRepository;
+	private FoodItemRepository foodItemRepository;
 	@Autowired
-	MealRepository mealRepository;
-	@Autowired
-	Meal meal;
+	private MealRepository mealRepository;
 	
 
 	@Override
@@ -76,8 +74,10 @@ public class DietServiceImpl implements DietService{
 		Diet diet = dietRepository.findById(dietId).get();
 		FoodItem food = foodItemRepository.findById(foodId).get();
 		if (diet!=null && food!=null) {
+			Meal meal = new Meal();
 			meal.setDiet(diet);
-			meal.setMealId(meal.getMealId()+1);
+//			meal.setMealId(meal.getMealId()+1);
+			meal.setMealId(meal.getMealId());
 			meal.setFoodId(food.getFoodId());
 			meal.setFoodName(food.getFoodName());
 			meal.setFoodQuant(food.getFoodQuantity());
@@ -108,7 +108,7 @@ public class DietServiceImpl implements DietService{
 	@Override
 	@Transactional
 	public Diet deleteDietService(String userName, int dietId) {
-		Customer cust = customerRepository.findByUserName(userName);
+		Customer cust = customerRepository.findByUsername(userName);
 		Optional<Diet> diet = dietRepository.findById(dietId);
 		if (!diet.isPresent()) {
 			throw new DietException("Could not find Diet",404);
@@ -122,7 +122,7 @@ public class DietServiceImpl implements DietService{
 
 	@Override
 	public int getTotalCaloriesService(String userName, int dietId) {
-		Customer cust = customerRepository.findByUserName(userName);
+		Customer cust = customerRepository.findByUsername(userName);
 		List<Diet> dietList = cust.getDiet();
 		Diet diet = dietRepository.findById(dietId).get();
 		int cal=0;

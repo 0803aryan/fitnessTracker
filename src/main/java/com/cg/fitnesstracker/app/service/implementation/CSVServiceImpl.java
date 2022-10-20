@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cg.fitnesstracker.app.csvoperations.CSVHelper;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.repository.FoodItemRepository;
 import com.cg.fitnesstracker.app.service.CSVService;
+import com.cg.fitnesstracker.app.utils.csv.CSVHelper;
 
 @Component
 public class CSVServiceImpl implements CSVService{

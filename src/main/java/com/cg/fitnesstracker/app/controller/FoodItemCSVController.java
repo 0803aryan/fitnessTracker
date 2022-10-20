@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.cg.fitnesstracker.app.csvoperations.CSVHelper;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.implementation.CSVServiceImpl;
+import com.cg.fitnesstracker.app.utils.csv.CSVHelper;
 
 
 
 @Controller
-@RequestMapping("/fitness")
+@RequestMapping("/fitness/file")
 public class FoodItemCSVController {
     @Autowired
     CSVServiceImpl fileService;
@@ -32,7 +32,7 @@ public class FoodItemCSVController {
         this.fileService=fileService;
     }
     
-    @PostMapping(value="/food_items/upload")
+    @PostMapping(value="/food_items")
     @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file)
     {
