@@ -33,17 +33,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public AppUser addAdminDetailService(String username, Admin admin) {
 		AppUser appUser = appUserRepository.findByUsername(username);
-		System.out.println(appUser.getUsername());
-		System.out.println(admin.getAdminName());
-		System.out.println(admin.getUserEmail());
-		System.out.println(appUser.getUserId());
 		int c = adminRepository.addAdminDetails(admin.getAdminName(), admin.getUserEmail(), appUser.getUserId());
 		System.out.println(c);
 		if(c>0) {
-			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
+//			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
 
 			if(admin!=null) {
-				return user;
+				return appUser;
 			}
 			else
 			{

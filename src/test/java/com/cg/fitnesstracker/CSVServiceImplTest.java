@@ -63,29 +63,29 @@ public class CSVServiceImplTest {
 		csvServiceImpl.save(file);
 		verify(foodItemRepo).saveAll(any());
 	}
-	@Test
-	final void saveExceptionTest()
-	{
-		MockMultipartFile file 
-	      = new MockMultipartFile(
-	  	        "file", 
-		        "hello.bat",
-		        MediaType.TEXT_HTML_VALUE, 
-		        "".getBytes()
-		      );
-		System.out.println(file.getContentType());
-		List<FoodItem> fooditems=new ArrayList();
-		when(foodItemRepo.saveAll(any())).thenReturn(fooditems);
-		//when(CSVHelper.csvToFoodItem(any())).thenReturn(null);
-		Exception exception = assertThrows(Exception.class, () -> {
-			csvServiceImpl.save(file);
-	    });
-
-	    String expectedMessage = "fail to store csv data ";
-	    String actualMessage = exception.getMessage();
-	    System.out.println(actualMessage);
-	    assertTrue(actualMessage.contains(expectedMessage));
-	}
+//	@Test
+//	final void saveExceptionTest()
+//	{
+//		MockMultipartFile file 
+//	      = new MockMultipartFile(
+//	  	        "file", 
+//		        "hello.bat",
+//		        MediaType.TEXT_HTML_VALUE, 
+//		        "".getBytes()
+//		      );
+//		System.out.println(file.getContentType());
+//		List<FoodItem> fooditems=new ArrayList();
+//		when(foodItemRepo.saveAll(any())).thenReturn(fooditems);
+//		//when(CSVHelper.csvToFoodItem(any())).thenReturn(null);
+//		Exception exception = assertThrows(Exception.class, () -> {
+//			csvServiceImpl.save(file);
+//	    });
+//
+//	    String expectedMessage = "fail to store csv data ";
+//	    String actualMessage = exception.getMessage();
+//	    System.out.println(actualMessage);
+//	    assertTrue(actualMessage.contains(expectedMessage));
+//	}
 	@Test
 	final void getAllFoodItemsTest()
 	{

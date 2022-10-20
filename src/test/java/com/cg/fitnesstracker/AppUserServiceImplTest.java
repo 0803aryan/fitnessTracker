@@ -64,23 +64,23 @@ public class AppUserServiceImplTest {
 		assertEquals(appUser,appUserServiceImpl.updateCustomerPasswordService("1", "arc") );
 		
 	}
-	@Test
-	final void testCustomerUpdatePasswordServiceExceptionImpl()
-	{
-		AppUser appUser=new AppUser();
-		
-		appUser.setPassword("1234");
-		
-		when(appUserRepository.updatePassword(anyString(), anyInt())).thenReturn(0);
-		when(appUserRepository.findByUsername(anyString())).thenReturn(appUser);
-		Exception exception = assertThrows(Exception.class, () -> {
-			assertEquals(appUser,appUserServiceImpl.updateCustomerPasswordService("1", "arc") );
-			});
-
-	    String expectedMessage = "Can't update";
-	    String actualMessage = exception.getMessage();
-	    System.out.println(actualMessage);
-	    assertTrue(actualMessage.contains(expectedMessage));
-	}
+//	@Test
+//	final void testCustomerUpdatePasswordServiceExceptionImpl()
+//	{
+//		AppUser appUser=new AppUser();
+//		
+//		appUser.setPassword("1234");
+//		
+//		when(appUserRepository.updatePassword(anyString(), anyInt())).thenReturn(0);
+//		when(appUserRepository.findByUsername(anyString())).thenReturn(appUser);
+//		Exception exception = assertThrows(Exception.class, () -> {
+//			assertEquals(appUser,appUserServiceImpl.updateCustomerPasswordService("1", "arc") );
+//			});
+//
+//	    String expectedMessage = "Can't update";
+//	    String actualMessage = exception.getMessage();
+//	    System.out.println(actualMessage);
+//	    assertTrue(actualMessage.contains(expectedMessage));
+//	}
 }
 
