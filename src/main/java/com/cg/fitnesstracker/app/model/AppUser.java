@@ -10,53 +10,47 @@ import javax.persistence.*;
 public class AppUser{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APPUSER_SEQ")
-    @SequenceGenerator(sequenceName = "appUser_seq", allocationSize = 101, name = "APPUSER_SEQ")
+    @SequenceGenerator(sequenceName = "appUser_seq", allocationSize = 1, name = "APPUSER_SEQ")
     private int userId;
-    @Column(length=40,unique=true)
-    private String userEmail;
+    public int getUserId() {
+		return userId;
+	}
+
+	  @Column(length=40,unique=true)
+	  private String username;
     @JsonIgnore
     private String password;
-    @Enumerated(EnumType.STRING)
-    private UserType userType; //Enum
+
+    private String role; 
 
 	public AppUser() {
 		super();
 	}
 
-	public AppUser(String userEmail, String password, UserType userType) {
+	  public AppUser(String username, String password, String role) {
 		super();
-		this.userEmail = userEmail;
+		this.username = username;
 		this.password = password;
-		this.userType = userType;
+		this.role = role;
 	}
 
-	
-
-	public AppUser(int userId, String userEmail, String password, UserType userType) {
-		super();
-		this.userId = userId;
-		this.userEmail = userEmail;
-		this.password = password;
-		this.userType = userType;
+	  public String getRole() {
+		return role;
 	}
 
-	public UserType getUserType() {
-		return userType;
-	}
-
-    public void setUserType(UserType userType) {
-    	this.userType = userType;
+    public void setRole(String role) {
+    	this.role = role;
     }
     
-	public String getUserEmail() {
-		return userEmail;
+    public String getUsername() {
+		return username;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-    public String getPassword() {
+	public String getPassword() {
         return password;
     }
 

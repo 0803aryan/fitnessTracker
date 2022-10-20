@@ -7,6 +7,17 @@ import javax.persistence.Entity;
 public class Admin extends AppUser {
 	@Column(length=40,unique=true)
 	private String adminName;
+	
+	@Column(length=40,unique=true)
+    private String userEmail;
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 
 	public Admin(String adminName) {
 		super();

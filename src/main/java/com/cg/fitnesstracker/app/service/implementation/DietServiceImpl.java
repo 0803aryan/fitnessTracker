@@ -35,8 +35,8 @@ public class DietServiceImpl implements DietService{
 	
 
 	@Override
-	public List<Diet> getAllDietService(String userName) {
-		Customer cust = customerRepository.findByUserName(userName);
+	public List<Diet> getAllDietService(String username) {
+		Customer cust = customerRepository.findByUsername(username);
 		List<Diet> dietList = cust.getDiet();
 		return dietList;
 	}
@@ -51,8 +51,8 @@ public class DietServiceImpl implements DietService{
 	}
 
 	@Override
-	public Diet addDietByUserIdService(String userName, Diet diet) {
-		Customer cust = customerRepository.findByUserName(userName);
+	public Diet addDietByUserIdService(String username, Diet diet) {
+		Customer cust = customerRepository.findByUsername(username);
 		if (cust!=null) {
 			diet.setCustomer(cust);
 			List<Diet> dietList = cust.getDiet();

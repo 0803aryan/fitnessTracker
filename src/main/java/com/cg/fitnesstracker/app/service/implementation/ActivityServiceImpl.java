@@ -23,9 +23,9 @@ public class ActivityServiceImpl implements ActivityService {
 	private ActivityRepository activityRepo;
 
 	@Override
-	public Activity addCardioActivityService(String userName, Activity cardioActivity) {
+	public Activity addCardioActivityService(String username, Activity cardioActivity) {
 
-		Customer customer = customerRepository.findByUserName(userName);
+		Customer customer = customerRepository.findByUsername(username);
 		
 		if(customer!=null)
 		{
@@ -40,8 +40,8 @@ public class ActivityServiceImpl implements ActivityService {
 	}
 
 	@Override
-	public Activity addWorkoutActivityService(String userName, Activity workoutActivity) {
-		Customer customer = customerRepository.findByUserName(userName);
+	public Activity addWorkoutActivityService(String username, Activity workoutActivity) {
+		Customer customer = customerRepository.findByUsername(username);
 
 		if(customer!=null)
 		{

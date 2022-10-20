@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name="userdetails")
 public class Customer extends AppUser{
 	@Column(length=40,unique=true)
-	private String userName;
+    private String userEmail;
 	@Enumerated(EnumType.STRING)
 	private Gender gender; //Enum
 	@Enumerated(EnumType.STRING)
@@ -30,10 +30,10 @@ public class Customer extends AppUser{
 	public Customer() {
 		super();
 	}
-	public Customer(String userName, Gender gender, BodyType bodyType, float weight, int height, int age,
+	public Customer(String userEmail, Gender gender, BodyType bodyType, float weight, int height, int age,
 			boolean active, List<Activity> activities, List<Diet> diet) {
 		super();
-		this.userName = userName;
+		this.userEmail = userEmail;
 		this.gender = gender;
 		this.bodyType = bodyType;
 		this.weight = weight;
@@ -51,11 +51,11 @@ public class Customer extends AppUser{
 	@JsonManagedReference
 	private List<Diet> diet;
 	
-	public String getUserName() {
-		return userName;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	public boolean getActive() {
 		return active;

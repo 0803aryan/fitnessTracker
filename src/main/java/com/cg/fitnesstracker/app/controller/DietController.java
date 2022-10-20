@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +28,7 @@ public class DietController {
 		DietService dietService;
 					//("/diets/")
 		@GetMapping("/{userName}/diets")//getAllDiet(Principal p)
-	    public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String userName){
+	  public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String userName){
 																 //(p.getName());	
 				List<Diet> dietList = dietService.getAllDietService(userName);
 				if (dietList.isEmpty()) {
@@ -44,6 +45,7 @@ public class DietController {
 				
 		}
 		
+
 		@PostMapping("/{userName}/diets")
 	    public ResponseEntity<Diet> addDiet(@PathVariable String userName, @RequestBody Diet diet){
 				
@@ -55,7 +57,8 @@ public class DietController {
 				
 		}
 		
-		@PostMapping("/{userName}/diets/{dietId}/food-items/{foodId}")
+		@PostMapping("/{username}/diets/{dietId}/food-items/{foodId}")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 				FoodItem addFood = dietService.addFoodItemToDietService(dietId, foodId);
 				//OptioanlDiet diet = dietService.getDietByIdService(dietId);
@@ -69,7 +72,8 @@ public class DietController {
 				
 		}
 		
-		@DeleteMapping("/{userName}/diets/{dietId}/food-items/{foodId}")
+		@DeleteMapping("/{username}/diets/{dietId}/food-items/{foodId}")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> deleteFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 				FoodItem removeFood = dietService.removeFoodItemFromDietService(dietId, foodId);
 				if (removeFood==null) {
@@ -79,6 +83,8 @@ public class DietController {
 				
 		}
 		
+
+
 		@DeleteMapping("/{userName}/diets/{dietId}")
 	    public ResponseEntity<Diet> deleteDiet(@PathVariable String userName, @PathVariable int dietId){
 		
@@ -86,6 +92,7 @@ public class DietController {
 				return new ResponseEntity<>(removeDiet, HttpStatus.OK);
 				
 		}
+
 
 		@GetMapping("/{userName}/diets/{dietId}/calories")
 	    public ResponseEntity<CaloriesDto> getCalories(@PathVariable String userName,@PathVariable int dietId){
@@ -99,5 +106,6 @@ public class DietController {
 				cal.setCalories(calories);
 				return new ResponseEntity<>(cal, HttpStatus.OK);
 			
+
 		}
 }
