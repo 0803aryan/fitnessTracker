@@ -77,7 +77,7 @@ public class ActivityController {
 		Optional<Activity> check;
 		check=this.activityRepo.findById(activityId);
 //				List<Activity> activityList = activityService.getActivity(userName);
-				if(check.isEmpty())
+				if(!check.isPresent())
 				{
 					throw new ActivityException("No such activity found", 404);
 				}

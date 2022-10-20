@@ -22,8 +22,8 @@ public class CSVServiceImpl implements CSVService{
         try {
             List<FoodItem> fooditems = CSVHelper.csvToFoodItem(file.getInputStream());
             foodrepository.saveAll(fooditems);
-        } catch (IOException e) {
-            throw new RuntimeException("fail to store csv data: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("fail to store csv data ");
         }
     }
     

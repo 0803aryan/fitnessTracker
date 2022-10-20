@@ -16,7 +16,11 @@ public class AppUser{
 		return userId;
 	}
 
-	  @Column(length=40,unique=true)
+	  public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Column(length=40,unique=true)
 	  private String username;
     @JsonIgnore
     private String password;
