@@ -1,4 +1,4 @@
-package com.cg.fitnesstracker.app.exception;
+package com.cg.fitnesstracker.app.exceptions;
 
 public class ActivityException extends RuntimeException{
 	public String message;

@@ -1,5 +1,7 @@
 package com.cg.fitnesstracker.app.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,10 +10,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -25,7 +24,19 @@ public class Activity {
     private int activityId;
     private String activityName;
     private double caloriesBurned;
+    private LocalDate date;
+    {
+		this.date = LocalDate.now();
+    }
     
+    
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 	@ManyToOne
     @JoinColumn(name="userId")
 	@JsonBackReference

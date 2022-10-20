@@ -24,11 +24,7 @@ public class Cardio extends Activity{
 //    @Temporal(TemporalType.DATE)
 //    @DateTimeFormat(style = "dd-MM-yyyy")
 //    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private LocalDate date;
-    {
-		this.date = LocalDate.now();
-    }
-    
+
     
     public Cardio() {}
 
@@ -41,14 +37,6 @@ public class Cardio extends Activity{
 		this.succesFlag = succesFlag;
 	}
 
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate localDate) {
-		this.date = LocalDate.now();
-	}
-    
     public boolean isSuccesFlag() {
 		return succesFlag;
 	}

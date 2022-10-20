@@ -98,6 +98,15 @@ public class CustomerServiceImpl implements CustomerService{
 		throw new RuntimeException("Can't update");
 	}
 
+	@Override
+	public Customer getCustomerService(String username) {
+		Customer cust = customerRepository.findByUsername(username);
+		if (cust!=null) {
+			return cust;
+		}
+		throw new DietException("Login First",404);
+	}
+
   /*
 	@Override
 

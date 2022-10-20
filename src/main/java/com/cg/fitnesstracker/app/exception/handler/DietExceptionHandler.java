@@ -1,4 +1,4 @@
-package com.cg.fitnesstracker.app.controller.exceptionhandler;
+package com.cg.fitnesstracker.app.exception.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
