@@ -9,10 +9,12 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cg.fitnesstracker.app.exceptions.ApplicationException;
+import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.model.Meal;
+import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.repository.DietRepository;
 import com.cg.fitnesstracker.app.repository.FoodItemRepository;
@@ -48,6 +50,9 @@ public class DietServiceImpl implements DietService{
 	private FoodItemRepository foodItemRepository;
 	@Autowired
 	private MealRepository mealRepository;
+	
+	@Autowired
+	private AppUserRepository appUserRepository;
 	
 	//To get all diets
 	@Override
@@ -163,12 +168,11 @@ public class DietServiceImpl implements DietService{
 	
 	//To suggest a diet
 	@Override
-	public String suggestDietService(String username) {
+	public String suggestDietService(String bodyType) {
 		
-		Customer cust = customerRepository.findByUsername(username);
-		if(cust!=null) {
-			String bodyType = cust.getBodyType().toString();
+			System.out.println(bodyType);
 			if(bodyType.equals("ENDOMORPH")) {
+				System.out.println(foodDietEndo);
 				return foodDietEndo;
 			}
 			else if(bodyType.equals("ECTOMORPH")) {
@@ -177,7 +181,6 @@ public class DietServiceImpl implements DietService{
 			else if(bodyType.equals("MESOMORPH")) {
 				return foodDietMeso;
 			}
-		}
 		throw new ApplicationException("Body Type doesn't match",404);
 	}
 

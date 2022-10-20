@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.fitnesstracker.app.dto.BodyTypeDto;
 import com.cg.fitnesstracker.app.dto.CaloriesDto;
 import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Diet;
@@ -120,11 +121,12 @@ public class DietController {
 		}
 		
 		//To get diet suggestions
-		@GetMapping("/diet")
-		@PreAuthorize("hasAnyRole('Admin','Customer')")
-		public ResponseEntity<ResponseMessage> suggestDiet(String username){
-			String suggestion = dietService.suggestDietService(username);
-			return new ResponseEntity<>(new ResponseMessage(suggestion),HttpStatus.OK);
+		@PostMapping("/suggestions")
+		@PreAuthorize("hasAuthority('Customer')")
+		public ResponseEntity<ResponseMessage> suggestDiet(@RequestBody BodyTypeDto bodyTypeDto){
+			String suggestion = dietService.suggestDietService(bodyTypeDto.getBodyType());
+			System.out.println(suggestion);
+			return new ResponseEntity<>(new ResponseMessage(suggestion,200),HttpStatus.OK);
 			
 		}
 }
