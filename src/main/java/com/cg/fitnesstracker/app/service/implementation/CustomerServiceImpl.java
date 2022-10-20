@@ -82,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService{
 			Customer cust1 = customerRepository.findById(appUser.getUserId()).get();
 			return cust1;
 		}
-		throw new RuntimeException("Can't update");
+		throw new DietException("Can't update",400);
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class CustomerServiceImpl implements CustomerService{
 			Customer cust = customerRepository.findById(appUser.getUserId()).get();
 			return cust;
 		}
-		throw new RuntimeException("Can't update");
+		throw new DietException("Can't update",400);
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService{
 		if (cust!=null) {
 			return cust;
 		}
-		throw new DietException("Login First",404);
+		throw new DietException("Can't update",400);
 	}
 
   /*
