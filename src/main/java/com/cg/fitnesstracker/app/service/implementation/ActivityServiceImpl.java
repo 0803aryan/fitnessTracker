@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cg.fitnesstracker.app.exception.ActivityException;
+import com.cg.fitnesstracker.app.exceptions.ActivityException;
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Customer;
