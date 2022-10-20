@@ -2,7 +2,6 @@ package com.cg.fitnesstracker.app.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cg.fitnesstracker.app.dto.CaloriesBurnedDto;
-import com.cg.fitnesstracker.app.exceptions.ActivityException;
-
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Workout;
-import com.cg.fitnesstracker.app.repository.ActivityRepository;
-import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.service.ActivityService;
 
 @Controller
@@ -32,24 +28,16 @@ public class ActivityController {
 
 	@Autowired
 	private ActivityService activityService;
-	@Autowired
-	private ActivityRepository activityRepo;
-	@Autowired
-	private CustomerRepository customerRepo;
+	
 
 	@GetMapping()
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<List<Activity>> getUserActivity(Principal p) {
 
-		if(this.customerRepo.findByUsername(p.getName())==null)
-		{
-			//change exception to UserException
-			throw new ActivityException("User Does Not Exist", 400);
-		}
 		List<Activity> activityList = this.activityService.getActivity(p.getName());
 		if(activityList.isEmpty())
 		{
-			throw new ActivityException("User Has No Activities", 404);
+			throw new ApplicationException("User Has No Activities", 404);
 		}
 		//		List<Activity> activityList = activityService.getActivity(userName);
 		return new ResponseEntity<>(activityList, HttpStatus.OK);
@@ -76,14 +64,9 @@ public class ActivityController {
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Activity> deleteUserActivity(Principal p,
 			@PathVariable("activityId") int activityId, @RequestBody Activity a) {
-		Optional<Activity> check;
-		check=this.activityRepo.findById(activityId);
-//				List<Activity> activityList = activityService.getActivity(userName);
-				if(check.isEmpty())
-				{
-					throw new ActivityException("No such activity found", 404);
-				}
-				a = activityService.deleteActivity(p.getName(), activityId);		
+
+		a=activityService.getActivityById(activityId);
+		a = activityService.deleteActivity(p.getName(), activityId);		
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
 	}
 	
@@ -91,15 +74,15 @@ public class ActivityController {
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<CaloriesBurnedDto> getCaloriesBurned(Principal p,
 			@PathVariable int activityId) {
-		
+
 		int calories=activityService.getCaloriesBurned(p.getName(), activityId);
 		Activity activity=activityService.getActivityById(activityId);
-		
+
 		CaloriesBurnedDto calDto=new CaloriesBurnedDto();
 		calDto.setCaloriesBurned(calories);
 		calDto.setActivityId(activityId);
 		calDto.setActivityName(activity.getActivityName());
-		
+
 		return new ResponseEntity<>(calDto, HttpStatus.OK);
 	}
 

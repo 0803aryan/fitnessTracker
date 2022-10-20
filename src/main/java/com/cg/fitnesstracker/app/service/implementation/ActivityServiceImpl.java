@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cg.fitnesstracker.app.exception.ActivityException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Customer;
@@ -35,7 +35,7 @@ public class ActivityServiceImpl implements ActivityService {
 		Optional<Activity> activity= activityRepo.findById(activityId);
 		if(!activity.isPresent())
 		{
-			throw new ActivityException("No such activity found", 404);
+			throw new ApplicationException("No such activity found", 404);
 		}
 		return activity.get();
 	}
@@ -71,7 +71,7 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 		else
 		{
-			throw new ActivityException("Invalid Cardio", 400);
+			throw new ApplicationException("Invalid Cardio", 400);
 		}
 		System.out.println("=======================");
 		System.out.println(calories);
@@ -131,39 +131,5 @@ public class ActivityServiceImpl implements ActivityService {
 		
 		return activityList;
 	}
-
-//	@Override
-//	@Transactional
-//	public List<Cardio> getCardioActivity(CardioType cardioType) {
-//		List<Cardio> cardio=activityRepo.getCardioActivity(cardioType);
-//		return cardio;
-//	}
-
-	
-//	@Override
-//	public Workout deleteWorkoutActivityService(String userName, WorkoutType workoutType) {
-//		Customer customer=customerRepository.findByUserName(userName);
-//
-//		Workout workout=workoutRepo.findByWorkoutType(workoutType);
-//		if(workout!=null && customer!=null)
-//		{
-//			List<Activity> activityList=customer.getActivities();
-//			activityList.remove(workout);
-//			activityRepo.saveAll(activityList);
-//		}
-//		return workout;
-//	}
-
-//	@Override
-//	public Cardio updateCardioActivityService(int userId, Cardio cardioActivity) {
-//		cardioService.updateExistingCardio(userId, cardioActivity);
-//		return cardioActivity;
-//	}
-//
-//	@Override
-//	public Workout updateWorkoutActivityService(int userId, Workout workoutActivity) {
-//		workoutService.updateExistingWorkout(userId, workoutActivity);
-//		return workoutActivity;
-//	}
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.implementation.CSVServiceImpl;
@@ -51,26 +52,21 @@ public class FoodItemCSVController {
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message,417));
             }
         }
-        message = "Please upload a csv file!";
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,400));
-            
+        throw new ApplicationException("File is not of CSV format", 406);            
     }
 
     @GetMapping("/food_items")
     @PreAuthorize("hasAnyRole('Customer','Admin')")
     public ResponseEntity<List<FoodItem>> getAllInfo() {
-        try {
+        
             List<FoodItem> foodItems = fileService.getAllFoodItems();
 
 
-
            if (foodItems.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                throw new ApplicationException("No content", 400);
             }
             
             return new ResponseEntity<>(foodItems, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        
     }
 }

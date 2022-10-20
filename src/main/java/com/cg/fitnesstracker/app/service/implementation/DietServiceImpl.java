@@ -7,8 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.cg.fitnesstracker.app.exceptions.DietException;
-import com.cg.fitnesstracker.app.exceptions.FoodItemException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.model.FoodItem;
@@ -17,7 +16,6 @@ import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.repository.DietRepository;
 import com.cg.fitnesstracker.app.repository.FoodItemRepository;
 import com.cg.fitnesstracker.app.repository.MealRepository;
-import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.DietService;
 
 //@Component
@@ -62,7 +60,7 @@ public class DietServiceImpl implements DietService{
 	public Diet getDietByIdService(int dietId) {
 		Optional<Diet> diet = dietRepository.findById(dietId);
 		if (!diet.isPresent()) {
-			throw new DietException("No Diet Exists for this diet Id",404);
+			throw new ApplicationException("No Diet Exists for this diet Id",404);
 		}
 		return diet.get();
 	}
@@ -78,7 +76,7 @@ public class DietServiceImpl implements DietService{
 				List<Diet> conflictDiet = sameTimeDiets.stream().filter(sd->(sd.getConsumeTime().equals(diet.getConsumeTime())
 						&& sd.getDayOfWeek().equals(diet.getDayOfWeek()))).toList();
 				if (conflictDiet.size()>0) {
-				throw new DietException("Diet already exists on "+diet.getDate().toString()
+				throw new ApplicationException("Diet already exists on "+diet.getDate().toString()
 						+" "+diet.getConsumeTime().toString()+" "+diet.getDayOfWeek().toString()+" with Id : "+conflictDiet.get(0).getDietId()+" Please add or delete a food item to modify the diet",400);
 				}
 			}
@@ -104,7 +102,7 @@ public class DietServiceImpl implements DietService{
 			List<Meal> mealList = diet.getMealList();
 			List<Meal> sameMeal = mealList.stream().filter(m->m.getFoodName().equals(food.getFoodName())).toList();
 			if (sameMeal.size()>0) {
-				throw new DietException("Food Item already exists",400);
+				throw new ApplicationException("Food Item already exists",400);
 			}
 			mealList.add(meal);
 			mealRepository.saveAll(mealList);
@@ -130,7 +128,7 @@ public class DietServiceImpl implements DietService{
 		Customer cust = customerRepository.findByUsername(userName);
 		Optional<Diet> diet = dietRepository.findById(dietId);
 		if (!diet.isPresent()) {
-			throw new DietException("Could not find Diet",404);
+			throw new ApplicationException("Could not find Diet",404);
 		}
 		if (cust!=null && diet.get()!=null) {
 			diet.get().setCustomer(cust);
@@ -148,7 +146,7 @@ public class DietServiceImpl implements DietService{
 		if (diet!=null) {
 			List<Meal> mealList = diet.getMealList();
 			if (mealList.size()==0) {
-				throw new FoodItemException("Please add a food item first!",404); 
+				throw new ApplicationException("Please add a food item first!",404); 
 			}
 			for (Meal item : mealList) {
 				cal+=item.getCaloriesInFood();
@@ -174,7 +172,7 @@ public class DietServiceImpl implements DietService{
 				return foodDietMeso;
 			}
 		}
-		throw new DietException("Body Type doesn't match",404);
+		throw new ApplicationException("Body Type doesn't match",404);
 	}
 
 }

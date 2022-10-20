@@ -7,13 +7,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cg.fitnesstracker.app.exceptions.DietException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
-import com.cg.fitnesstracker.app.repository.ActivityRepository;
 import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.repository.CustomerRepository;
-import com.cg.fitnesstracker.app.repository.DietRepository;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
 @Component
@@ -21,13 +19,7 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	@Autowired
 	private CustomerRepository customerRepository;
-	
-	@Autowired
-	private ActivityRepository activityRepository;
-	
-	@Autowired
-	private DietRepository dietRepository;
-	
+
 	@Autowired
 	private AppUserRepository appUserRepository;
 	
@@ -41,10 +33,10 @@ public class CustomerServiceImpl implements CustomerService{
 			if(cust!=null) {
 				return cust;
 			}
-			throw new DietException("Unable to find Customer ",404);
+			throw new ApplicationException("Unable to find Customer ",404);
 		}
 			
-		throw new DietException("Can't update",400);
+		throw new ApplicationException("Can't update",400);
 	}
 	
 	@Override
@@ -60,10 +52,10 @@ public class CustomerServiceImpl implements CustomerService{
 		if(user!=null) {
 			return user;
 		}
-		throw new DietException("Unable to find Customer ",404);
+		throw new ApplicationException("Unable to find Customer ",404);
 	}
 		
-	throw new DietException("Can't update",400);
+	throw new ApplicationException("Can't update",400);
 	}
 
 	@Override
@@ -82,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService{
 			Customer cust1 = customerRepository.findById(appUser.getUserId()).get();
 			return cust1;
 		}
-		throw new DietException("Can't update",400);
+		throw new ApplicationException("Can't update",400);
 	}
 
 	@Override
@@ -95,7 +87,7 @@ public class CustomerServiceImpl implements CustomerService{
 			Customer cust = customerRepository.findById(appUser.getUserId()).get();
 			return cust;
 		}
-		throw new DietException("Can't update",400);
+		throw new ApplicationException("Can't update",400);
 	}
 
 	@Override
@@ -104,12 +96,12 @@ public class CustomerServiceImpl implements CustomerService{
 		if (cust!=null) {
 			return cust;
 		}
-		throw new DietException("Can't update",400);
+		throw new ApplicationException("Can't update",400);
 	}
 	
 	@Override
 	public Customer toggleCustomerStatus(String userName) {
-		Customer customer=customerRepository.findByUsername(userName);
+//		Customer customer=customerRepository.findByUsername(userName);
 		
 		return null;
 	}

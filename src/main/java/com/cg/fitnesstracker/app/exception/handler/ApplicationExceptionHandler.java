@@ -3,33 +3,36 @@ package com.cg.fitnesstracker.app.exception.handler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.cg.fitnesstracker.app.exceptions.ActivityException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
 
-@RestControllerAdvice
-public class ActivityExceptionHandler {
+@RestController
+public class ApplicationExceptionHandler {
 
-	@ExceptionHandler(ActivityException.class)
-	public ResponseEntity<ResponseMessage> activityNotFoundHandler(ActivityException e) {
-
+	@ExceptionHandler(ApplicationException.class)
+	public ResponseEntity<ResponseMessage> applicationExceptionHandler(ApplicationException e) {
 		if(e.status==404) {
 			ResponseMessage message=new ResponseMessage(e.message, 404);
 
 			return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 		}
-		if(e.status==204) {
+		else if(e.status==204) {
 			ResponseMessage message=new ResponseMessage(e.message, 204);
 
 			return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
 		}
+		else if(e.status==406) {
+			ResponseMessage message=new ResponseMessage(e.message, 406);
 
-		if(e.status==400) {
+			return new ResponseEntity<>(message, HttpStatus.NOT_ACCEPTABLE);
+		}
+		else 
+		{
 			ResponseMessage message=new ResponseMessage(e.message, 400);
-
 			return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
 		}
-		return null;
+
 	}
 }

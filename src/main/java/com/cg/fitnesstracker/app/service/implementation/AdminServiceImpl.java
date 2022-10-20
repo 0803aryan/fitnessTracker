@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.cg.fitnesstracker.app.exceptions.DietException;
+import com.cg.fitnesstracker.app.exceptions.ApplicationException;
 import com.cg.fitnesstracker.app.model.Admin;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
@@ -19,13 +19,13 @@ import com.cg.fitnesstracker.app.service.AdminService;
 
 @Component
 public class AdminServiceImpl implements AdminService{
-	
+
 	@Autowired
 	private AdminRepository adminRepository;
-	
+
 	@Autowired
 	private AppUserRepository appUserRepository;
-	
+
 	@Autowired
 	private CustomerRepository customerRepository;
 
@@ -40,12 +40,15 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println(c);
 		if(c>0) {
 			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
-		if(admin!=null) {
-			return user;
+			if(admin!=null) {
+				return user;
+			}
+			else
+			{
+				throw new ApplicationException("Unable to find Admin ",404);
+			}
 		}
-		throw new DietException("Unable to find Admin ",404);
-		}
-		throw new DietException("Can't update",400);
+		throw new ApplicationException("Can't update",400);
 	}
 
 	@Override
@@ -63,7 +66,7 @@ public class AdminServiceImpl implements AdminService{
 		if(cust!=null) {
 			return cust;
 		}
-		throw new RuntimeException("User Id is incorrect");
+		throw new ApplicationException("User Id is incorrect",400);
 	}
 
 	@Override
@@ -75,16 +78,16 @@ public class AdminServiceImpl implements AdminService{
 		}
 		return cust;
 	}
-	
+
 	@Override
 	public Admin getAdminByIdService(int userId) {
 		Admin ad = adminRepository.findById(userId).get();
 		if(ad!=null) {
 			return ad;
 		}
-		throw new RuntimeException();
+		throw new ApplicationException("No admin found", 404);
 	}
-	
+
 	@Override
 	@Transactional
 	public Admin updateAdminEmailService(String newEmail,String username) {
@@ -95,8 +98,8 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println(c);
 		if(c>0)
 			return getAdminByIdService(appUser.getUserId());
-		throw new RuntimeException("Can't update");
-		
+		throw new ApplicationException("User not found. Can't update",404);
+
 	}
 
 }
