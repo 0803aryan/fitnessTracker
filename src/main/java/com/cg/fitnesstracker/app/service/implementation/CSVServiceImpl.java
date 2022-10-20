@@ -17,7 +17,8 @@ public class CSVServiceImpl implements CSVService{
 	
 	@Autowired
     FoodItemRepository foodrepository;
-    
+	
+    //To save the csv file
     public void save(MultipartFile file) {
         try {
             List<FoodItem> fooditems = CSVHelper.csvToFoodItem(file.getInputStream());
@@ -27,6 +28,7 @@ public class CSVServiceImpl implements CSVService{
         }
     }
     
+    //To get all the food items
     public List<FoodItem> getAllFoodItems() {
         //casted
         return (List<FoodItem>) foodrepository.findAll();

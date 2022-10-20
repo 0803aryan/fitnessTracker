@@ -28,11 +28,13 @@ public class AppUserController {
 	@Autowired
 	private AppUserService appUserService;
 	
+	//To add app user details
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	public ResponseEntity<AppUser> addAppUser(@RequestBody AppUser appUser){
 		return new ResponseEntity<AppUser>(appUserService.addAppUserService(appUser),HttpStatus.OK);
 	}
-
+	
+	//to update app user password
 	@PutMapping(value = "/password",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAnyRole('Admin','Customer')")
 	public ResponseEntity<AppUser> updatePassword(Principal p,@RequestBody UpdatePasswordDto updatePasswordDto){

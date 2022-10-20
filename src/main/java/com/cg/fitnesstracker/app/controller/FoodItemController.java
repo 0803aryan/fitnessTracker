@@ -20,6 +20,7 @@ public class FoodItemController {
 		@Autowired
 		FoodItemService foodItemService;
 		
+		//To get all the food items available to add
 		@GetMapping
 		@PreAuthorize("hasAnyRole('Customer','Admin')")
 	    public ResponseEntity<List<FoodItem>> getAllFoodItems(){
@@ -29,6 +30,8 @@ public class FoodItemController {
 			
 			
 		}
+		
+		//To get a particular food Item
 		@GetMapping("/{foodId}")
 		@PreAuthorize("hasAnyRole('Customer','Admin')")
 	    public ResponseEntity<FoodItem> getFoodItemById(@PathVariable int foodId){
@@ -37,6 +40,8 @@ public class FoodItemController {
 			return new ResponseEntity<>(foodItem, HttpStatus.OK);
 			
 		}
+		
+		//To get the calories in a particular food Item
 		@GetMapping("/{foodId}/calories")
 		@PreAuthorize("hasAnyRole('Customer','Admin')")
 	    public ResponseEntity<Integer> getCaloriesById(@PathVariable int foodId){

@@ -29,6 +29,7 @@ public class DietController {
 		@Autowired
 		private DietService dietService;
 		
+		//To get all diets
 		@GetMapping
 		@PreAuthorize("hasAuthority('Customer')")
 		public ResponseEntity<List<Diet>> getAllDiet(Principal p){
@@ -41,6 +42,7 @@ public class DietController {
 				
 		}
 		
+		//to get a specific diet
 		@GetMapping("/{dietId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<Diet> getDiet(@PathVariable int dietId){
@@ -49,7 +51,8 @@ public class DietController {
 				return new ResponseEntity<>(diet, HttpStatus.OK);
 				
 		}
-
+		
+		//To create a diet
 		@PostMapping
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<Diet> addDiet(Principal p, @RequestBody Diet diet){
@@ -62,6 +65,7 @@ public class DietController {
 				
 		}
 		
+		//To add a food item to diet
 		@PostMapping("/{dietId}/food-items/{foodId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
@@ -78,6 +82,7 @@ public class DietController {
 				
 		}
 		
+		//To delete a food item from diet
 		@DeleteMapping("/{dietId}/food-items/{foodId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> deleteFoodItem(@PathVariable int dietId, @PathVariable int foodId){
@@ -90,6 +95,7 @@ public class DietController {
 				
 		}
 		
+		//To delete a diet
 		@DeleteMapping("/{dietId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<Diet> deleteDiet(Principal p, @PathVariable int dietId){
@@ -98,7 +104,8 @@ public class DietController {
 				return new ResponseEntity<>(removeDiet, HttpStatus.OK);
 				
 		}
-
+		
+		//To get calories for a particular diet 
 		@GetMapping("/{dietId}/calories")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<CaloriesDto> getCalories(Principal p,@PathVariable int dietId){
@@ -113,6 +120,8 @@ public class DietController {
 				return new ResponseEntity<>(cal, HttpStatus.OK);	
 				
 		}
+		
+		//To get diet suggestions
 		@GetMapping("/diet")
 		@PreAuthorize("hasAnyRole('Admin','Customer')")
 		public ResponseEntity<ResponseMessage> suggestDiet(String username){

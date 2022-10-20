@@ -29,6 +29,7 @@ public class ActivityServiceImpl implements ActivityService {
 	@Autowired
 	private CardioRepository cardioRepo;
 	
+	// To get the activity by ID
 	@Override
 	public Activity getActivityById(int activityId)
 	{
@@ -40,6 +41,7 @@ public class ActivityServiceImpl implements ActivityService {
 		return activity.get();
 	}
 	
+	//To get the calories burned
 	@Override
 	public int getCaloriesBurned(String userName, int activityId)
 	{
@@ -78,6 +80,7 @@ public class ActivityServiceImpl implements ActivityService {
 		return (int) calories;
 	}
 	
+	//To add a cardio activity
 	@Override
 	public Activity addCardioActivityService(String username, Activity cardioActivity) {
 
@@ -94,7 +97,8 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 		return  cardioActivity;
 	}
-
+	
+	//To add a workout activity
 	@Override
 	public Activity addWorkoutActivityService(String username, Activity workoutActivity) {
 		Customer customer = customerRepository.findByUsername(username);
@@ -110,12 +114,12 @@ public class ActivityServiceImpl implements ActivityService {
 		}
 		return  workoutActivity;
 	}
-
+	
+	//To delete an activity
 	@Override
 	@Transactional
 	public Activity deleteActivity(String userName, int activityId) {
 		Activity activity=activityRepo.findById(activityId).get();
-//		Activity cardioActivity=cardioRepo.findById(activityId).get();
 		if(activity!=null)
 		{
 			activityRepo.deleteByActivityId(activityId);
@@ -131,39 +135,5 @@ public class ActivityServiceImpl implements ActivityService {
 		
 		return activityList;
 	}
-
-//	@Override
-//	@Transactional
-//	public List<Cardio> getCardioActivity(CardioType cardioType) {
-//		List<Cardio> cardio=activityRepo.getCardioActivity(cardioType);
-//		return cardio;
-//	}
-
-	
-//	@Override
-//	public Workout deleteWorkoutActivityService(String userName, WorkoutType workoutType) {
-//		Customer customer=customerRepository.findByUserName(userName);
-//
-//		Workout workout=workoutRepo.findByWorkoutType(workoutType);
-//		if(workout!=null && customer!=null)
-//		{
-//			List<Activity> activityList=customer.getActivities();
-//			activityList.remove(workout);
-//			activityRepo.saveAll(activityList);
-//		}
-//		return workout;
-//	}
-
-//	@Override
-//	public Cardio updateCardioActivityService(int userId, Cardio cardioActivity) {
-//		cardioService.updateExistingCardio(userId, cardioActivity);
-//		return cardioActivity;
-//	}
-//
-//	@Override
-//	public Workout updateWorkoutActivityService(int userId, Workout workoutActivity) {
-//		workoutService.updateExistingWorkout(userId, workoutActivity);
-//		return workoutActivity;
-//	}
 
 }

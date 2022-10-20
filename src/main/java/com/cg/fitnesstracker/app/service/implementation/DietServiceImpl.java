@@ -21,7 +21,7 @@ import com.cg.fitnesstracker.app.repository.MealRepository;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.DietService;
 
-//@Component
+
 public class DietServiceImpl implements DietService{
 	private String foodDietEndo;
 	private String foodDietEcto;
@@ -29,17 +29,17 @@ public class DietServiceImpl implements DietService{
 
 	public void setFoodDietEcto(String foodDietEcto) {
 		this.foodDietEcto = foodDietEcto;
-		System.out.println("setter1..");
+		
 	}
 
 	public void setFoodDietEndo(String foodDietEndo) {
 		this.foodDietEndo = foodDietEndo;
-		System.out.println("setter2..");
+	
 	}
 
 	public void setFoodDietMeso(String foodDietMeso) {
 		this.foodDietMeso = foodDietMeso;
-		System.out.println("setter3..");
+
 	}
 
 	@Autowired
@@ -51,7 +51,7 @@ public class DietServiceImpl implements DietService{
 	@Autowired
 	private MealRepository mealRepository;
 	
-
+	//To get all diets
 	@Override
 	public List<Diet> getAllDietService(String username) {
 		Customer cust = customerRepository.findByUsername(username);
@@ -59,6 +59,7 @@ public class DietServiceImpl implements DietService{
 		return dietList;
 	}
 	
+	//To get diet by Id
 	@Override
 	public Diet getDietByIdService(int dietId) {
 		Optional<Diet> diet = dietRepository.findById(dietId);
@@ -67,7 +68,8 @@ public class DietServiceImpl implements DietService{
 		}
 		return diet.get();
 	}
-
+	
+	//To add diet by user id
 	@Override
     public Diet addDietByUserIdService(String username, Diet diet) {
         Customer cust = customerRepository.findByUsername(username);
@@ -89,7 +91,7 @@ public class DietServiceImpl implements DietService{
         return diet;
     }
  
-
+	//To add food item to diet
 	@Override
 	public FoodItem addFoodItemToDietService(int dietId, int foodId) {
 		Diet diet = dietRepository.findById(dietId).get();
@@ -97,7 +99,6 @@ public class DietServiceImpl implements DietService{
 		if (diet!=null && food!=null) {
 			Meal meal = new Meal();
 			meal.setDiet(diet);
-//			meal.setMealId(meal.getMealId()+1);
 			meal.setMealId(meal.getMealId());
 			meal.setFoodId(food.getFoodId());
 			meal.setFoodName(food.getFoodName());
@@ -115,6 +116,7 @@ public class DietServiceImpl implements DietService{
 		return food;
 	}
 
+	//To remove food Item from diet
 	@Override
 	@Transactional
 	public FoodItem removeFoodItemFromDietService(int dietId, int foodId) {
@@ -125,7 +127,8 @@ public class DietServiceImpl implements DietService{
 		}
 		return food;
 	}
-
+	
+	//To delete diet 
 	@Override
 	@Transactional
 	public Diet deleteDietService(String userName, int dietId) {
@@ -140,7 +143,8 @@ public class DietServiceImpl implements DietService{
 		}
 		return diet.get();
 	}
-
+	
+	//To get total calories in a diet
 	@Override
 	public int getTotalCaloriesService(String userName, int dietId) {
 		Customer cust = customerRepository.findByUsername(userName);
@@ -158,7 +162,8 @@ public class DietServiceImpl implements DietService{
 		}	
 		return cal;
 	}
-
+	
+	//To suggest a diet
 	@Override
 	public String suggestDietService(String username) {
 		

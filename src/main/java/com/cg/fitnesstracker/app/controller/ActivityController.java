@@ -36,7 +36,9 @@ public class ActivityController {
 	private ActivityRepository activityRepo;
 	@Autowired
 	private CustomerRepository customerRepo;
-
+	
+	
+	//To get all activities of the customer 
 	@GetMapping()
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<List<Activity>> getUserActivity(Principal p) {
@@ -56,7 +58,7 @@ public class ActivityController {
 	}
 
 
-
+	//To add a cardio activity
 	@PostMapping(value="/cardio", consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Cardio> addCardio(Principal p,@RequestBody Cardio cardio) {
@@ -64,6 +66,7 @@ public class ActivityController {
 		return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
+	//To add workout activity
 	@PostMapping(value="/workout")
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Workout> addWorkout(Principal p, @RequestBody Workout workout) {
@@ -71,14 +74,13 @@ public class ActivityController {
 		return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
-
+	//Delete an activity by activity Id
 	@DeleteMapping(value ="/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Activity> deleteUserActivity(Principal p,
 			@PathVariable("activityId") int activityId, @RequestBody Activity a) {
 		Optional<Activity> check;
 		check=this.activityRepo.findById(activityId);
-//				List<Activity> activityList = activityService.getActivity(userName);
 				if(!check.isPresent())
 				{
 					throw new ActivityException("No such activity found", 404);
@@ -87,6 +89,7 @@ public class ActivityController {
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
 	}
 	
+	//Get calories of the cardio activity
 	@GetMapping(value="cardio/calories/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<CaloriesBurnedDto> getCaloriesBurned(Principal p,

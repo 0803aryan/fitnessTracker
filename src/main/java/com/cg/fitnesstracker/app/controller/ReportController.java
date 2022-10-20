@@ -28,6 +28,7 @@ public class ReportController {
 	@Autowired
 	private CustomerService customerService;
 	
+	//To get a report
 	@GetMapping
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<ReportDto> getReport(Principal p){
