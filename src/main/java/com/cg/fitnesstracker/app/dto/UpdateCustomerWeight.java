@@ -1,14 +1,14 @@
 package com.cg.fitnesstracker.app.dto;
 
 public class UpdateCustomerWeight {
-	private String userName;
+	private int userId;
 	private float updatedWeight;
 	
-	public String getUserName() {
-		return userName;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUserName(int userId) {
+		this.userId = userId;
 	}
 	public float getUpdatedWeight() {
 		return updatedWeight;
