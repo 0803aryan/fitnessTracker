@@ -17,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="Meal")
-@Component
-@Scope("prototype")
 public class Meal {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEAL_SEQ")

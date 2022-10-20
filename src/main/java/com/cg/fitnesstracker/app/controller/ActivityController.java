@@ -48,7 +48,7 @@ public class ActivityController {
 	@GetMapping("{userName}/activity")
 	public ResponseEntity<List<Activity>> getUserActivity(@PathVariable String userName) {
 
-		if(this.customerRepo.findByUserName(userName)==null)
+		if(this.customerRepo.findByUsername(userName)==null)
 		{
 			//change exception to UserException
 			throw new ActivityException("User Does Not Exist", 400);
