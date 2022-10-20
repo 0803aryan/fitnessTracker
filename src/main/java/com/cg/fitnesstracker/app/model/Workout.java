@@ -3,11 +3,13 @@ package com.cg.fitnesstracker.app.model;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
 import com.cg.fitnesstracker.app.model.enums.WorkoutType;
 
 @Entity
+@XmlRootElement
 public class Workout extends Activity {
 	
 	@Enumerated(EnumType.STRING)

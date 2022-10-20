@@ -23,6 +23,7 @@ public class CustomerServiceImpl implements CustomerService{
 	@Autowired
 	private AppUserRepository appUserRepository;
 	
+	//To update customer email service
 	@Transactional
 	@Override
 	public Customer updateCustomerEmailService(String username,String email) {
@@ -39,6 +40,7 @@ public class CustomerServiceImpl implements CustomerService{
 		throw new ApplicationException("Can't update",400);
 	}
 	
+	//To add customer details
 	@Override
 	public AppUser addCustomerDetailService(String username, Customer customer) {
 		AppUser appUser = appUserRepository.findByUsername(username);
@@ -58,8 +60,8 @@ public class CustomerServiceImpl implements CustomerService{
 	throw new ApplicationException("Can't update",400);
 	}
 
+	//To update customer weight
 	@Override
-
 	public Customer updateCustomerWeightService(String username, float updatedWeight) {
 		AppUser appUser =appUserRepository.findByUsername(username);
 		Optional<Customer> cust = customerRepository.findById(appUser.getUserId());
@@ -76,7 +78,8 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new ApplicationException("Can't update",400);
 	}
-
+	
+	//To update customer height
 	@Override
 	@Transactional
 	public Customer updateCustomerHeightService(String username, int updatedHeight) {
@@ -89,7 +92,8 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new ApplicationException("Can't update",400);
 	}
-
+	
+	//To get customer
 	@Override
 	public Customer getCustomerService(String username) {
 		Customer cust = customerRepository.findByUsername(username);
@@ -99,6 +103,7 @@ public class CustomerServiceImpl implements CustomerService{
 		throw new ApplicationException("Can't update",400);
 	}
 	
+	//To toggle customer status
 	@Override
 	public Customer toggleCustomerStatus(String userName) {
 //		Customer customer=customerRepository.findByUsername(userName);

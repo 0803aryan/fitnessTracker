@@ -13,7 +13,8 @@ import com.cg.fitnesstracker.app.service.FoodItemService;
 public class FoodItemServiceImpl implements FoodItemService{
 	@Autowired
 	FoodItemRepository foodItemRepository;
-
+	
+	//To get all food items
 	@Override
 	public List<FoodItem> getAllFoodItemService() {
 		List<FoodItem> foodItems = new ArrayList();
@@ -21,13 +22,15 @@ public class FoodItemServiceImpl implements FoodItemService{
 		items.forEach(c->foodItems.add(c));
 		return foodItems;
 	}
-
+	
+	// To get food item by Id
 	@Override
 	public FoodItem getFoodItemByIdService(int foodId) {
 		FoodItem item = foodItemRepository.findById(foodId).get();
 		return item;
 	}
 	
+	//To get calories in a food item
 	@Override
 	public int getCaloriesService(int foodId) {
 		FoodItem item = foodItemRepository.findById(foodId).get();

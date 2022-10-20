@@ -3,10 +3,12 @@ import com.cg.fitnesstracker.app.model.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "login")
 @Inheritance(strategy = InheritanceType.JOINED)
+@XmlRootElement
 public class AppUser{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "APPUSER_SEQ")
@@ -18,10 +20,11 @@ public class AppUser{
 
 	@Column(length=40,unique=true)
 	private String username;
-    @JsonIgnore
-    private String password;
 
-    private String role; 
+  @JsonIgnore
+  private String password;
+
+  private String role; 
 
 	public AppUser() {
 		super();
@@ -32,6 +35,10 @@ public class AppUser{
 		this.username = username;
 		this.password = password;
 		this.role = role;
+	}
+  
+  public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	  public String getRole() {

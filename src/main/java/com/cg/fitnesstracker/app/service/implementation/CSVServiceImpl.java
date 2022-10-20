@@ -17,16 +17,18 @@ public class CSVServiceImpl implements CSVService{
 	
 	@Autowired
     FoodItemRepository foodrepository;
-    
+	
+    //To save the csv file
     public void save(MultipartFile file) {
         try {
             List<FoodItem> fooditems = CSVHelper.csvToFoodItem(file.getInputStream());
             foodrepository.saveAll(fooditems);
-        } catch (IOException e) {
-            throw new RuntimeException("fail to store csv data: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException("fail to store csv data ");
         }
     }
     
+    //To get all the food items
     public List<FoodItem> getAllFoodItems() {
         //casted
         return (List<FoodItem>) foodrepository.findAll();

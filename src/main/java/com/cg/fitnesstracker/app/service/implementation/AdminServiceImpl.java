@@ -28,7 +28,8 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private CustomerRepository customerRepository;
-
+	
+	//To add admin details
 	@Override
 	public AppUser addAdminDetailService(String username, Admin admin) {
 		AppUser appUser = appUserRepository.findByUsername(username);
@@ -40,6 +41,7 @@ public class AdminServiceImpl implements AdminService{
 		System.out.println(c);
 		if(c>0) {
 			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
+
 			if(admin!=null) {
 				return user;
 			}
@@ -50,7 +52,8 @@ public class AdminServiceImpl implements AdminService{
 		}
 		throw new ApplicationException("Can't update",400);
 	}
-
+	
+	//To get all customers
 	@Override
 	public List<Customer> readAllCustomerDetailService() {
 		List<Customer> custList = new ArrayList<>();
@@ -58,7 +61,8 @@ public class AdminServiceImpl implements AdminService{
 		customer.forEach(c->custList.add(c));
 		return custList;
 	}
-
+	
+	//To get customer by username 
 	@Override
 	public Customer readCustomerDetailByIdService(String username) {
 		AppUser appUser = appUserRepository.findByUsername(username);
@@ -68,7 +72,8 @@ public class AdminServiceImpl implements AdminService{
 		}
 		throw new ApplicationException("User Id is incorrect",400);
 	}
-
+	
+	// To delete customer by username
 	@Override
 	public Customer deleteCustomerByIdService(String username) {
 		Customer cust = readCustomerDetailByIdService(username);
@@ -78,7 +83,7 @@ public class AdminServiceImpl implements AdminService{
 		}
 		return cust;
 	}
-
+	//To get admin by userId
 	@Override
 	public Admin getAdminByIdService(int userId) {
 		Admin ad = adminRepository.findById(userId).get();
@@ -88,6 +93,7 @@ public class AdminServiceImpl implements AdminService{
 		throw new ApplicationException("No admin found", 404);
 	}
 
+	//To update admin email
 	@Override
 	@Transactional
 	public Admin updateAdminEmailService(String newEmail,String username) {

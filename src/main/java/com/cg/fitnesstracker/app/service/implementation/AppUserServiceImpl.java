@@ -12,13 +12,14 @@ public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
 
-
+	//To add app user
 	@Override
 	public AppUser addAppUserService(AppUser appUser) {
 		AppUser user = appUserRepository.save(appUser);
 		return user;
 	}
 	
+	//To update customer password
 	@Transactional
 	@Override
 	public AppUser updateCustomerPasswordService(String password, String username) {

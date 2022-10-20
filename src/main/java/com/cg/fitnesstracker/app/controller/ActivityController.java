@@ -28,7 +28,6 @@ public class ActivityController {
 
 	@Autowired
 	private ActivityService activityService;
-	
 
 	@GetMapping()
 	@PreAuthorize("hasAuthority('Customer')")
@@ -44,7 +43,7 @@ public class ActivityController {
 	}
 
 
-
+	//To add a cardio activity
 	@PostMapping(value="/cardio", consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Cardio> addCardio(Principal p,@RequestBody Cardio cardio) {
@@ -52,6 +51,7 @@ public class ActivityController {
 		return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
+	//To add workout activity
 	@PostMapping(value="/workout")
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Workout> addWorkout(Principal p, @RequestBody Workout workout) {
@@ -59,17 +59,19 @@ public class ActivityController {
 		return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
-
+	//Delete an activity by activity Id
 	@DeleteMapping(value ="/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Activity> deleteUserActivity(Principal p,
 			@PathVariable("activityId") int activityId, @RequestBody Activity a) {
+
 
 		a=activityService.getActivityById(activityId);
 		a = activityService.deleteActivity(p.getName(), activityId);		
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
 	}
 	
+	//Get calories of the cardio activity
 	@GetMapping(value="cardio/calories/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<CaloriesBurnedDto> getCaloriesBurned(Principal p,

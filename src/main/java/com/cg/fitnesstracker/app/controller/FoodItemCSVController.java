@@ -1,7 +1,4 @@
 package com.cg.fitnesstracker.app.controller;
-
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,7 @@ public class FoodItemCSVController {
         this.fileService=fileService;
     }
     
+    //To upload a food items csv file
     @PostMapping(value="/food_items")
     @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file)
@@ -54,7 +52,8 @@ public class FoodItemCSVController {
         }
         throw new ApplicationException("File is not of CSV format", 406);            
     }
-
+    
+    //TO get all the food items uploaded
     @GetMapping("/food_items")
     @PreAuthorize("hasAnyRole('Customer','Admin')")
     public ResponseEntity<List<FoodItem>> getAllInfo() {

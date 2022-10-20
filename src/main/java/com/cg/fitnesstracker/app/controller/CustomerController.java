@@ -26,13 +26,14 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
+	//To add customer details
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<AppUser> addCustomerDetails(Principal p,@RequestBody Customer customer){
 		return new ResponseEntity<AppUser>(customerService.addCustomerDetailService(p.getName(),customer),HttpStatus.OK);
 	}
 	
-	
+	//To update customer weight
 	@PutMapping(value="/weight",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Customer> updateCustomerWeight(Principal p,@RequestBody UpdateCustomerWeight ucw){
@@ -40,7 +41,7 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
 	
-	
+	//To update customer height
 	@PutMapping(value="/height",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<Customer> updateCustomerHeight(Principal p,@RequestBody UpdateCustomerHeight uch){
@@ -48,19 +49,12 @@ public class CustomerController {
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
 	
+	//To update customer email
 	@PutMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<AppUser> updateEmail(Principal p,@RequestBody UpdateEmailDto updateEmailDto){
 		AppUser appUser = customerService.updateCustomerEmailService(p.getName(),updateEmailDto.getNewEmail());
 		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
 	}
-	
-//	@GetMapping(value="/toggle_status", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
-//	@PreAuthorize("hasAuthority('Customer')")
-//	public ResponseEntity<Customer> toggleCustomerStatus(Principal p)
-//	{
-//		Customer customer=customerService.toggleCustomerStatus(p.getName());
-//		
-//		return new ResponseEntity<>(customer, HttpStatus.OK);
-//	}
+
 }
