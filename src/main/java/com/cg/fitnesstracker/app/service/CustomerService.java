@@ -20,6 +20,8 @@ public interface CustomerService {
 	public Customer updateCustomerHeightService(String username, float height);
 	
 	public AppUser updateCustomerEmailService(String email,String username);
+	
+	public Customer getCustomerService(String username);
 
 	//public Customer updateCustomerActivityStatusService(String username, boolean active);
 

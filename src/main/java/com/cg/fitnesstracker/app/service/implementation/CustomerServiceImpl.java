@@ -5,6 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cg.fitnesstracker.app.exceptions.DietException;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.repository.ActivityRepository;
@@ -71,6 +72,15 @@ public class CustomerServiceImpl implements CustomerService{
 			return cust;
 		}
 		throw new RuntimeException("Can't update");
+	}
+
+	@Override
+	public Customer getCustomerService(String username) {
+		Customer cust = customerRepository.findByUsername(username);
+		if (cust!=null) {
+			return cust;
+		}
+		throw new DietException("Login First",404);
 	}
 
   /*
