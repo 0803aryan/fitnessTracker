@@ -1,6 +1,7 @@
 package com.cg.fitnesstracker.app.dto;
 
 public class UpdatePasswordDto {
+
 private String username;
 private String newPassword;
 

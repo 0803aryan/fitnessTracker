@@ -23,41 +23,38 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name="DIET")
 public class Diet {
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DIET_SEQ")
-    @SequenceGenerator(sequenceName = "diet_seq", allocationSize = 1, name = "DIET_SEQ")
+    @SequenceGenerator(sequenceName = "DIET_seq", allocationSize = 1, name = "DIET_SEQ")
     private int dietId;
+    
     @Enumerated(EnumType.STRING)
     private ConsumeTime consumeTime;
+    
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
     
-    //@NotNull
-    //@Temporal(TemporalType.DATE)
-    //@DateTimeFormat(style = "dd-MM-yyyy")
-    //@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private LocalDate date;
-	@OneToMany(mappedBy="diet")
+	
+    @OneToMany(mappedBy="diet")
     @JsonManagedReference
-    private List<FoodItem> foodList;
+    private List<Meal> mealList;
 
 	@ManyToOne
 	@JoinColumn(name="userId")
 	@JsonBackReference
 	private Customer customer;
+	
 	{
 		this.date=LocalDate.now();
 	}
-    public Diet() {
-    }
-
+    
+	public Diet() {}
     
     public Diet(ConsumeTime consumeTime, DayOfWeek dayOfWeek) {
 		super();
 		this.consumeTime = consumeTime;
 		this.dayOfWeek = dayOfWeek;
-		//this.foodList = foodList;
-		//this.customer = customer;
 		
 	}
 
@@ -69,15 +66,17 @@ public class Diet {
     	this.customer = customer;
     }
     
-    public List<FoodItem> getFoodList() {
-    	return foodList;
-    }
-    
-    public void setFoodList(List<FoodItem> foodList) {
-    	this.foodList = foodList;
-    }
+ 
 
-    public int getDietId() {
+    public List<Meal> getMealList() {
+		return mealList;
+	}
+
+	public void setMealList(List<Meal> mealList) {
+		this.mealList = mealList;
+	}
+
+	public int getDietId() {
         return dietId;
     }
 

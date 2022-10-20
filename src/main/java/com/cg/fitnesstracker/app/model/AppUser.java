@@ -16,25 +16,25 @@ public class AppUser{
 		return userId;
 	}
 
-	@Column(length=40,unique=true)
-	private String username;
+	  @Column(length=40,unique=true)
+	  private String username;
     @JsonIgnore
     private String password;
-//    @Enumerated(EnumType.STRING)
-    private String role; //Enum
+
+    private String role; 
 
 	public AppUser() {
 		super();
 	}
 
-	public AppUser(String username, String password, String role) {
+	  public AppUser(String username, String password, String role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
 	}
 
-	public String getRole() {
+	  public String getRole() {
 		return role;
 	}
 

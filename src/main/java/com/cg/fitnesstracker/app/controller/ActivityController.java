@@ -2,6 +2,7 @@ package com.cg.fitnesstracker.app.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,16 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cg.fitnesstracker.app.exception.ActivityException;
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Workout;
-import com.cg.fitnesstracker.app.model.enums.CardioType;
-import com.cg.fitnesstracker.app.model.enums.WorkoutType;
+import com.cg.fitnesstracker.app.repository.ActivityRepository;
+import com.cg.fitnesstracker.app.repository.CustomerRepository;
 import com.cg.fitnesstracker.app.service.ActivityService;
-import com.cg.fitnesstracker.app.service.CardioService;
-import com.cg.fitnesstracker.app.service.WorkoutService;
 
 @Controller
 @RequestMapping("/fitness/activity")
@@ -32,24 +31,38 @@ public class ActivityController {
 	@Autowired
 	ActivityService activityService;
 	@Autowired
-	CardioService cardioService;
+	ActivityRepository activityRepo;
 	@Autowired
-	WorkoutService workoutService;
+	CustomerRepository customerRepo;
 
-	public void setActivityService (ActivityService activityService) {
-		this.activityService=activityService;
+	public void setActivityService(ActivityService activityService) {
+		this.activityService = activityService;
 	}
-	public void setCardioService (CardioService cardioService) {
-		this.cardioService=cardioService;
+	public void setActivityRepo(ActivityRepository activityRepo) {
+		this.activityRepo = activityRepo;
 	}
-	public void setWorkoutService (WorkoutService workoutService) {
-		this.workoutService=workoutService;
+	public void setCustomerRepo(CustomerRepository customerRepo) {
+		this.customerRepo = customerRepo;
 	}
 
-	/*@PostMapping(value="/add")
-	public ResponseEntity<Activity> addActivity(@RequestBody final Activity activity) {
-		final Activity a=this.activityService.addCardioActivityService(null, null)
-	}*/
+	@GetMapping("{userName}/activity")
+	public ResponseEntity<List<Activity>> getUserActivity(@PathVariable String userName) {
+
+		if(this.customerRepo.findByUserName(userName)==null)
+		{
+			//change exception to UserException
+			throw new ActivityException("User Does Not Exist", 400);
+		}
+		List<Activity> activityList = this.activityService.getActivity(userName);
+		if(activityList.isEmpty())
+		{
+			throw new ActivityException("User Has No Activities", 404);
+		}
+		//		List<Activity> activityList = activityService.getActivity(userName);
+		return new ResponseEntity<>(activityList, HttpStatus.OK);
+	}
+
+
 
 	@PostMapping(value="/cardio/", consumes={"application/json"}, produces= {"application/json"})
 	@PreAuthorize("hasAuthority('Customer')")
@@ -65,33 +78,20 @@ public class ActivityController {
 		return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value= {"/delete/{activityId}"}, consumes={"application/json"}, produces= {"application/json"})
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Activity> deleteUserActivity(Principal p, @PathVariable("activityId") int activityId, @RequestBody Activity a) {
-		a = activityService.deleteActivity(p.getName(), activityId);
 
+	@DeleteMapping(value = { "/delete/{userName}/{activityId}" }, consumes = { "application/json" }, produces = {
+	"application/json" })
+	public ResponseEntity<Activity> deleteUserActivity(@PathVariable("userName") String userName,
+			@PathVariable("activityId") int activityId, @RequestBody Activity a) {
+		Optional<Activity> check;
+		check=this.activityRepo.findById(activityId);
+//				List<Activity> activityList = activityService.getActivity(userName);
+				if(check.isEmpty())
+				{
+					throw new ActivityException("No such activity found", 404);
+				}
+				a = activityService.deleteActivity(userName, activityId);		
 		return new ResponseEntity<Activity>(a, HttpStatus.OK);
 	}
-
-	@GetMapping(value="/cardio_type")
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<List<Cardio>> getCardioByType(@RequestParam("cardiotype") CardioType cardioType) {
-		@SuppressWarnings("unchecked")
-		List<Cardio> cardioList=(List<Cardio>) cardioService.getCardioByType(cardioType);
-
-		return new ResponseEntity<List<Cardio>>(cardioList, HttpStatus.OK);
-	}
-
-	@GetMapping(value="/workout_type")
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<List<Workout>> getWorkoutByType(@RequestParam("workouttype") WorkoutType workoutType) {
-		@SuppressWarnings("unchecked")
-		List<Workout> workoutList=(List<Workout>) workoutService.getWorkoutByType(workoutType);
-
-		return new ResponseEntity<List<Workout>>(workoutList, HttpStatus.OK);
-	}
-
-
-
 
 }

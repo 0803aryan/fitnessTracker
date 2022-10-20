@@ -6,11 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.service.AppUserService;
-
+import com.cg.fitnesstracker.app.repository.*;
 @Component
 public class AppUserServiceImpl implements AppUserService{
 	@Autowired
 	private AppUserRepository appUserRepository;
+
 
 	@Override
 	public AppUser addAppUserService(AppUser appUser) {

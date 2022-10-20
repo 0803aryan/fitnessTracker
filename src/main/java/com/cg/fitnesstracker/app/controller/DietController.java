@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.fitnesstracker.app.dto.CaloriesDto;
+import com.cg.fitnesstracker.app.exceptions.DietException;
+import com.cg.fitnesstracker.app.exceptions.FoodItemException;
 import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.service.DietService;
@@ -24,87 +26,86 @@ public class DietController {
 
 		@Autowired
 		DietService dietService;
-		
-		@GetMapping("/{username}/alldiets/")
-		@PreAuthorize("hasAnyRole('Admin','Customer')")
-	    public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String username){
-			try {
-				List<Diet> dietList = dietService.getAllDietService(username);
+					//("/diets/")
+		@GetMapping("/{userName}/diets")//getAllDiet(Principal p)
+	  public ResponseEntity<List<Diet>> getAllDiet(@PathVariable String userName){
+																 //(p.getName());	
+				List<Diet> dietList = dietService.getAllDietService(userName);
 				if (dietList.isEmpty()) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	            }
-				return new ResponseEntity<>(dietList, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	                throw new DietException("No diet found for this user ID",404);
 				}
+				return new ResponseEntity<>(dietList, HttpStatus.OK);
+				
 		}
 		
-		@PostMapping("/{username}/diets/")
-		@PreAuthorize("hasAuthority('Customer')")
-	    public ResponseEntity<Diet> addDiet(@PathVariable String username, @RequestBody Diet diet){
-			try {
-				Diet addDiet = dietService.addDietByUserIdService(username, diet);
+		@GetMapping("/{userName}/diets/{dietId}")
+	    public ResponseEntity<Diet> getDiet(@PathVariable String userName,@PathVariable int dietId){
+				Diet diet = dietService.getDietByIdService(dietId);
+				return new ResponseEntity<>(diet, HttpStatus.OK);
+				
+		}
+		
+
+		@PostMapping("/{userName}/diets")
+	    public ResponseEntity<Diet> addDiet(@PathVariable String userName, @RequestBody Diet diet){
+				
+				Diet addDiet = dietService.addDietByUserIdService(userName, diet);
 				if (addDiet==null) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	            }
-				return new ResponseEntity<>(addDiet, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+					throw new DietException("Unable to add diet",204);
 				}
+				return new ResponseEntity<>(addDiet, HttpStatus.OK);
+				
 		}
 		
 		@PostMapping("/{username}/diets/{dietId}/food-items/{foodId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
-			try {
 				FoodItem addFood = dietService.addFoodItemToDietService(dietId, foodId);
-				if (addFood==null) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	            }
-				return new ResponseEntity<>(addFood, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+				//OptioanlDiet diet = dietService.getDietByIdService(dietId);
+				//if (diet==null) {
+				//	throw new DietException("No diet found for this diet Id",404);
+				//}
+			    if (addFood==null) {
+	                throw new FoodItemException("No food item found for this Id",404);
 				}
+				return new ResponseEntity<>(addFood, HttpStatus.OK);
+				
 		}
 		
 		@DeleteMapping("/{username}/diets/{dietId}/food-items/{foodId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> deleteFoodItem(@PathVariable int dietId, @PathVariable int foodId){
-			try {
 				FoodItem removeFood = dietService.removeFoodItemFromDietService(dietId, foodId);
 				if (removeFood==null) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	                throw new DietException("Unable to delete food Item",203);
 	            }
 				return new ResponseEntity<>(removeFood, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-				}
+				
 		}
 		
-		@DeleteMapping("/{username}/diets/{dietId}/")
-		@PreAuthorize("hasAuthority('Customer')")
-	    public ResponseEntity<Diet> deleteDiet(@PathVariable String username, @PathVariable int dietId){
-			try {
-				Diet removeDiet = dietService.deleteDietService(username, dietId);
-				if (removeDiet==null) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	            }
+
+
+		@DeleteMapping("/{userName}/diets/{dietId}")
+	    public ResponseEntity<Diet> deleteDiet(@PathVariable String userName, @PathVariable int dietId){
+		
+				Diet removeDiet = dietService.deleteDietService(userName, dietId);
 				return new ResponseEntity<>(removeDiet, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-				}
+				
 		}
-		@GetMapping("/{username}/diet/{dietId}/get-calories/")
-		@PreAuthorize("hasAuthority('Customer')")
-	    public ResponseEntity<Integer> getCalories(@PathVariable String username,int dietId){
-			try {
-				int calories = dietService.getTotalCaloriesService(username, dietId);
-				if (calories==0) {
-	                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-	            }
-				return new ResponseEntity<>(calories, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-				}
+
+
+		@GetMapping("/{userName}/diets/{dietId}/calories")
+	    public ResponseEntity<CaloriesDto> getCalories(@PathVariable String userName,@PathVariable int dietId){
+
+				int calories = dietService.getTotalCaloriesService(userName, dietId);
+				Diet diet = dietService.getDietByIdService(dietId);
+				CaloriesDto cal = new CaloriesDto();
+				cal.setDietid(dietId);
+				cal.setDate(diet.getDate());
+				cal.setConsumeTime(diet.getConsumeTime().toString());
+				cal.setCalories(calories);
+				return new ResponseEntity<>(cal, HttpStatus.OK);
+			
+
 		}
 }

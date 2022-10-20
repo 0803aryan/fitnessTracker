@@ -1,6 +1,7 @@
 package com.cg.fitnesstracker.app.dto;
 
 public class UpdateEmailDto {
+
 private String username;
 private String newEmail;
 
@@ -17,3 +18,4 @@ public void setNewEmail(String newEmail) {
 	this.newEmail = newEmail;
 }
 }
+
