@@ -165,7 +165,6 @@ public class DietServiceImpl implements DietService{
 		Customer cust = customerRepository.findByUsername(username);
 		if(cust!=null) {
 			String bodyType = cust.getBodyType().toString();
-			float weight =cust.getWeight();
 			if(bodyType.equals("ENDOMORPH")) {
 				return foodDietEndo;
 			}

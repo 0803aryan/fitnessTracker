@@ -6,8 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.cg.fitnesstracker.app.model.enums.BodyType;
 import com.cg.fitnesstracker.app.model.enums.Gender;
@@ -43,10 +47,12 @@ public class Customer extends AppUser{
 		this.activities = activities;
 		this.diet = diet;
 	}
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="customer")
 	@JsonManagedReference
 	private List<Activity> activities;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="customer")
 	@JsonManagedReference
 	private List<Diet> diet;

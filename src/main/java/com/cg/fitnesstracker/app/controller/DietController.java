@@ -113,7 +113,7 @@ public class DietController {
 				return new ResponseEntity<>(cal, HttpStatus.OK);	
 				
 		}
-		@GetMapping("/diets/suggestion")
+		@GetMapping("/diet")
 		@PreAuthorize("hasAnyRole('Admin','Customer')")
 		public ResponseEntity<ResponseMessage> suggestDiet(String username){
 			String suggestion = dietService.suggestDietService(username);
