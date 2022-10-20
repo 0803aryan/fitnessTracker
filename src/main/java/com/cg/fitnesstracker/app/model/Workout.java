@@ -1,7 +1,5 @@
 package com.cg.fitnesstracker.app.model;
 
-import java.time.LocalDate;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,17 +15,12 @@ public class Workout extends Activity {
     private int noOfReps;
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
-    
-//    @NotNull
-//    @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(style = "dd-MM-yyyy")
-//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    private LocalDate date;
     private boolean successFlag;
-
+    
+ 
     public Workout() {}
     
-	public Workout(WorkoutType workoutType, int noOfReps, DayOfWeek dayOfWeek, boolean successFlag) {
+	public Workout(WorkoutType workoutType, int noOfReps,  DayOfWeek dayOfWeek, boolean successFlag) {
 		super();
 		this.workoutType = workoutType;
 		this.noOfReps = noOfReps;
@@ -35,9 +28,7 @@ public class Workout extends Activity {
 		this.successFlag = successFlag;
 	}
 
-
-
-   public boolean isSuccessFlag() {
+   public boolean getSuccessFlag() {
 		return successFlag;
 	}
 

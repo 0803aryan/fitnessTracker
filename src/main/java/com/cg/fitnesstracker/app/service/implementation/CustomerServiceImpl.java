@@ -106,6 +106,13 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new DietException("Can't update",400);
 	}
+	
+	@Override
+	public Customer toggleCustomerStatus(String userName) {
+		Customer customer=customerRepository.findByUsername(userName);
+		
+		return null;
+	}
 
   /*
 	@Override

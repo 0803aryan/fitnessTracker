@@ -19,6 +19,7 @@ public interface CustomerService {
 
 	public Customer updateCustomerEmailService(String username,String email);
 
+	public Customer toggleCustomerStatus(String userName);
 	//public Customer updateCustomerActivityStatusService(String username, boolean active);
 
 }

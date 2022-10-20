@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,4 +54,13 @@ public class CustomerController {
 		AppUser appUser = customerService.updateCustomerEmailService(p.getName(),updateEmailDto.getNewEmail());
 		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
 	}
+	
+//	@GetMapping(value="/toggle_status", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
+//	@PreAuthorize("hasAuthority('Customer')")
+//	public ResponseEntity<Customer> toggleCustomerStatus(Principal p)
+//	{
+//		Customer customer=customerService.toggleCustomerStatus(p.getName());
+//		
+//		return new ResponseEntity<>(customer, HttpStatus.OK);
+//	}
 }
