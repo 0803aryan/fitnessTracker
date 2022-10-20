@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.cg.fitnesstracker.app.model.enums.ConsumeTime;
 import com.cg.fitnesstracker.app.model.enums.DayOfWeek;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="DIET")
+@XmlRootElement
 public class Diet {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DIET_SEQ")
