@@ -28,14 +28,6 @@ public class Activity {
     {
 		this.date = LocalDate.now();
     }
-    
-	public LocalDate getDate() {
-		return date;
-	}
-
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
 
 	@ManyToOne
     @JoinColumn(name="userId")
