@@ -37,12 +37,14 @@ public class AdminController {
 	@Autowired
 	private CustomerService customerService;
 	
+	//To add admin details
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<AppUser> addAdmin(Principal p, @RequestBody Admin ad){
 		return new ResponseEntity<AppUser>(adminService.addAdminDetailService(p.getName(),ad),HttpStatus.OK);
 	}
 	
+	//To add customer details
 	@GetMapping(value = "/customers", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<List<Customer>> readAllCustomer() {
@@ -50,6 +52,7 @@ public class AdminController {
 		return new ResponseEntity<List<Customer>>(custList,HttpStatus.OK);	
 	}
 	
+	//To get customer with given username
 	@GetMapping(value="/customer/{username}", produces = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Customer> readCustomerDetailById(@PathVariable String username){
@@ -57,6 +60,7 @@ public class AdminController {
 		return new ResponseEntity<Customer>(cust,HttpStatus.OK);
 	}
 	
+	//To delete customer with given username
 	@DeleteMapping(value = "/customer/{username}",  produces = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Customer> deleteCustomerById(@PathVariable String username){
@@ -64,6 +68,7 @@ public class AdminController {
 		return new ResponseEntity<Customer>(cust,HttpStatus.OK);
 	}
 	
+	//To update admin email
 	@PutMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Admin> updateEmail(Principal p, @RequestBody UpdateEmailDto updateEmailDto){
