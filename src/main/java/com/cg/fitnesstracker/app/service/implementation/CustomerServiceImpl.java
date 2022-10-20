@@ -72,6 +72,13 @@ public class CustomerServiceImpl implements CustomerService{
 		}
 		throw new RuntimeException("Can't update");
 	}
+	
+	@Override
+	public Customer toggleCustomerStatus(String userName) {
+		Customer customer=customerRepository.findByUsername(userName);
+		
+		return null;
+	}
 
   /*
 	@Override
