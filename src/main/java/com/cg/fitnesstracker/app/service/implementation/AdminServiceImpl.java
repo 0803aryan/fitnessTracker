@@ -76,11 +76,14 @@ public class AdminServiceImpl implements AdminService{
 		return cust;
 	}
 	
-	@Transactional
+	
 	@Override
-	public AppUser updateAdminEmailService(String email,String username) {
+	
+	public Admin updateAdminEmailService(String newEmail,String username) {
 		AppUser appUser = appUserRepository.findByUsername(username);
-		int c = adminRepository.updateAdminEmail(email,appUser.getUserId());
+		System.out.println(newEmail);
+		int c = adminRepository.updateAdminEmail(newEmail,appUser.getUserId());
+		System.out.println(c);
 		if(c>0)
 			return adminRepository.findById(appUser.getUserId()).get();
 		throw new RuntimeException("Can't update");
