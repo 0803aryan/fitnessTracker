@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cg.fitnesstracker.app.dto.CaloriesBurnedDto;
-import com.cg.fitnesstracker.app.exception.ActivityException;
+import com.cg.fitnesstracker.app.exceptions.ActivityException;
+
 import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Workout;

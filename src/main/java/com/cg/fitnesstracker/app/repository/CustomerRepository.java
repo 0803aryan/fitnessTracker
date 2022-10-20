@@ -15,15 +15,14 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 	
 	Customer findByUsername(String username);
 	
-	
-	
-	@Query("update Customer c set c.weight = :weight where c.username = :name")
+	@Query("update Customer c set c.weight = :weight where c.userId = :userId")
 	@Modifying
-	int updateWeight(@Param("name") String username, @Param("weight") float weight);
+	@Transactional
+	int updateWeight(@Param("userId") int userId, @Param("weight") float weight);
 	
-	@Query("update Customer c set c.height = :height where c.username = :name")
+	@Query("update Customer c set c.height = :height where c.userId = :userId")
 	@Modifying
-	int updateHeight(@Param("name") String username, @Param("height") float height);
+	int updateHeight(@Param("userId") int userId, @Param("height") int height);
 	
 	@Query("update Customer c set c.userEmail = :userEmail where c.userId = :userId")
 	@Modifying

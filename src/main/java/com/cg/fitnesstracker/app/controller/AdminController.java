@@ -39,8 +39,8 @@ public class AdminController {
 	
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
-	public ResponseEntity<Admin> addAdmin(Principal p, @RequestBody Admin ad){
-		return new ResponseEntity<Admin>(adminService.addAdminDetailService(p.getName(),ad),HttpStatus.OK);
+	public ResponseEntity<AppUser> addAdmin(Principal p, @RequestBody Admin ad){
+		return new ResponseEntity<AppUser>(adminService.addAdminDetailService(p.getName(),ad),HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/customers", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
@@ -66,8 +66,8 @@ public class AdminController {
 	
 	@PutMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Admin')")
-	public ResponseEntity<AppUser> updateEmail(@RequestBody UpdateEmailDto updateEmailDto){
-		AppUser appUser = adminService.updateAdminEmailService(updateEmailDto.getNewEmail(),updateEmailDto.getUsername());
-		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
+	public ResponseEntity<Admin> updateEmail(Principal p, @RequestBody UpdateEmailDto updateEmailDto){
+		Admin admin = adminService.updateAdminEmailService(updateEmailDto.getNewEmail(),p.getName());
+		return new ResponseEntity<Admin>(admin,HttpStatus.OK);
 	}
 }

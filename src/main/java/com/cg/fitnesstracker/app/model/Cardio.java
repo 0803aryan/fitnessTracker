@@ -18,20 +18,9 @@ public class Cardio extends Activity{
     private DayOfWeek dayOfWeek;
     private boolean succesFlag;
     
-//    @NotNull
-//    @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(style = "dd-MM-yyyy")
-//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-    
-//    private LocalDate date;
-//    {
-//		this.date = LocalDate.now();
-//    }
-    
-    
     public Cardio() {}
 
-	public Cardio(CardioType cardioType, int distance, int timeInMinutes, DayOfWeek dayOfWeek, boolean succesFlag) {
+	  public Cardio(CardioType cardioType, int distance, int timeInMinutes, DayOfWeek dayOfWeek, boolean succesFlag) {
 		super();
 		this.cardioType = cardioType;
 		this.distance = distance;
@@ -40,14 +29,6 @@ public class Cardio extends Activity{
 		this.succesFlag = succesFlag;
 	}
 
-//	public LocalDate getDate() {
-//		return date;
-//	}
-//
-//	public void setDate(LocalDate localDate) {
-//		this.date = LocalDate.now();
-//	}
-    
     public boolean isSuccesFlag() {
 		return succesFlag;
 	}

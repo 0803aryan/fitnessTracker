@@ -17,16 +17,7 @@ public class Workout extends Activity {
     private DayOfWeek dayOfWeek;
     private boolean successFlag;
     
-//    @NotNull
-//    @Temporal(TemporalType.DATE)
-//    @DateTimeFormat(style = "dd-MM-yyyy")
-//    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-//    private LocalDate date;
-    
-//    {
-//		this.date = LocalDate.now();
-//    }
-    
+ 
     public Workout() {}
     
 	public Workout(WorkoutType workoutType, int noOfReps,  DayOfWeek dayOfWeek, boolean successFlag) {
@@ -37,15 +28,7 @@ public class Workout extends Activity {
 		this.successFlag = successFlag;
 	}
 
-//	public LocalDate getDate() {
-//		return date;
-//	}
-//
-//	public void setDate() {
-//		this.date = LocalDate.now();
-//	}
-
-   public boolean isSuccessFlag() {
+   public boolean getSuccessFlag() {
 		return successFlag;
 	}
 

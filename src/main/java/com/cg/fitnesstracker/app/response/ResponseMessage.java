@@ -9,8 +9,17 @@ public class ResponseMessage {
         this.message = message;
         this.status = status;
     }
+    
+    
 
-   public String getMessage() {
+   public ResponseMessage(String message) {
+		super();
+		this.message = message;
+	}
+
+
+
+public String getMessage() {
         return message;
     }
 

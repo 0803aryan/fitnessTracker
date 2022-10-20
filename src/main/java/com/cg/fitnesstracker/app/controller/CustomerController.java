@@ -28,30 +28,30 @@ public class CustomerController {
 	
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Customer> addCustomerDetails(Principal p,@RequestBody Customer customer){
-		return new ResponseEntity<Customer>(customerService.addCustomerDetailService(p.getName(),customer),HttpStatus.OK);
+	public ResponseEntity<AppUser> addCustomerDetails(Principal p,@RequestBody Customer customer){
+		return new ResponseEntity<AppUser>(customerService.addCustomerDetailService(p.getName(),customer),HttpStatus.OK);
 	}
 	
 	
 	@PutMapping(value="/weight",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Customer> updateCustomerWeight(@RequestBody UpdateCustomerWeight ucw){
-		Customer c =customerService.updateCustomerWeightService(ucw.getUserName(), ucw.getUpdatedWeight());
+	public ResponseEntity<Customer> updateCustomerWeight(Principal p,@RequestBody UpdateCustomerWeight ucw){
+		Customer c =customerService.updateCustomerWeightService(p.getName(), ucw.getUpdatedWeight());
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
 	
 	
 	@PutMapping(value="/height",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Customer> updateCustomerHeight(@RequestBody UpdateCustomerHeight uch){
-		Customer c = customerService.updateCustomerHeightService(uch.getUserName(), uch.getUpdatedHeight());
+	public ResponseEntity<Customer> updateCustomerHeight(Principal p,@RequestBody UpdateCustomerHeight uch){
+		Customer c = customerService.updateCustomerHeightService(p.getName(), uch.getUpdatedHeight());
 		return new ResponseEntity<Customer>(c,HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/email",produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<AppUser> updateEmail(@RequestBody UpdateEmailDto updateEmailDto){
-		AppUser appUser = customerService.updateCustomerEmailService(updateEmailDto.getNewEmail(),updateEmailDto.getUsername());
+	public ResponseEntity<AppUser> updateEmail(Principal p,@RequestBody UpdateEmailDto updateEmailDto){
+		AppUser appUser = customerService.updateCustomerEmailService(p.getName(),updateEmailDto.getNewEmail());
 		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
 	}
 	

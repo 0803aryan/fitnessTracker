@@ -9,17 +9,15 @@ import com.cg.fitnesstracker.app.model.Diet;
 
 public interface CustomerService {
 	
-	/*public List<Activity> addActivity(String username, Activity activity);
-	
-	public List<Diet> addDiet(String username, Diet diet);
-	*/
-	public Customer addCustomerDetailService(String username,Customer customer);
+	public AppUser addCustomerDetailService(String username,Customer customer);
 
 	public Customer updateCustomerWeightService(String username, float weight);
 
-	public Customer updateCustomerHeightService(String username, float height);
+	public Customer updateCustomerHeightService(String username, int height);
 	
-	public AppUser updateCustomerEmailService(String email,String username);
+	public Customer getCustomerService(String username);
+
+	public Customer updateCustomerEmailService(String username,String email);
 
 	public Customer toggleCustomerStatus(String userName);
 	//public Customer updateCustomerActivityStatusService(String username, boolean active);
