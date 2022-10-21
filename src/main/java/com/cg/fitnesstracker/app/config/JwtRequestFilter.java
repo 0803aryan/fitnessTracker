@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.cg.fitnesstracker.app.service.JwtUserDetailsService;
+import com.cg.fitnesstracker.app.service.implementation.JwtUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 

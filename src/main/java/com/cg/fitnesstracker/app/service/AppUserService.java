@@ -11,5 +11,6 @@ public interface AppUserService {
 
 	public AppUser addAppUserService(AppUser appUser);
 	public AppUser updateCustomerPasswordService(String password,String username);
+	public List<AppUser> getAllAppUsers();
 
 }

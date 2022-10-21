@@ -1,5 +1,7 @@
 package com.cg.fitnesstracker.app.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class UpdateEmailDto {
 
 private int userId;

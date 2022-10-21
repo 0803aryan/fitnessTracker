@@ -1,4 +1,7 @@
 package com.cg.fitnesstracker.app.service.implementation;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +31,12 @@ public class AppUserServiceImpl implements AppUserService{
 		if(c>0) 
 			return appUserRepository.findById(appUser.getUserId()).get();
 		throw new ApplicationException("User doesn't exists. Can't update", 404);
+	}
+	
+	public List<AppUser> getAllAppUsers(){
+		List<AppUser> users = new ArrayList<>(); 
+		Iterable<AppUser> userList = appUserRepository.findAll();
+		userList.forEach(u->users.add(u));
+		return users;
 	}
 }

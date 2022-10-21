@@ -37,17 +37,15 @@ public class CustomerServiceImpl implements CustomerService{
 			throw new ApplicationException("Unable to find Customer ",404);
 		}
 			
-		throw new ApplicationException("Can't update",400);
+		throw new ApplicationException("Can't update,write the correct email",400);
 	}
 	
 	//To add customer details
 	@Override
 	public AppUser addCustomerDetailService(String username, Customer customer) {
 		AppUser appUser = appUserRepository.findByUsername(username);
-		System.out.println(appUser.getUsername());
-		System.out.println(customer.getUserEmail());
-		System.out.println(appUser.getUserId());
-		int c =customerRepository.addCustomerDetails(customer.getActive(),customer.getAge(),customer.getBodyType().toString(),customer.getGender().toString(),customer.getHeight(),customer.getUserEmail(),customer.getWeight(),appUser.getUserId());
+		
+		int c =customerRepository.addCustomerDetails(customer.getFirstName(),customer.getLastName(),customer.getActive(),customer.getAge(),customer.getBodyType().toString(),customer.getGender().toString(),customer.getHeight(),customer.getUserEmail(),customer.getWeight(),appUser.getUserId());
 		System.out.println(c);
 		if(c>0) {
 			AppUser user = appUserRepository.findByUsername(appUser.getUsername());
