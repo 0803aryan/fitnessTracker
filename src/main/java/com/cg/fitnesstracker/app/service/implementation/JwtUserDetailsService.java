@@ -1,4 +1,4 @@
-package com.cg.fitnesstracker.app.service;
+package com.cg.fitnesstracker.app.service.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

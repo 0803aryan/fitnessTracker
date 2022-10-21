@@ -3,6 +3,7 @@ import com.cg.fitnesstracker.app.model.enums.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -23,7 +24,6 @@ public class AppUser{
 
   @JsonIgnore
   private String password;
-
   private String role; 
 
 	public AppUser() {

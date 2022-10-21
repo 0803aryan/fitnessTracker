@@ -2,6 +2,7 @@ package com.cg.fitnesstracker.app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity

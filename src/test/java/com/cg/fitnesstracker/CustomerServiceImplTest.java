@@ -109,7 +109,7 @@ public class CustomerServiceImplTest {
 		c.setUserEmail("abc");
 		when(appUserRepo.findByUsername(anyString())).thenReturn(appUser);
 		when(customerRepo
-				.addCustomerDetails(anyBoolean(), anyInt(), anyString(), anyString(), anyInt(), anyString(), anyFloat(), anyInt()))
+				.addCustomerDetails(anyString(),anyString(),anyBoolean(), anyInt(), anyString(), anyString(), anyInt(), anyString(), anyFloat(), anyInt()))
 				.thenReturn(1);
 		assertEquals(appUser, customerServiceImpl.addCustomerDetailService("arc", c));
 	}

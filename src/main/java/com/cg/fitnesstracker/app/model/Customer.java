@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.LazyCollection;
@@ -32,12 +33,14 @@ public class Customer extends AppUser{
 	private int height;
 	private int age;
 	private boolean active=true;
+	private String firstName;
+	private String lastName;
 	
 	public Customer() {
 		super();
 	}
 	public Customer(String userEmail, Gender gender, BodyType bodyType, float weight, int height, int age,
-			boolean active, List<Activity> activities, List<Diet> diet) {
+			boolean active, List<Activity> activities, List<Diet> diet,String firstName, String lastName) {
 		super();
 		this.userEmail = userEmail;
 		this.gender = gender;
@@ -48,6 +51,8 @@ public class Customer extends AppUser{
 		this.active = active;
 		this.activities = activities;
 		this.diet = diet;
+		this.firstName =firstName;
+		this.lastName = lastName;
 	}
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="customer")
@@ -59,6 +64,18 @@ public class Customer extends AppUser{
 	@JsonManagedReference
 	private List<Diet> diet;
 	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	public String getUserEmail() {
 		return userEmail;
 	}
