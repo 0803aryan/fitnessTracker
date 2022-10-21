@@ -46,13 +46,15 @@ public class JwtAuthenticationController {
 	//To login
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
+		try {
+			
+			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		}catch(Exception e){
+			throw new ApplicationException("Enter valid credentials",404);
+		}
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
@@ -74,6 +76,12 @@ public class JwtAuthenticationController {
 		}
 		if(!roles.contains(user.getRole())) {
 			throw new ApplicationException("Please select the valid Role",400);
+		}
+		if(user.getUserName().length()<1) {
+			throw new ApplicationException("Enter valid username",400);
+		}
+		if(user.getPassword().length()<1) {
+			throw new ApplicationException("Enter valid Password",400);
 		}
 		return ResponseEntity.ok(userDetailsService.save(user));
 	}
