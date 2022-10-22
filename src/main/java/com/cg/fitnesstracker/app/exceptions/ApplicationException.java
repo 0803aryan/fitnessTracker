@@ -10,5 +10,7 @@ public class ApplicationException extends RuntimeException{
 		super();
 		this.message = message;
 		this.status = status;
+		
+		System.out.println(message);
 	}
 }
