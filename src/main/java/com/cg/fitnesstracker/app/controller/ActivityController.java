@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Workout;
 import com.cg.fitnesstracker.app.service.ActivityService;
-
+@CrossOrigin
 @Controller
 @RequestMapping("/fitness/activity")
 public class ActivityController {
