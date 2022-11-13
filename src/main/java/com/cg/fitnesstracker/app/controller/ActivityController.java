@@ -22,6 +22,7 @@ import com.cg.fitnesstracker.app.model.Activity;
 import com.cg.fitnesstracker.app.model.Cardio;
 import com.cg.fitnesstracker.app.model.Workout;
 import com.cg.fitnesstracker.app.service.ActivityService;
+
 @CrossOrigin("http://localhost:3000/")
 @Controller
 @RequestMapping("/fitness/activity")

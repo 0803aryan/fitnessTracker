@@ -25,7 +25,9 @@ import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
+
 @CrossOrigin(origins = "http://localhost:3000/")
+
 @RestController
 @RequestMapping("/fitness/customer")
 public class CustomerController {

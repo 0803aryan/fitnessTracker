@@ -27,7 +27,6 @@ import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.service.AdminService;
 import com.cg.fitnesstracker.app.service.CustomerService;
-
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/admin")
@@ -58,7 +57,8 @@ public class AdminController {
 		return new ResponseEntity<AppUser>(adminService.addAdminDetailService(p.getName(),ad),HttpStatus.OK);
 	}
 	
-	//To add customer details
+
+	//Read All Customers
 	@GetMapping("/customers")
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<List<Customer>> readAllCustomer() {
