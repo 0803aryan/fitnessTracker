@@ -24,7 +24,7 @@ public class FoodItemController {
 		
 		//To get all the food items available to add
 		@GetMapping
-		@PreAuthorize("hasAnyRole('Customer','Admin')")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<List<FoodItem>> getAllFoodItems(){
 			
 			List<FoodItem> foodItemList = foodItemService.getAllFoodItemService();
@@ -35,7 +35,7 @@ public class FoodItemController {
 		
 		//To get a particular food Item
 		@GetMapping("/{foodId}")
-		@PreAuthorize("hasAnyRole('Customer','Admin')")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> getFoodItemById(@PathVariable int foodId){
 			
 			FoodItem foodItem = foodItemService.getFoodItemByIdService(foodId);
@@ -45,7 +45,7 @@ public class FoodItemController {
 		
 		//To get the calories in a particular food Item
 		@GetMapping("/{foodId}/calories")
-		@PreAuthorize("hasAnyRole('Customer','Admin')")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<Integer> getCaloriesById(@PathVariable int foodId){
 			
 			int calories = foodItemService.getCaloriesService(foodId);
