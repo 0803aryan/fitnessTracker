@@ -23,7 +23,7 @@ import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.DietService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/diets")
 public class DietController {

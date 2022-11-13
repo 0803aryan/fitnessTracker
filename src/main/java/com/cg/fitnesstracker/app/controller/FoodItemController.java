@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.service.FoodItemService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/food-items")
 public class FoodItemController {

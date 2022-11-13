@@ -28,7 +28,7 @@ import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.service.AdminService;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
-@CrossOrigin
+@CrossOrigin(origins="http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/admin")
 public class AdminController {
@@ -59,7 +59,7 @@ public class AdminController {
 	}
 	
 	//To add customer details
-	@GetMapping(value = "/customers", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
+	@GetMapping("/customers")
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<List<Customer>> readAllCustomer() {
 		List<Customer> custList = adminService.readAllCustomerDetailService();
@@ -70,7 +70,7 @@ public class AdminController {
 	}
 	
 	//To get customer with given username
-	@GetMapping(value="/customer/{username}", produces = {"application/json","application/xml"})
+	@GetMapping(value="/customer/{username}")
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Customer> readCustomerDetailById(@PathVariable String username){
 		List<Customer> custList = adminService.readAllCustomerDetailService();
@@ -82,7 +82,7 @@ public class AdminController {
 	}
 	
 	//To delete customer with given username
-	@DeleteMapping(value = "/customer/{username}",  produces = {"application/json","application/xml"})
+	@DeleteMapping(value = "/customer/{username}")
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<Customer> deleteCustomerById(@PathVariable String username){
 		List<Customer> custList = adminService.readAllCustomerDetailService();
