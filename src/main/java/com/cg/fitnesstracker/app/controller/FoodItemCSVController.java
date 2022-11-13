@@ -20,7 +20,7 @@ import com.cg.fitnesstracker.app.service.implementation.CSVServiceImpl;
 import com.cg.fitnesstracker.app.utils.csv.CSVHelper;
 
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000/")
 @Controller
 @RequestMapping("/fitness/file")
 public class FoodItemCSVController {
