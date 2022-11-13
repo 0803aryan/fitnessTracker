@@ -24,6 +24,7 @@ public class FoodItemController {
 		
 		//To get all the food items available to add
 		@GetMapping
+
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<List<FoodItem>> getAllFoodItems(){
 			
