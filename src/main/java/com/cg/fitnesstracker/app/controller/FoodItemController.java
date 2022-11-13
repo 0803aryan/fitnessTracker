@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.service.FoodItemService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/food-items")
 public class FoodItemController {
@@ -24,7 +24,8 @@ public class FoodItemController {
 		
 		//To get all the food items available to add
 		@GetMapping
-		@PreAuthorize("hasAnyRole('Customer','Admin')")
+		//@PreAuthorize("hasAnyRole('Customer','Admin')")
+		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<List<FoodItem>> getAllFoodItems(){
 			
 			List<FoodItem> foodItemList = foodItemService.getAllFoodItemService();

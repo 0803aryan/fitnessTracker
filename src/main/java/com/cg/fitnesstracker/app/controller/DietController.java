@@ -23,7 +23,7 @@ import com.cg.fitnesstracker.app.model.FoodItem;
 import com.cg.fitnesstracker.app.response.ResponseMessage;
 import com.cg.fitnesstracker.app.service.DietService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/diets")
 public class DietController {
@@ -68,7 +68,7 @@ public class DietController {
 		}
 		
 		//To add a food item to diet
-		@PostMapping("/{dietId}/food-items/{foodId}")
+		@GetMapping("/{dietId}/food-items/{foodId}")
 		@PreAuthorize("hasAuthority('Customer')")
 	    public ResponseEntity<FoodItem> addFoodItem(@PathVariable int dietId, @PathVariable int foodId){
 			

@@ -28,7 +28,7 @@ import com.cg.fitnesstracker.app.repository.AppUserRepository;
 import com.cg.fitnesstracker.app.service.AdminService;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
-@CrossOrigin
+@CrossOrigin("http://localhost:3000/")
 @RestController
 @RequestMapping("/fitness/admin")
 public class AdminController {
@@ -58,8 +58,8 @@ public class AdminController {
 		return new ResponseEntity<AppUser>(adminService.addAdminDetailService(p.getName(),ad),HttpStatus.OK);
 	}
 	
-	//To add customer details
-	@GetMapping(value = "/customers", produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
+	//Read All Customers
+	@GetMapping("/customers")
 	@PreAuthorize("hasAuthority('Admin')")
 	public ResponseEntity<List<Customer>> readAllCustomer() {
 		List<Customer> custList = adminService.readAllCustomerDetailService();
