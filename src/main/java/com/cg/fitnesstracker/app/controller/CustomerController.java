@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +25,9 @@ import com.cg.fitnesstracker.app.model.AppUser;
 import com.cg.fitnesstracker.app.model.Customer;
 import com.cg.fitnesstracker.app.service.CustomerService;
 
-@CrossOrigin("http://localhost:3000/")
+
+@CrossOrigin(origins = "http://localhost:3000/")
+
 @RestController
 @RequestMapping("/fitness/customer")
 public class CustomerController {
@@ -35,6 +39,7 @@ public class CustomerController {
 	@PostMapping(produces = {"application/json","application/xml"},consumes = {"application/json","application/xml"})
 	@PreAuthorize("hasAuthority('Customer')")
 	public ResponseEntity<AppUser> addCustomerDetails(Principal p,@RequestBody Customer customer){
+		System.out.println("Hi");
 		Pattern pattern =Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$");
 		Matcher m=pattern.matcher(customer.getUserEmail());
 		if(!m.find()) {
@@ -100,6 +105,16 @@ public class CustomerController {
 		}
 		AppUser appUser = customerService.updateCustomerEmailService(p.getName(),updateEmailDto.getNewEmail());
 		return new ResponseEntity<AppUser>(appUser,HttpStatus.OK);
+	}
+	
+	@GetMapping()
+	@PreAuthorize("hasAuthority('Customer')")
+	public ResponseEntity<Customer> readCustomerDetailById(Principal p){
+		Customer cust = customerService.getCustomerService(p.getName());
+		if(cust.getFirstName().equals(null)) {
+			throw new ApplicationException("No customer Found",404);
+		}
+		return new ResponseEntity<Customer>(cust,HttpStatus.OK);
 	}
 
 }

@@ -19,7 +19,9 @@ import com.cg.fitnesstracker.app.model.Diet;
 import com.cg.fitnesstracker.app.service.CustomerService;
 import com.cg.fitnesstracker.app.service.DietService;
 
-@CrossOrigin("https://localhost:3000/")
+
+@CrossOrigin("http://localhost:3000/")
+
 @RestController
 @RequestMapping("/fitness/report")
 public class ReportController {
