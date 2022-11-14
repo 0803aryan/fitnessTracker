@@ -28,66 +28,64 @@ import com.cg.fitnesstracker.app.service.ActivityService;
 @RequestMapping("/fitness/activity")
 public class ActivityController {
 
-	@Autowired
-	private ActivityService activityService;
+    @Autowired
+    private ActivityService activityService;
 
-	@GetMapping()
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<List<Activity>> getUserActivity(Principal p) {
+    @GetMapping()
+    @PreAuthorize("hasAuthority('Customer')")
+    public ResponseEntity<List<Activity>> getUserActivity(Principal p) {
 
-		List<Activity> activityList = this.activityService.getActivity(p.getName());
-		if(activityList.isEmpty())
-		{
-			throw new ApplicationException("User Has No Activities", 404);
-		}
-		//		List<Activity> activityList = activityService.getActivity(userName);
-		return new ResponseEntity<>(activityList, HttpStatus.OK);
-	}
+        List<Activity> activityList = this.activityService.getActivity(p.getName());
+        if(activityList.isEmpty())
+        {
+            throw new ApplicationException("User Has No Activities", 404);
+        }
+        //        List<Activity> activityList = activityService.getActivity(userName);
+        return new ResponseEntity<>(activityList, HttpStatus.OK);
+    }
 
+    //To add a cardio activity
+    @PostMapping(value="/cardio", consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
+    @PreAuthorize("hasAuthority('Customer')")
+    public ResponseEntity<Cardio> addCardio(Principal p,@RequestBody Cardio cardio) {
+        final Activity c=this.activityService.addCardioActivityService(p.getName(), cardio);
+        return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
+    }
 
-	//To add a cardio activity
-	@PostMapping(value="/cardio", consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Cardio> addCardio(Principal p,@RequestBody Cardio cardio) {
-		final Activity c=this.activityService.addCardioActivityService(p.getName(), cardio);
-		return (ResponseEntity<Cardio>) new ResponseEntity((Object)c, HttpStatus.OK);
-	}
+    //To add workout activity
+    @PostMapping(value="/workout")
+    @PreAuthorize("hasAuthority('Customer')")
+    public ResponseEntity<Workout> addWorkout(Principal p, @RequestBody Workout workout) {
+        final Activity c=this.activityService.addWorkoutActivityService(p.getName(), workout);
+        return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
+    }
 
-	//To add workout activity
-	@PostMapping(value="/workout")
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Workout> addWorkout(Principal p, @RequestBody Workout workout) {
-		final Activity c=this.activityService.addWorkoutActivityService(p.getName(), workout);
-		return (ResponseEntity<Workout>) new ResponseEntity((Object)c, HttpStatus.OK);
-	}
+    //Delete an activity by activity Id
+    @DeleteMapping(value ="/{activityId}")
+    @PreAuthorize("hasAuthority('Customer')")
+    public ResponseEntity<Activity> deleteUserActivity(Principal p,
+            @PathVariable("activityId") int activityId) {
 
-	//Delete an activity by activity Id
-	@DeleteMapping(value ="/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<Activity> deleteUserActivity(Principal p,
-			@PathVariable("activityId") int activityId, @RequestBody Activity a) {
+//        a=activityService.getActivityById(activityId);
+        Activity a = activityService.deleteActivity(p.getName(), activityId);        
+        return new ResponseEntity<Activity>(a, HttpStatus.OK);
+    }
+    
+    //Get calories of the cardio activity
+    @GetMapping(value="cardio/calories/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
+    @PreAuthorize("hasAuthority('Customer')")
+    public ResponseEntity<CaloriesBurnedDto> getCaloriesBurned(Principal p,
+            @PathVariable int activityId) {
 
+        int calories=activityService.getCaloriesBurned(p.getName(), activityId);
+        Activity activity=activityService.getActivityById(activityId);
 
-		a=activityService.getActivityById(activityId);
-		a = activityService.deleteActivity(p.getName(), activityId);		
-		return new ResponseEntity<Activity>(a, HttpStatus.OK);
-	}
-	
-	//Get calories of the cardio activity
-	@GetMapping(value="cardio/calories/{activityId}" , consumes = {"application/json","application/xml" }, produces = {"application/json","application/xml" })
-	@PreAuthorize("hasAuthority('Customer')")
-	public ResponseEntity<CaloriesBurnedDto> getCaloriesBurned(Principal p,
-			@PathVariable int activityId) {
+        CaloriesBurnedDto calDto=new CaloriesBurnedDto();
+        calDto.setCaloriesBurned(calories);
+        calDto.setActivityId(activityId);
+        calDto.setActivityName(activity.getActivityName());
 
-		int calories=activityService.getCaloriesBurned(p.getName(), activityId);
-		Activity activity=activityService.getActivityById(activityId);
-
-		CaloriesBurnedDto calDto=new CaloriesBurnedDto();
-		calDto.setCaloriesBurned(calories);
-		calDto.setActivityId(activityId);
-		calDto.setActivityName(activity.getActivityName());
-
-		return new ResponseEntity<>(calDto, HttpStatus.OK);
-	}
+        return new ResponseEntity<>(calDto, HttpStatus.OK);
+    }
 
 }

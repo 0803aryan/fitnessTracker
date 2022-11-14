@@ -49,9 +49,12 @@ public class ReportController {
 			List<Activity> activities = cust.getActivities().stream().filter(a->a.getDate().equals(date)).toList();
 			
 			int caloriesConsumed = 0;
-			for (Diet diet : consumedDiets) {
-				caloriesConsumed += dietService.getTotalCaloriesService(p.getName(), diet.getDietId());
-			}
+				for (Diet diet : consumedDiets) {
+					if (diet.getMealList().size()>0) {
+						caloriesConsumed += dietService.getTotalCaloriesService(p.getName(), diet.getDietId());
+					}
+				}	
+			
 			int caloriesBurned = 0;
 			for (Activity activity : activities) {
 				caloriesBurned += activity.getCaloriesBurned();
