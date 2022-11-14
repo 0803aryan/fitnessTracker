@@ -2,6 +2,7 @@ package com.cg.fitnesstracker.app.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -55,12 +56,12 @@ public class Customer extends AppUser{
 		this.lastName = lastName;
 	}
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer", cascade = { CascadeType.REMOVE})
 	@JsonManagedReference
 	private List<Activity> activities;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer" , cascade = { CascadeType.REMOVE})
 	@JsonManagedReference
 	private List<Diet> diet;
 	

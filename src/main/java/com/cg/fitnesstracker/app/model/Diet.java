@@ -3,6 +3,7 @@ package com.cg.fitnesstracker.app.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -38,7 +39,7 @@ public class Diet {
     
     private LocalDate date;
 	
-    @OneToMany(mappedBy="diet")
+    @OneToMany(mappedBy="diet" , cascade = { CascadeType.REMOVE})
     @JsonManagedReference
     private List<Meal> mealList;
 
