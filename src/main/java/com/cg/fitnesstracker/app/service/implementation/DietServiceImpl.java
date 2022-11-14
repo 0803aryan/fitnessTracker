@@ -142,8 +142,17 @@ public class DietServiceImpl implements DietService{
 		}
 		if (cust!=null && diet.get()!=null) {
 			diet.get().setCustomer(cust);
-			dietRepository.deleteDietById(dietId);
-		}
+			List<Meal> meals = diet.get().getMealList();
+			if (meals.size()==0) {
+				dietRepository.deleteDietById(dietId);
+			}
+			else {
+				for (Meal meal : meals) {
+					dietRepository.deleteFoodFromDiet(dietId, meal.getFoodId());
+				}
+				dietRepository.deleteDietById(dietId);
+			}
+		}	
 		return diet.get();
 	}
 	
